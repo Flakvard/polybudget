@@ -36,6 +36,7 @@ void main() {
     expect(transactionConstructor.date, "18-10-2023");
     expect(defaultTransactionValue.date, dateToday);
     expect(defaultTransactionValue.recurring, false);
+    expect(transactionConstructor.recurring, false);
     expect(defaultTransactionValue.transactionType, "Actual");
     expect(defaultTransactionValue.bankAccount, "Matkortið");
 
