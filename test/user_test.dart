@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:polybudget/user.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:polybudget/user.dart';
 
 void main() {
   testWidgets('Current level increments when button is clicked', (WidgetTester tester) async {
