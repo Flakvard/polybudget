@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class User extends StatefulWidget {
   const User({super.key});
 
-
   @override
   State<User> createState() => _UserState();
 }
@@ -12,7 +11,7 @@ class _UserState extends State<User> {
   int currentLevel = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold( // layout widget to flesh out general layout of the app. Check scaffold class in docs.
+    return Scaffold(
         backgroundColor: Colors.grey.shade900,
         appBar: AppBar(
           title: const Text('PolyBudget'),
@@ -21,7 +20,7 @@ class _UserState extends State<User> {
           elevation: 0.0, // removes shadow
         ),
         body: Padding(
-          padding: EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0.0),
+          padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -42,7 +41,7 @@ class _UserState extends State<User> {
                   letterSpacing: 2.0,
                 ),
               ),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
               Text(
                 'Marni',
                 style: TextStyle(
@@ -52,7 +51,7 @@ class _UserState extends State<User> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
               const Text(
                 'CURRENT LEVEL',
                 style: TextStyle(
@@ -60,7 +59,7 @@ class _UserState extends State<User> {
                   letterSpacing: 2.0,
                 ),
               ),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
               Text(
                 '$currentLevel',
                 style: TextStyle(
@@ -70,14 +69,14 @@ class _UserState extends State<User> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 30.0),
+              const SizedBox(height: 30.0),
               Row(
                 children: <Widget>[
                   Icon(
                     Icons.email,
                     color: Colors.grey[400],
                   ),
-                  SizedBox(width: 10.0),
+                  const SizedBox(width: 10.0),
                   Text(
                     'marni@email.com',
                     style: TextStyle(
