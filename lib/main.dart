@@ -49,7 +49,7 @@ class Transaction {
     this.recurring = false, // Provide a default value
     required this.transactionType,
     required this.bankAccount,
-  }) : date = date ?? DateTime.now().toString(); // Use today's date if not specified
+  }) : date = date ?? _getDefaultDate(); // Use today's date if not specified
 
   @override
   String toString() {
@@ -62,6 +62,11 @@ class Transaction {
         'transactionType: $transactionType, '
         'bankAccount: $bankAccount'
         '}';
+  }
+  static String _getDefaultDate() {
+    DateTime now = DateTime.now();
+    String formattedDate = "${now.day.toString().padLeft(2, '0')}-${now.month.toString().padLeft(2, '0')}-${now.year}";
+    return formattedDate;
   }
 }
 
