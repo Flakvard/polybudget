@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:polybudget/transactions.dart';
 
 class TransactionCardContent extends StatelessWidget {
-  //const TransactionCardContent({super.key});
   final Transaction transaction;
-  const TransactionCardContent(this.transaction, {Key? key}) : super(key: key);
+  // constructor
+  // const TransactionCardContent(this.transaction, {Key? key}) : super(key: key);
+  const TransactionCardContent({super.key, required this.transaction});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Card(
+      margin: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
@@ -44,11 +49,11 @@ class TransactionCardContent extends StatelessWidget {
               ),
             ),
           ],
-        );
+        ),
+      ),
+    );
   }
 }
-
-
 
 
 class TransactionList extends StatefulWidget {
@@ -67,17 +72,6 @@ class _TransactionListState extends State<TransactionList> {
     Transaction(text: "Spotify expense",total: 99,category: "Privat Category",date: "28-10-2023",recurring: true,transactionType: "Actual",bankAccount: "Matkortið"),
   ];
 
-  Widget transactionTemplate(transaction){
-    return Card(
-      margin: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: TransactionCardContent(transaction),
-      ),
-    );
-  }
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,7 +83,7 @@ class _TransactionListState extends State<TransactionList> {
         elevation: 0.0, // removes shadow
       ),
       body: Column(
-          children: transactions.map((transaction) => transactionTemplate(transaction)).toList()
+          children: transactions.map((transaction) => TransactionCardContent(transaction: transaction)).toList()
       ),
 
     );
