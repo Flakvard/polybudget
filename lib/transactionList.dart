@@ -1,28 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:polybudget/transactions.dart';
 
-class TransactionList extends StatefulWidget {
-  const TransactionList({super.key});
+class TransactionCardContent extends StatelessWidget {
+  //const TransactionCardContent({super.key});
+  final Transaction transaction;
+  const TransactionCardContent(this.transaction, {Key? key}) : super(key: key);
 
   @override
-  State<TransactionList> createState() => _TransactionListState();
-}
-
-class _TransactionListState extends State<TransactionList> {
-
-  late List<Transaction> transactions = [
-    Transaction(text: "Groceries expense",total: 184.23,category: "Food Category",date: "18-10-2023",recurring: false,transactionType: "Actual",bankAccount: "Matkortið"),
-    Transaction(text: "MovieNight expense",total: 14,category: "Privat Category",transactionType: "Actual",bankAccount: "Matkortið"),
-    Transaction(text: "Hotel expense",total: 84.3,category: "Vacation Category",date: "18-10-2023",recurring: false,transactionType: "Actual",bankAccount: "Matkortið"),
-    Transaction(text: "Spotify expense",total: 99,category: "Privat Category",date: "28-10-2023",recurring: true,transactionType: "Actual",bankAccount: "Matkortið"),
-  ];
-
-  Widget transactionTemplate(transaction){
-    return Card(
-      margin: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
+  Widget build(BuildContext context) {
+    return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
@@ -58,7 +44,35 @@ class _TransactionListState extends State<TransactionList> {
               ),
             ),
           ],
-        ),
+        );
+  }
+}
+
+
+
+
+class TransactionList extends StatefulWidget {
+  const TransactionList({super.key});
+
+  @override
+  State<TransactionList> createState() => _TransactionListState();
+}
+
+class _TransactionListState extends State<TransactionList> {
+
+  late List<Transaction> transactions = [
+    Transaction(text: "Groceries expense",total: 184.23,category: "Food Category",date: "18-10-2023",recurring: false,transactionType: "Actual",bankAccount: "Matkortið"),
+    Transaction(text: "MovieNight expense",total: 14,category: "Privat Category",transactionType: "Actual",bankAccount: "Matkortið"),
+    Transaction(text: "Hotel expense",total: 84.3,category: "Vacation Category",date: "18-10-2023",recurring: false,transactionType: "Actual",bankAccount: "Matkortið"),
+    Transaction(text: "Spotify expense",total: 99,category: "Privat Category",date: "28-10-2023",recurring: true,transactionType: "Actual",bankAccount: "Matkortið"),
+  ];
+
+  Widget transactionTemplate(transaction){
+    return Card(
+      margin: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: TransactionCardContent(transaction),
       ),
     );
   }
