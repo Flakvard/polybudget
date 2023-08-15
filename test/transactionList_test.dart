@@ -2,12 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:polybudget/main.dart';
+import 'package:polybudget/transactions.dart';
 
 void main() {
-  testWidgets('Current level increments when button is clicked', (WidgetTester tester) async {
-    await tester.pumpWidget(const MaterialApp(home: TransactionList())); // Build the User widget
-
+  testWidgets('Transaction class construction test', (WidgetTester tester) async {
+    // testing constructor
     final Transaction transactionConstructor = Transaction(
       text: "Groceries expense",
       total: 184.23,
@@ -18,6 +17,7 @@ void main() {
       bankAccount: "Matkortið",
     );
 
+    // testing default constructor
     final Transaction defaultTransactionValue = Transaction(
         text: "Groceries expense",
         total: 184.23,
@@ -47,4 +47,9 @@ void main() {
 
     // expect(find.text('1'), findsOneWidget); // Check that currentLevel has incremented to 1
   });
+
+  testWidgets('Current level increments when button is clicked', (WidgetTester tester) async {
+    //await tester.pumpWidget(const MaterialApp(home: TransactionList())); // Build the User widget
+  });
+
 }

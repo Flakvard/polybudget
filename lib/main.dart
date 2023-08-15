@@ -1,5 +1,7 @@
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // import 'home.dart';
+import 'transactions.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -15,58 +17,72 @@ class TransactionList extends StatefulWidget {
 }
 
 class _TransactionListState extends State<TransactionList> {
-  // late List<Transaction> transaction;
-  late List<String> transaction;
+
+  late List<Transaction> transactions = [
+    Transaction(text: "Groceries expense",total: 184.23,category: "Food Category",date: "18-10-2023",recurring: false,transactionType: "Actual",bankAccount: "Matkortið"),
+    Transaction(text: "MovieNight expense",total: 14,category: "Privat Category",transactionType: "Actual",bankAccount: "Matkortið"),
+    Transaction(text: "Hotel expense",total: 84.3,category: "Vacation Category",date: "18-10-2023",recurring: false,transactionType: "Actual",bankAccount: "Matkortið"),
+    Transaction(text: "Spotify expense",total: 99,category: "Privat Category",date: "28-10-2023",recurring: true,transactionType: "Actual",bankAccount: "Matkortið"),
+  ];
+
+  Widget transactionTemplate(transaction){
+    return Card(
+      margin: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 0),
+      child: Column(
+        children: [
+          Text(
+            transaction.text,
+            style: TextStyle(
+              fontSize: 18.0,
+              color: Colors.grey[600],
+            ),
+          ),
+          const SizedBox(height: 6.0,),
+          Text(
+            // double.parse(transaction.total).toString(),
+            transaction.total.toString(),
+            style: TextStyle(
+              fontSize: 18.0,
+              color: Colors.red[600],
+            ),
+          ),
+          const SizedBox(height: 6.0,),
+          Text(
+            transaction.category,
+            style: TextStyle(
+              fontSize: 18.0,
+              color: Colors.grey[800],
+            ),
+          ),
+          const SizedBox(height: 6.0,),
+          Text(
+            transaction.date,
+            style: TextStyle(
+              fontSize: 18.0,
+              color: Colors.grey[600],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey,
       appBar: AppBar(
-        backgroundColor: Colors.pink[300],
+        backgroundColor: Colors.pink[200],
         title: const Text('PolyBudget'),
         centerTitle: true,
         elevation: 0.0, // removes shadow
       ),
-      backgroundColor: Colors.grey,
+      body: Column(
+        children: transactions.map((transaction) => transactionTemplate(transaction)).toList()
+      ),
+
     );
-  }
-}
-
-class Transaction {
-  late String text;
-  late double total;
-  late String category;
-  late String date;
-  late bool recurring;
-  late String transactionType;
-  late String bankAccount;
-
-  Transaction({
-    required this.text,
-    required this.total,
-    required this.category,
-    String? date, // Allow date to be nullable
-    this.recurring = false, // Provide a default value
-    required this.transactionType,
-    required this.bankAccount,
-  }) : date = date ?? _getDefaultDate(); // Use today's date if not specified
-
-  @override
-  String toString() {
-    return 'Transaction{'
-        'text: $text, '
-        'total: $total, '
-        'category: $category, '
-        'date: $date, '
-        'recurring: $recurring, '
-        'transactionType: $transactionType, '
-        'bankAccount: $bankAccount'
-        '}';
-  }
-  static String _getDefaultDate() {
-    DateTime now = DateTime.now();
-    String formattedDate = "${now.day.toString().padLeft(2, '0')}-${now.month.toString().padLeft(2, '0')}-${now.year}";
-    return formattedDate;
   }
 }
 
