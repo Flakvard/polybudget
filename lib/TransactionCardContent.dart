@@ -48,6 +48,12 @@ class TransactionCardContent extends StatelessWidget {
                 color: Colors.grey[600],
               ),
             ),
+            const SizedBox(height: 8.0),
+            TextButton.icon(
+                onPressed: (){},
+                label: const Text('Delete transaction'),
+                icon: const Icon(Icons.delete),
+            ),
           ],
         ),
       ),

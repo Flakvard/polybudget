@@ -28,8 +28,10 @@ class _TransactionListState extends State<TransactionList> {
         centerTitle: true,
         elevation: 0.0, // removes shadow
       ),
-      body: Column(
-          children: transactions.map((transaction) => TransactionCardContent(transaction: transaction)).toList()
+      body: SingleChildScrollView(
+        child: Column(
+            children: transactions.map((transaction) => TransactionCardContent(transaction: transaction)).toList()
+        ),
       ),
 
     );
