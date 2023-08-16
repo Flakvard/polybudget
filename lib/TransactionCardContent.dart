@@ -51,6 +51,7 @@ class TransactionCardContent extends StatelessWidget {
             ),
             const SizedBox(height: 8.0),
             TextButton.icon(
+              // TODO: test delete button inside card
                 onPressed: (){delete!();},
                 label: const Text('Delete'),
                 icon: const Icon(Icons.delete),

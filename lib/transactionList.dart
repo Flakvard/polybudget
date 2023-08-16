@@ -32,6 +32,7 @@ class _TransactionListState extends State<TransactionList> {
         child: Column(
             children: transactions.map((transaction) => TransactionCardContent(
                 transaction: transaction,
+                // TODO: test delete button inside list
                 delete: () {
                   setState(() {
                     print('list');

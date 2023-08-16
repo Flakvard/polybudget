@@ -2,10 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:polybudget/transactionList.dart';
 import 'package:polybudget/home.dart';
+import 'package:polybudget/loading.dart';
 
-void main() {
-  runApp(const MaterialApp(
-    home: TransactionList()
-  ));
-}
+void main() => runApp(MaterialApp(
+  initialRoute: '/home',
+  routes: {
+    '/': (context) => const Loading(),
+    '/home': (context) => const Home(),
+    '/transaction': (context) => const TransactionList(),
+  },
+));
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'user.dart';
-import 'menu.dart';
+import 'package:polybudget/user.dart';
+import 'package:polybudget/menu.dart';
+import 'package:polybudget/transactionList.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -31,19 +33,41 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.pink[300],
         elevation: 0.0, // removes shadow
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            // Navigate to User Page when the button is clicked
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const User()),
-            );
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.pink[300],
-          ),
-          child: const Text('User Page'),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // Navigate to User Page when the button is clicked
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const User()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.pink[300],
+                ),
+                child: const Text('User Page'),
+              ),
+            ),
+            const SizedBox(height: 6,),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // Navigate to User Page when the button is clicked
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TransactionList()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.pink[300],
+                ),
+                child: const Text('Transaction Page'),
+              ),
+            ),
+          ],
         ),
       ),
       drawer: const AppDrawer(),

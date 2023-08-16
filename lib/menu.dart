@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'user.dart';
+import 'transactionList.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -39,6 +40,18 @@ class AppDrawer extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const User()),
+              );
+              // You can add your navigation logic here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.add_card),
+            title: const Text('Transactions'),
+            onTap: () {
+              // Handle tapping on Profile menu item
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TransactionList()),
               );
               // You can add your navigation logic here
             },
