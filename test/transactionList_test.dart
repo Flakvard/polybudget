@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:polybudget/transactionList.dart'; // Import your TransactionList widget
+import 'package:polybudget/TransactionCardContent.dart';
 import 'package:polybudget/transactions.dart';
 
 void main() {

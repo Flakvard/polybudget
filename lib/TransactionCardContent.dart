@@ -3,9 +3,10 @@ import 'package:polybudget/transactions.dart';
 
 class TransactionCardContent extends StatelessWidget {
   final Transaction transaction;
+  final Function()? delete;
   // constructor
   // const TransactionCardContent(this.transaction, {Key? key}) : super(key: key);
-  const TransactionCardContent({super.key, required this.transaction});
+  const TransactionCardContent({super.key, required this.transaction, this.delete});
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +51,8 @@ class TransactionCardContent extends StatelessWidget {
             ),
             const SizedBox(height: 8.0),
             TextButton.icon(
-                onPressed: (){},
-                label: const Text('Delete transaction'),
+                onPressed: (){delete!();},
+                label: const Text('Delete'),
                 icon: const Icon(Icons.delete),
             ),
           ],

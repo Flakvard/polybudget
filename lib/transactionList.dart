@@ -30,7 +30,15 @@ class _TransactionListState extends State<TransactionList> {
       ),
       body: SingleChildScrollView(
         child: Column(
-            children: transactions.map((transaction) => TransactionCardContent(transaction: transaction)).toList()
+            children: transactions.map((transaction) => TransactionCardContent(
+                transaction: transaction,
+                delete: () {
+                  setState(() {
+                    print('list');
+                    transactions.remove(transaction);
+                  });
+              }
+            )).toList()
         ),
       ),
 
