@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:polybudget/transactions.dart';
-import 'package:polybudget/TransactionCardContent.dart';
+import 'package:polybudget/features/transaction/application/transactions.dart';
+import 'package:polybudget/features/transaction/presentation/TransactionCardContent.dart';
 
 class TransactionList extends StatefulWidget {
   const TransactionList({super.key});

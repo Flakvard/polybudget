@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:polybudget/TransactionCardContent.dart';
-import 'package:polybudget/transactions.dart';
+import 'package:polybudget/features/transaction/presentation/TransactionCardContent.dart';
+import 'package:polybudget/features/transaction/application/transactions.dart';
 
 void main() {
   testWidgets('Transaction content displays correctly', (WidgetTester tester) async {

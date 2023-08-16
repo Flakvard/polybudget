@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:polybudget/user.dart';
 import 'package:polybudget/menu.dart';
-import 'package:polybudget/transactionList.dart';
+import 'package:polybudget/features/transaction/presentation/transactionList.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -40,10 +40,7 @@ class _HomeState extends State<Home> {
               child: ElevatedButton(
                 onPressed: () {
                   // Navigate to User Page when the button is clicked
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const User()),
-                  );
+                  Navigator.pushNamed(context, '/user');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.pink[300],

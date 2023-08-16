@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:polybudget/transactions.dart';
+import 'package:polybudget/features/transaction/application/transactions.dart';
 
 void main() {
   testWidgets('Transaction class construction test', (WidgetTester tester) async {
