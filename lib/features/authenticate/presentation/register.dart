@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../application/auth.dart';
+import 'package:polybudget/common_widgets/presentation/constants.dart';
 
 
 class Register extends StatefulWidget {
@@ -53,6 +54,7 @@ class _RegisterState extends State<Register> {
             children: <Widget>[
               const SizedBox(height: 20.0,),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Email'),
                 validator: (val) => val!.isEmpty ? 'Enter an email' : null,
                 onChanged: (val){
                   setState(() => email = val);
@@ -60,6 +62,7 @@ class _RegisterState extends State<Register> {
               ),
               const SizedBox(height: 20.0,),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Password'),
                 obscureText: true,
                 validator: (val) => val!.length < 6 ? 'Enter a password 6+ chars long' : null,
                 onChanged: (val){
