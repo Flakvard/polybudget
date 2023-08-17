@@ -1,25 +1,25 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:polybudget/features/authenticate/application/auth.dart';
+import '../application/auth.dart';
 
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
 
- final Function()? toggleView;
- const SignIn({super.key, this.toggleView});
+  final Function()? toggleView;
+  const Register({super.key, this.toggleView});
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
 
   // instance of AuthService
   final AuthService _auth = AuthService();
 
+  // register
   String email = '';
   String password = '';
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +28,11 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.pink[300],
         elevation: 0.0,
-        title: const Text('Sign in to PolyBudget'),
+        title: const Text('Sign up to PolyBudget'),
         actions: <Widget>[
           TextButton.icon(
             icon: const Icon(Icons.person),
-            label: const Text('Register'),
+            label: const Text('Sign in'),
             style: TextButton.styleFrom(
               foregroundColor: Colors.white,
             ),
@@ -69,7 +69,7 @@ class _SignInState extends State<SignIn> {
                 backgroundColor: Colors.pink[300],
               ),
               child: const Text(
-                'Sign in',
+                'Register',
                 style: TextStyle(color: Colors.white),
               )
             ),
@@ -79,15 +79,3 @@ class _SignInState extends State<SignIn> {
     );
   }
 }
-// FloatingActionButton(
-// onPressed: () async {
-// dynamic result = await _auth.signInAnon();
-// if (result == null){
-// print('error signing in null');
-// }else{
-// print('signed in');
-// print(result.uid);
-// }
-// },
-// child: const Text('Sign in anon'),
-// ),
