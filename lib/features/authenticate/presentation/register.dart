@@ -74,8 +74,6 @@ class _RegisterState extends State<Register> {
                     if (result == null ){
                       setState(() => error = 'Please supply a valid email');
                     }
-                    print(email);
-                    print(password);
                   }
                 },
                 style: ElevatedButton.styleFrom(
@@ -86,10 +84,10 @@ class _RegisterState extends State<Register> {
                   style: TextStyle(color: Colors.white),
                 )
               ),
-              SizedBox(height: 12.0,),
+              const SizedBox(height: 12.0,),
               Text(
                 error,
-                style: TextStyle(color: Colors.red, fontSize: 14.0),
+                style: const TextStyle(color: Colors.red, fontSize: 14.0),
               )
             ],
           ),
