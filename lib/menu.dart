@@ -39,7 +39,7 @@ class AppDrawer extends StatelessWidget {
               // Handle tapping on Profile menu item
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const User()),
+                MaterialPageRoute(builder: (context) => const UserPage()),
               );
               // You can add your navigation logic here
             },
