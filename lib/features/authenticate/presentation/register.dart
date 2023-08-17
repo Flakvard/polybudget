@@ -15,10 +15,13 @@ class _RegisterState extends State<Register> {
 
   // instance of AuthService
   final AuthService _auth = AuthService();
+  // identify form and validate the data
+  final _formKey = GlobalKey<FormState>();
 
   // register
   String email = '';
   String password = '';
+  String error = '';
 
 
   @override
@@ -44,36 +47,52 @@ class _RegisterState extends State<Register> {
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 50.0),
-        child: Column(
-          children: <Widget>[
-            const SizedBox(height: 20.0,),
-            TextFormField(
-              onChanged: (val){
-                setState(() => email = val);
-              },
-            ),
-            const SizedBox(height: 20.0,),
-            TextFormField(
-              obscureText: true,
-              onChanged: (val){
-                setState(() => password = val);
-              },
-            ),
-            const SizedBox(height: 20.0,),
-            ElevatedButton(
-              onPressed: () async {
-                print(email);
-                print(password);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.pink[300],
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              const SizedBox(height: 20.0,),
+              TextFormField(
+                validator: (val) => val!.isEmpty ? 'Enter an email' : null,
+                onChanged: (val){
+                  setState(() => email = val);
+                },
               ),
-              child: const Text(
-                'Register',
-                style: TextStyle(color: Colors.white),
+              const SizedBox(height: 20.0,),
+              TextFormField(
+                obscureText: true,
+                validator: (val) => val!.length < 6 ? 'Enter a password 6+ chars long' : null,
+                onChanged: (val){
+                  setState(() => password = val);
+                },
+              ),
+              const SizedBox(height: 20.0,),
+              ElevatedButton(
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()){
+                    dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+                    if (result == null ){
+                      setState(() => error = 'Please supply a valid email');
+                    }
+                    print(email);
+                    print(password);
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.pink[300],
+                ),
+                child: const Text(
+                  'Register',
+                  style: TextStyle(color: Colors.white),
+                )
+              ),
+              SizedBox(height: 12.0,),
+              Text(
+                error,
+                style: TextStyle(color: Colors.red, fontSize: 14.0),
               )
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

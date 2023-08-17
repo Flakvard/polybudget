@@ -44,36 +44,38 @@ class _SignInState extends State<SignIn> {
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 50.0),
-        child: Column(
-          children: <Widget>[
-            const SizedBox(height: 20.0,),
-            TextFormField(
-              onChanged: (val){
-                setState(() => email = val);
-              },
-            ),
-            const SizedBox(height: 20.0,),
-            TextFormField(
-              obscureText: true,
-              onChanged: (val){
-                setState(() => password = val);
-              },
-            ),
-            const SizedBox(height: 20.0,),
-            ElevatedButton(
-              onPressed: () async {
-                print(email);
-                print(password);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.pink[300],
+        child: Form(
+          child: Column(
+            children: <Widget>[
+              const SizedBox(height: 20.0,),
+              TextFormField(
+                onChanged: (val){
+                  setState(() => email = val);
+                },
               ),
-              child: const Text(
-                'Sign in',
-                style: TextStyle(color: Colors.white),
-              )
-            ),
-          ],
+              const SizedBox(height: 20.0,),
+              TextFormField(
+                obscureText: true,
+                onChanged: (val){
+                  setState(() => password = val);
+                },
+              ),
+              const SizedBox(height: 20.0,),
+              ElevatedButton(
+                onPressed: () async {
+                  print(email);
+                  print(password);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.pink[300],
+                ),
+                child: const Text(
+                  'Sign in',
+                  style: TextStyle(color: Colors.white),
+                )
+              ),
+            ],
+          ),
         ),
       ),
     );
