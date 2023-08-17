@@ -40,7 +40,13 @@ class _HomeState extends State<Home> {
               child: ElevatedButton(
                 onPressed: () {
                   // Navigate to User Page when the button is clicked
-                  Navigator.pushNamed(context, '/user');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const User()),
+                  );
+
+                  // routing riggar ikki enn heilt.
+                  // Navigator.pushNamed(context, '/user')
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.pink[300],
