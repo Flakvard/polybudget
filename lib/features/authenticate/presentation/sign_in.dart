@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:polybudget/features/authenticate/application/auth.dart';
 import 'package:polybudget/common_widgets/presentation/constants.dart';
+import 'package:polybudget/common_widgets/presentation/loading.dart';
 
 
 class SignIn extends StatefulWidget {
@@ -22,13 +23,16 @@ class _SignInState extends State<SignIn> {
   // identify form and validate the data
   final _formKey = GlobalKey<FormState>();
 
+  // if true show loading screen
+  bool loading = false;
+
   String email = '';
   String password = '';
   String error = '';
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? const Loading() : Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         backgroundColor: Colors.pink[300],
@@ -74,9 +78,14 @@ class _SignInState extends State<SignIn> {
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()){
+                    // turns on loading screen
+                    setState(() => loading = true );
                     dynamic result = await _auth.signInWithEmailAndPassword(email, password);
                     if (result == null ){
-                      setState(() => error = 'Could not sign in with those credentials');
+                      setState(() {
+                        error = 'Could not sign in with those credentials';
+                        loading = false;
+                      });
                     }
                   }
                 },
