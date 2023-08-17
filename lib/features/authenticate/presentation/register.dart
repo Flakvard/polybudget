@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../application/auth.dart';
+import 'package:polybudget/features/authenticate/application/auth.dart';
 import 'package:polybudget/common_widgets/presentation/constants.dart';
+import 'package:polybudget/common_widgets/presentation/loading.dart';
 
 
 class Register extends StatefulWidget {
@@ -19,6 +20,9 @@ class _RegisterState extends State<Register> {
   // identify form and validate the data
   final _formKey = GlobalKey<FormState>();
 
+  // if true show loading screen
+  bool loading = false;
+
   // register
   String email = '';
   String password = '';
@@ -27,7 +31,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? const Loading() : Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         backgroundColor: Colors.pink[300],
@@ -73,9 +77,14 @@ class _RegisterState extends State<Register> {
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()){
+                    // turns on loading screen
+                    setState(() => loading = true );
                     dynamic result = await _auth.registerWithEmailAndPassword(email, password);
                     if (result == null ){
-                      setState(() => error = 'Please supply a valid email');
+                      setState(() {
+                        error = 'Please supply a valid email';
+                        loading = false;
+                      });
                     }
                   }
                 },
