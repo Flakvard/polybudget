@@ -90,7 +90,7 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      drawer: const AppDrawer(),
+      drawer: AppDrawer(),
     );
   }
 }

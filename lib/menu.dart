@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:polybudget/features/authenticate/application/auth.dart';
 import 'user.dart';
 import 'features/transaction/presentation/transactionList.dart';
+import 'package:polybudget/features/authenticate/application/auth.dart';
 
 class AppDrawer extends StatelessWidget {
-  const AppDrawer({super.key});
+  AppDrawer({super.key});
+
+  final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +34,13 @@ class AppDrawer extends StatelessWidget {
               // Handle tapping on Home menu item
               Navigator.pop(context); // Close the drawer
               // You can add your navigation logic here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.account_circle_outlined),
+            title: const Text('Sign Out'),
+            onTap: () async {
+              await _auth.signOut();
             },
           ),
           ListTile(
