@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:polybudget/features/authenticate/presentation/authenticate.dart';
 import 'package:polybudget/user.dart';
 import 'package:polybudget/menu.dart';
 import 'package:polybudget/features/transaction/presentation/transactionList.dart';
@@ -42,7 +43,7 @@ class _HomeState extends State<Home> {
                   // Navigate to User Page when the button is clicked
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const User()),
+                    MaterialPageRoute(builder: (context) => const UserPage()),
                   );
 
                   // routing riggar ikki enn heilt.
@@ -61,13 +62,29 @@ class _HomeState extends State<Home> {
                   // Navigate to User Page when the button is clicked
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const TransactionList()),
+                    MaterialPageRoute(builder: (context) => TransactionList()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.pink[300],
                 ),
                 child: const Text('Transaction Page'),
+              ),
+            ),
+            const SizedBox(height: 6,),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // Navigate to User Page when the button is clicked
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Authenticate()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.pink[300],
+                ),
+                child: const Text('SignIn'),
               ),
             ),
           ],

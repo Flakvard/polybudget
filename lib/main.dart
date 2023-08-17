@@ -6,6 +6,7 @@ import 'package:polybudget/loading.dart';
 import 'package:polybudget/user.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:polybudget/firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 
 Future<void> main() async {
@@ -15,7 +16,7 @@ Future<void> main() async {
       '/': (context) => const Loading(),
       '/home': (context) => const Home(),
       '/transaction': (context) => const TransactionList(),
-      '/user': (context) => const User(),
+      '/user': (context) => const UserPage(),
     },
   ));
   await Firebase.initializeApp(

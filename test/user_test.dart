@@ -4,7 +4,7 @@ import 'package:polybudget/user.dart';
 
 void main() {
   testWidgets('Current level increments when button is clicked', (WidgetTester tester) async {
-    await tester.pumpWidget(const MaterialApp(home: User())); // Build the User widget
+    await tester.pumpWidget(const MaterialApp(home: UserPage())); // Build the User widget
 
     expect(find.text('0'), findsOneWidget); // Check that initial value of currentLevel is 0
 
