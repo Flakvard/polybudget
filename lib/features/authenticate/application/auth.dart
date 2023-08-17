@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:polybudget/database.dart';
 import 'package:polybudget/features/authenticate/domain/user.dart';
 
 class AuthService {
@@ -49,8 +50,14 @@ class AuthService {
   // register with email and password
   Future registerWithEmailAndPassword(String email, String password) async {
     try{
+      // register a new user
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      // get the user back and collect the uid
       User? user = result.user;
+
+      // Create a new document for the user with the uid
+      await DatabaseService(uid: user!.uid).updateUserData('new member');
+
       return _userFromFirebaseUser(user);
     }catch(e){
       print(e.toString());
