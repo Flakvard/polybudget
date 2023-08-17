@@ -7,7 +7,7 @@ class AuthService {
 
   // create user object based on FireBaseUser
 
-  MyUser? _userFromFirebaseUser(User user){
+  MyUser? _userFromFirebaseUser(User? user){
     return user != null ? MyUser(uid: user.uid) : null;
   }
 
@@ -22,7 +22,14 @@ class AuthService {
       print(e.toString());
       return null;
     }
+  }
 
+  // auth change user stream
+  // return null if signed out and uid if signed in
+  Stream<MyUser?> get user{
+    return _auth.authStateChanges().map(_userFromFirebaseUser);
+        //.map(_userFromFirebaseUser);
+        //.map((User? user) => _userFromFirebaseUser(user!));
   }
 
   // sign in email and password
@@ -32,5 +39,13 @@ class AuthService {
 
 
   // sign out
+  Future signOut() async {
+    try{
+      return await _auth.signOut();
+    } catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
 
 }
