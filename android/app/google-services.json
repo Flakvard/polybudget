@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "332930851519",
+    "project_id": "polybudget-80e2b",
+    "storage_bucket": "polybudget-80e2b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:332930851519:android:1b503073c094570e861c0a",
+        "android_client_info": {
+          "package_name": "com.example.polybudget"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "332930851519-10iv99pc2ib58ov71coht62nq6c2rejs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTZtdqkCxmaEXDpp1PDmWmB3dXmuwjgDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "332930851519-10iv99pc2ib58ov71coht62nq6c2rejs.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "332930851519-4g799ac84q2bbsp999qjo9p77gb496h8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.polybudget.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>332930851519-tar6tujnt3ej7bdptnj73i1321dqm92f.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.332930851519-tar6tujnt3ej7bdptnj73i1321dqm92f</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAwn-nOeJ0QmIMN0-tc4PCE2sXpgoN6PI8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>332930851519</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.polybudget</string>
+	<key>PROJECT_ID</key>
+	<string>polybudget-80e2b</string>
+	<key>STORAGE_BUCKET</key>
+	<string>polybudget-80e2b.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:332930851519:ios:48a0ab79bc0ffad1861c0a</string>
+</dict>
+</plist>
