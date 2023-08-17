@@ -23,21 +23,21 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.pink[300],
         elevation: 0.0,
-        title: Text('Sign in to PolyBudget'),
+        title: const Text('Sign in to PolyBudget'),
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 20.0,horizontal: 50.0),
+        padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 50.0),
         child: FloatingActionButton(
           onPressed: () async {
             dynamic result = await _auth.signInAnon();
             if (result == null){
-              print('error siging in null');
+              print('error signing in null');
             }else{
               print('signed in');
-              print(result);
+              print(result.uid);
             }
           },
-          child: Text('Sign in anon'),
+          child: const Text('Sign in anon'),
         ),
       ),
     );
