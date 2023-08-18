@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:polybudget/features/authenticate/application/auth.dart';
-import 'user.dart';
+import 'features/authenticate/presentation/user.dart';
 import 'features/transaction/presentation/transactionList.dart';
 import 'package:polybudget/features/authenticate/application/auth.dart';
 
