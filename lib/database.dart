@@ -1,4 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:polybudget/features/authenticate/domain/user.dart';
+import 'package:polybudget/features/budget/domain/bankAccount.dart';
+import 'features/budget/domain/budget.dart';
+import 'package:polybudget/features/budget/domain/category.dart' as c;
+import 'package:polybudget/features/transaction/application/transactions.dart' as t;
 
 class DatabaseService {
 
@@ -8,60 +13,78 @@ class DatabaseService {
   // Collection reference
   final CollectionReference polyBudgetDB = FirebaseFirestore.instance.collection('pbUsers');
 
-  Future updateUserData(String name, String email, String budgetName, String categories,) async {
+  // Now you can add these instances to Firestore as needed
+
+  // sends data to firestore db
+  Future updateUserData({required String name, required String email}) async {
     return await polyBudgetDB
         .doc(uid)
         .set({
+          "User": {
             "username": name,
             "email": email,
-            "budgets": {
-              "budget_id": {
-                "name": budgetName,
-                "categories": {
-                  "category_id_1": {
-                    "name": categories,
-                  }
-                },
-                "bankAccounts": {
-                  "account_id_1": {
-                    "name": "Savings Account",
-                    "balance": 5000.0
-                  },
-                  "account_id_2": {
-                    "name": "Checking Account",
-                    "balance": 1500.0
-                  }
-                },
-                "transactions": {
-                  "transaction_id_1": {
-                    "type": "income",
-                    "amount": 100.0,
-                    "category": "category_id_1",
-                    "date": "2023-08-15"
-                  },
-                  "transaction_id_2": {
-                    "type": "expense",
-                    "amount": 50.0,
-                    "category": "category_id_2",
-                    "date": "2023-08-17"
-                  }
-                }
-              }
-            }
+          }
         });
   }
+
+  // Create a new budget document for the user with the uid
+  Future createBudgetDocument({required Budget budget}) async {
+    return await polyBudgetDB
+        .doc(uid).collection("budgets").doc(budget.id)
+        .set({
+      "budgets": {
+        "id": budget.id,
+        "name": budget.name,
+        }
+    });
+  }
+  Future createCategoryDocument({required Budget budget, required c.Category category}) async {
+    return await polyBudgetDB
+        .doc(uid).collection('categories').doc(category.id)
+        .set({
+      "categories": {
+        "id": category.id,
+        "name": category.name,
+      }
+    });
+  }
+
+  Future createBankAccountDocument({required Budget budget, required BankAccount bankAccount}) async {
+    return await polyBudgetDB
+        .doc(uid).collection('bankAccounts').doc(bankAccount.id)
+        .set({
+      "bankAccounts": {
+        "id": bankAccount.id,
+        "name": bankAccount.name,
+        "balance": bankAccount.balance
+      }
+    });
+  }
+
+  Future createTransactionDocument({required t.Transaction transaction}) async {
+    return await polyBudgetDB.doc(uid).collection("transactions").doc(transaction.id).set({
+      "transaction": {
+        "id": transaction.id,
+        "text": transaction.text,
+        "amount": transaction.amount,
+        "date": transaction.date,
+        "transactionType": transaction.transactionType.name,
+        "recurring": transaction.recurring,
+        "bankAccountId": transaction.bankAccount.id,
+        "bankAccount": transaction.bankAccount.name,
+        "categoryId": transaction.category.id,
+        "category": transaction.category.name,
+        "budgetId": transaction.budget.id,
+        "budget": transaction.budget.name,
+      }
+    });
+
+  }
+
   // returns a snapshot of the db
   Stream<QuerySnapshot<Object?>> get myUsers {
     return polyBudgetDB.snapshots();
   }
 
-
-  // late String text;
-  // late double total;
-  // late String category;
-  // late String date;
-  // late bool recurring;
-  // late String transactionType;
-  // late String bankAccount;
-
 }
+

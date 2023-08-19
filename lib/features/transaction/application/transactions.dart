@@ -1,28 +1,44 @@
+import 'package:polybudget/features/budget/domain/bankAccount.dart';
+import 'package:polybudget/features/budget/domain/budget.dart';
+import 'package:polybudget/features/budget/domain/category.dart';
+
+enum TransactionType {
+  actual, expected;
+}
+
 // Transaction class data structure for holding transactions.
 class Transaction {
-  late String text;
-  late double total;
-  late String category;
-  late String date;
-  late bool recurring;
-  late String transactionType;
-  late String bankAccount;
+
+  final String id;
+  final Budget budget;
+  final String text;
+  final double amount;
+  final Category category;
+  final String date;
+  final bool recurring;
+  final TransactionType transactionType;
+  final BankAccount bankAccount;
 
   Transaction({
+    required this.id,
     required this.text,
-    required this.total,
+    required this.amount,
+    required this.budget,
     required this.category,
     String? date, // Allow date to be nullable
     this.recurring = false, // Provide a default value
     required this.transactionType,
     required this.bankAccount,
-  }) : date = date ?? _getDefaultDate(); // Use today's date if not specified
+  }) :
+        date = date ?? _getDefaultDate(); // Use today's date if not specified
 
   @override
   String toString() {
     return 'Transaction{'
+        'id: $id, '
         'text: $text, '
-        'total: $total, '
+        'total: $amount, '
+        'budget: $budget, '
         'category: $category, '
         'date: $date, '
         'recurring: $recurring, '
