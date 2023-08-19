@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:polybudget/features/budget/domain/bankAccount.dart';
+import 'package:polybudget/features/budget/domain/budget.dart';
+import 'package:polybudget/features/budget/domain/category.dart';
 import 'package:polybudget/features/transaction/presentation/TransactionCardContent.dart';
 import 'package:polybudget/features/transaction/application/transactions.dart';
 
 void main() {
   testWidgets('Transaction content displays correctly', (WidgetTester tester) async {
     final List<Transaction> transactions = [
-      Transaction(text: "Groceries expense",amount: 184.23,category: "Food Category",date: "18-10-2023",recurring: false,transactionType: "Actual",bankAccount: "Matkortið"),
-      Transaction(text: "MovieNight expense",amount: 14,category: "Privat Category",transactionType: "Actual",bankAccount: "Matkortið"),
-      Transaction(text: "Hotel expense",amount: 84.3,category: "Vacation Category",date: "18-10-2023",recurring: false,transactionType: "Actual",bankAccount: "Matkortið"),
-      Transaction(text: "Spotify expense",amount: 99,category: "Privat Category",date: "28-10-2023",recurring: true,transactionType: "Actual",bankAccount: "Matkortið"),
+      Transaction(id: "1", budget: Budget(name: "Personal budget", id: "1"), text: "Groceries expense",amount: 184.23,category: Category(id: "1", name: "Food Category"),date: "18-10-2023",transactionType: TransactionType.expected,recurring: false,bankAccount: BankAccount(id: "1",name: "Matkortið")),
+      Transaction(id: "2", budget: Budget(name: "Personal budget", id: "2"), text: "MovieNight expense",amount: 14,category: Category(id: "2", name: "Privat Category"),transactionType: TransactionType.expected,bankAccount: BankAccount(id: "1",name: "Matkortið")),
+      Transaction(id: "3", budget: Budget(name: "Personal budget", id: "3"), text: "Hotel expense",amount: 84.3,category: Category(id: "3", name: "Vacation Category"),date: "18-10-2023",transactionType: TransactionType.actual,recurring: false,bankAccount: BankAccount(id: "1",name: "Matkortið")),
+      Transaction(id: "4", budget: Budget(name: "Personal budget", id: "4"), text: "Spotify expense",amount: 99,category: Category(id: "4", name: "Privat Category"),transactionType: TransactionType.actual, date: "28-10-2023",recurring: true, bankAccount: BankAccount(id: "1",name: "Matkortið")),
     ];
 
     // DD-MM-YYYY
