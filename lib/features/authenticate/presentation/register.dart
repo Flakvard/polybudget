@@ -3,6 +3,8 @@ import 'package:polybudget/features/authenticate/application/auth.dart';
 import 'package:polybudget/common_widgets/presentation/constants.dart';
 import 'package:polybudget/common_widgets/presentation/loading.dart';
 
+import '../domain/user.dart';
+
 
 class Register extends StatefulWidget {
 
@@ -79,7 +81,10 @@ class _RegisterState extends State<Register> {
                   if (_formKey.currentState!.validate()){
                     // turns on loading screen
                     setState(() => loading = true );
-                    dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+                    // creates the MyUser class, and adds the user to the database
+                    MyUser? result = await _auth.registerWithEmailAndPassword(email, password);
+                    await result?.setupUser(); // creates classes and Firestore db structure
+
                     if (result == null ){
                       setState(() {
                         error = 'Please supply a valid email';
