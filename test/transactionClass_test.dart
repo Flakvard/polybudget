@@ -9,7 +9,7 @@ void main() {
     // testing constructor
     final Transaction transactionConstructor = Transaction(
       text: "Groceries expense",
-      total: 184.23,
+      amount: 184.23,
       category: "Food Category",
       date: "18-10-2023",
       recurring: false,
@@ -20,7 +20,7 @@ void main() {
     // testing default constructor
     final Transaction defaultTransactionValue = Transaction(
         text: "Groceries expense",
-        total: 184.23,
+        amount: 184.23,
         category: "Food Category",
         transactionType: "Actual",
         bankAccount: "Matkortið"
@@ -31,7 +31,7 @@ void main() {
     String dateToday = "${now.day.toString().padLeft(2, '0')}-${now.month.toString().padLeft(2, '0')}-${now.year}";
 
     expect(defaultTransactionValue.text, "Groceries expense");
-    expect(defaultTransactionValue.total, 184.23);
+    expect(defaultTransactionValue.amount, 184.23);
     expect(defaultTransactionValue.category, "Food Category");
     expect(transactionConstructor.date, "18-10-2023");
     expect(defaultTransactionValue.date, dateToday);
