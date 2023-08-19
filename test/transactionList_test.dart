@@ -6,10 +6,10 @@ import 'package:polybudget/features/transaction/application/transactions.dart';
 void main() {
   testWidgets('Transaction content displays correctly', (WidgetTester tester) async {
     final List<Transaction> transactions = [
-      Transaction(text: "Groceries expense",total: 184.23,category: "Food Category",date: "18-10-2023",recurring: false,transactionType: "Actual",bankAccount: "Matkortið"),
-      Transaction(text: "MovieNight expense",total: 14,category: "Privat Category",transactionType: "Actual",bankAccount: "Matkortið"),
-      Transaction(text: "Hotel expense",total: 84.3,category: "Vacation Category",date: "18-10-2023",recurring: false,transactionType: "Actual",bankAccount: "Matkortið"),
-      Transaction(text: "Spotify expense",total: 99,category: "Privat Category",date: "28-10-2023",recurring: true,transactionType: "Actual",bankAccount: "Matkortið"),
+      Transaction(text: "Groceries expense",amount: 184.23,category: "Food Category",date: "18-10-2023",recurring: false,transactionType: "Actual",bankAccount: "Matkortið"),
+      Transaction(text: "MovieNight expense",amount: 14,category: "Privat Category",transactionType: "Actual",bankAccount: "Matkortið"),
+      Transaction(text: "Hotel expense",amount: 84.3,category: "Vacation Category",date: "18-10-2023",recurring: false,transactionType: "Actual",bankAccount: "Matkortið"),
+      Transaction(text: "Spotify expense",amount: 99,category: "Privat Category",date: "28-10-2023",recurring: true,transactionType: "Actual",bankAccount: "Matkortið"),
     ];
 
     // DD-MM-YYYY

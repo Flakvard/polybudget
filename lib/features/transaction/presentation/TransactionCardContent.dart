@@ -27,7 +27,7 @@ class TransactionCardContent extends StatelessWidget {
             const SizedBox(height: 6.0),
             Text(
               // double.parse(transaction.total).toString(),
-              transaction.total.toString(),
+              transaction.amount.toString(),
               style: TextStyle(
                 fontSize: 18.0,
                 color: Colors.red[600],
