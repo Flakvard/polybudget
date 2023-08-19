@@ -4,12 +4,11 @@ import 'package:polybudget/features/authenticate/domain/user.dart';
 
 class AuthService {
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseAuth get _auth => FirebaseAuth.instance;
 
   // create user object based on FireBaseUser
-
   MyUser? _userFromFirebaseUser(User? user){
-    return user != null ? MyUser(uid: user.uid) : null;
+    return user != null ? MyUser(uid: user.uid, ) : null;
   }
 
   // sign in anon
@@ -54,10 +53,12 @@ class AuthService {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       // get the user back and collect the uid
       User? user = result.user;
-
+      // creates the user in the database.
+      final DatabaseService db = DatabaseService(uid: user!.uid);
       // Create a new document for the user with the uid
-      await DatabaseService(uid: user!.uid).updateUserData('new member', '0', 'Personal Budget', "Groceries",  );
+      await db.updateUserData(name: 'new member', email: email);
 
+      // creates the MyUser class and returns user or Null
       return _userFromFirebaseUser(user);
     }catch(e){
       print(e.toString());
