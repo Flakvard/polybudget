@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:polybudget/features/authenticate/domain/user.dart';
-import 'package:polybudget/features/budget/domain/bankAccount.dart';
+import 'package:polybudget/features/bankaccount/domain/bankAccount.dart';
 import 'features/budget/domain/budget.dart';
-import 'package:polybudget/features/budget/domain/category.dart' as c;
-import 'package:polybudget/features/transaction/application/transactions.dart' as t;
+import 'package:polybudget/features/category/domain/category.dart' as c;
+import 'package:polybudget/features/transaction/domain/transactions.dart' as t;
 
 class DatabaseService {
 

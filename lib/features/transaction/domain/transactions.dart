@@ -1,6 +1,6 @@
-import 'package:polybudget/features/budget/domain/bankAccount.dart';
+import 'package:polybudget/features/bankaccount/domain/bankAccount.dart';
 import 'package:polybudget/features/budget/domain/budget.dart';
-import 'package:polybudget/features/budget/domain/category.dart';
+import 'package:polybudget/features/category/domain/category.dart';
 
 enum TransactionType {
   actual, expected;

@@ -2,10 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:polybudget/features/budget/domain/bankAccount.dart';
+import 'package:polybudget/features/bankaccount/domain/bankAccount.dart';
 import 'package:polybudget/features/budget/domain/budget.dart';
-import 'package:polybudget/features/budget/domain/category.dart';
-import 'package:polybudget/features/transaction/application/transactions.dart';
+import 'package:polybudget/features/category/domain/category.dart';
+import 'package:polybudget/features/transaction/domain/transactions.dart';
 
 void main() {
   testWidgets('Transaction class construction test', (WidgetTester tester) async {

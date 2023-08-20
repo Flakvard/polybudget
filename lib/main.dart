@@ -40,6 +40,7 @@ class _MyAppState extends State<MyApp> {
       child: const MaterialApp(
         home: Wrapper(),
 
+      // TODO: https://docs.flutter.dev/cookbook/navigation/named-routes
       // initialRoute: '/wrapper',
       // routes: {
       //   '/': (context) => const Loading(),
