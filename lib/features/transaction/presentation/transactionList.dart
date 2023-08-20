@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:polybudget/features/budget/domain/bankAccount.dart';
-import 'package:polybudget/features/budget/domain/category.dart';
-import 'package:polybudget/features/budget/domain/category.dart';
-import 'package:polybudget/features/budget/domain/category.dart';
-import 'package:polybudget/features/budget/domain/category.dart';
-import 'package:polybudget/features/transaction/application/transactions.dart';
+import 'package:polybudget/features/bankaccount/domain/bankAccount.dart';
+import 'package:polybudget/features/category/domain/category.dart';
+import 'package:polybudget/features/category/domain/category.dart';
+import 'package:polybudget/features/category/domain/category.dart';
+import 'package:polybudget/features/category/domain/category.dart';
+import 'package:polybudget/features/transaction/domain/transactions.dart';
 import 'package:polybudget/features/transaction/presentation/TransactionCardContent.dart';
 
 import '../../budget/domain/budget.dart';
