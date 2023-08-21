@@ -28,7 +28,9 @@ class AuthService {
   // return null if signed out and uid if signed in
   Stream<MyUser?> get user{
     return _auth.authStateChanges().map(_userFromFirebaseUser);
+        // this below
         //.map(_userFromFirebaseUser);
+        // is the same as this below
         //.map((User? user) => _userFromFirebaseUser(user!));
   }
 

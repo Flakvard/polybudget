@@ -13,17 +13,12 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<MyUser?>(
-      context,
-      listen: false,
-    ); // get user info, logged in = unique id or null
+    final MyUser? user = Provider.of<MyUser?>(context); // get user info, logged in = unique id or null
 
     if (user == null) {
-      // Navigator.pushReplacementNamed(context, '/authenticate');
       return const Authenticate();
     } else {
       // Navigate to the home screen using the named route
-      // Navigator.pushReplacementNamed(context, '/home');
       return const Home();
     }
   }

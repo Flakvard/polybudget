@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:polybudget/features/authenticate/domain/user.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({super.key});
@@ -78,6 +79,7 @@ class _UserPageState extends State<UserPage> {
                   ),
                   const SizedBox(width: 10.0),
                   Text(
+
                     'marni@email.com',
                     style: TextStyle(
                       color: Colors.grey[400],
