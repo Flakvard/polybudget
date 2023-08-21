@@ -19,7 +19,7 @@ class Wrapper extends StatelessWidget {
       return const Authenticate();
     } else {
       // Navigate to the home screen using the named route
-      return const Home();
+      return Home();
     }
   }
 }

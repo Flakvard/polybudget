@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
           '/': (context) => const Loading(),
           '/wrapper': (context) => const Wrapper(),
           '/authenticate': (context) => const Authenticate(),
-          '/home': (context) => const Home(),
+          '/home': (context) => Home(),
           '/transaction': (context) => const TransactionList(),
           '/user': (context) => const UserPage(),
           '/userinfo': (context) => const UserInfoList(),
