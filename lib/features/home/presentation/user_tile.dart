@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'features/authenticate/domain/user.dart';
+import '../../authenticate/domain/user.dart';
 
 
 class UserTile extends StatelessWidget {

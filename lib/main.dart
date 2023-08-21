@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:polybudget/features/authenticate/domain/user.dart';
 import 'package:polybudget/features/authenticate/presentation/authenticate.dart';
 import 'package:polybudget/features/transaction/presentation/transactionList.dart';
-import 'package:polybudget/home.dart';
+import 'package:polybudget/features/home/presentation/home.dart';
 import 'package:polybudget/features/authenticate/presentation/user.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:polybudget/firebase_options.dart';
@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:polybudget/features/authenticate/application/auth.dart';
 import 'package:polybudget/common_widgets/presentation/loading.dart';
 
-import 'UserInfoList.dart';
+import 'features/home/presentation/UserInfoList.dart';
 import 'features/authenticate/application/auth.dart';
 
 
