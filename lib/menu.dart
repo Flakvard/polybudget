@@ -49,7 +49,6 @@ class AppDrawer extends StatelessWidget {
             onTap: () {
               // Handle tapping on Profile menu item
               Navigator.pushNamed(context, '/user');
-              //Navigator.push(context,MaterialPageRoute(builder: (context) => const UserPage()),);
               // You can add your navigation logic here
             },
           ),
@@ -59,7 +58,6 @@ class AppDrawer extends StatelessWidget {
             onTap: () {
               // Handle tapping on Profile menu item
               Navigator.pushNamed(context, '/transaction');
-              // Navigator.push(context,MaterialPageRoute(builder: (context) => const TransactionList()),);
               // You can add your navigation logic here
             },
           ),

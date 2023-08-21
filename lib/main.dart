@@ -7,12 +7,12 @@ import 'package:polybudget/home.dart';
 import 'package:polybudget/features/authenticate/presentation/user.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:polybudget/firebase_options.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:polybudget/wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:polybudget/features/authenticate/application/auth.dart';
 import 'package:polybudget/common_widgets/presentation/loading.dart';
 
+import 'UserInfoList.dart';
 import 'features/authenticate/application/auth.dart';
 
 
@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return StreamProvider<MyUser?>.value(
       initialData: null,
-      value: AuthService().user,
+      value: AuthService().user, // should return user uid otherwise null
       child: MaterialApp(
         initialRoute: '/wrapper',
         routes: {
@@ -46,6 +46,7 @@ class _MyAppState extends State<MyApp> {
           '/home': (context) => const Home(),
           '/transaction': (context) => const TransactionList(),
           '/user': (context) => const UserPage(),
+          '/userinfo': (context) => const UserInfoList(),
         },
       ),
     );
