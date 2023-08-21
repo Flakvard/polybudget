@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:polybudget/features/authenticate/domain/user.dart';
 import 'package:polybudget/features/authenticate/presentation/authenticate.dart';
-import 'package:polybudget/home.dart';
+import 'package:polybudget/features/home/presentation/home.dart';
 import 'package:provider/provider.dart';
-
-import 'features/authenticate/application/auth.dart';
-import 'loading.dart';
 
 
 class Wrapper extends StatelessWidget {

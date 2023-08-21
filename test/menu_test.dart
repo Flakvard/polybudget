@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:polybudget/menu.dart';
+import 'package:polybudget/features/home/presentation/menu.dart';
 
 void main() {
   testWidgets('slide menu from left, when clicked', (WidgetTester tester) async {

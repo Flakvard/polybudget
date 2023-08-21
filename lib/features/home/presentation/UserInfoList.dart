@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:polybudget/features/authenticate/domain/user.dart';
-import 'package:polybudget/user_tile.dart';
+import 'package:polybudget/features/home/presentation/user_tile.dart';
 import 'package:provider/provider.dart';
 
 
