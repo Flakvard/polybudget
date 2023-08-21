@@ -15,10 +15,22 @@ class DatabaseService {
 
   // Now you can add these instances to Firestore as needed
 
+  // returns a list of all the user inside collection db
+  List<MyUser?>? _userListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc){
+      return MyUser(
+        uid: doc.get('id') ?? '',
+        name: doc.get('name') ?? '',
+        email: doc.get('email') ?? '',
+      );
+    }).toList();
+  }
 
   // returns a snapshot of the db
-  Stream<QuerySnapshot<Object?>> get myUsers {
-    return polyBudgetDB.snapshots();
+  // Get stream from firestore
+  Stream<List<MyUser?>?> get myUsers {
+    return polyBudgetDB.snapshots()
+    .map(_userListFromSnapshot);
   }
 
   // sends data to firestore db
@@ -26,10 +38,9 @@ class DatabaseService {
     return await polyBudgetDB
         .doc(uid)
         .set({
-          "User": {
-            "username": name,
-            "email": email,
-          }
+          "id": uid,
+          "name": name,
+          "email": email,
         });
   }
 

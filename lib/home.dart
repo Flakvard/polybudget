@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:polybudget/features/authenticate/presentation/authenticate.dart';
-import 'package:polybudget/features/authenticate/presentation/user.dart';
+import 'package:polybudget/features/authenticate/domain/user.dart';
 import 'package:polybudget/menu.dart';
-import 'package:polybudget/features/transaction/presentation/transactionList.dart';
 import 'package:polybudget/database.dart';
 import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'UserInfoList.dart';
 
@@ -22,9 +19,10 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<QuerySnapshot?>.value(
-      initialData: null,
-      value: DatabaseService().myUsers!,
+    return StreamProvider<List<MyUser?>?>.value(
+      // returns the collection of user db from firestore
+      value: DatabaseService()?.myUsers,
+      initialData: const [],
       child: Scaffold( // layout widget to flesh out general layout of the app. Check scaffold class in docs.
         key: _scaffoldKey, // Assign the scaffold key
         backgroundColor: Colors.grey.shade900,
@@ -42,62 +40,47 @@ class _HomeState extends State<Home> {
           backgroundColor: Colors.pink[300],
           elevation: 0.0, // removes shadow
         ),
-        body: SafeArea(
-          child: Column(
-            children: [
-              const Center(
-                child: UserInfoList(),
-              ),
-              const SizedBox(height: 6,),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Navigate to User Page when the button is clicked
-                    //Navigator.push(context, MaterialPageRoute(builder: (context) => const UserPage()),);
-
-                    // routing riggar ikki enn heilt.
-                    Navigator.pushNamed(context, '/user');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.pink[300],
-                  ),
-                  child: const Text('User Page'),
-                ),
-              ),
-              const SizedBox(height: 6,),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Navigate to User Page when the button is clicked
-                    //Navigator.push(context,MaterialPageRoute(builder: (context) => TransactionList()),);
-                    Navigator.pushNamed(context, '/transaction');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.pink[300],
-                  ),
-                  child: const Text('Transaction Page'),
-                ),
-              ),
-              const SizedBox(height: 6,),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Navigate to User Page when the button is clicked
-                    //Navigator.push(context,MaterialPageRoute(builder: (context) => Authenticate()),);
-                    Navigator.pushNamed(context, '/Authenticate');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.pink[300],
-                  ),
-                  child: const Text('SignIn'),
-                ),
-              ),
-            ],
-          ),
-        ),
+        body: UserInfoList(),
         drawer: AppDrawer(),
       ),
     );
   }
 }
 
+//
+// SafeArea(
+// child: Column(
+// children: [
+// const Center(
+// child: UserInfoList(),
+// ),
+// const SizedBox(height: 6,),
+// const SizedBox(height: 6,),
+// Center(
+// child: ElevatedButton(
+// onPressed: () {
+// // Navigate to User Page when the button is clicked
+// Navigator.pushNamed(context, '/transaction');
+// },
+// style: ElevatedButton.styleFrom(
+// backgroundColor: Colors.pink[300],
+// ),
+// child: const Text('Transaction Page'),
+// ),
+// ),
+// const SizedBox(height: 6,),
+// Center(
+// child: ElevatedButton(
+// onPressed: () {
+// // Navigate to User Page when the button is clicked
+// Navigator.pushNamed(context, '/Authenticate');
+// },
+// style: ElevatedButton.styleFrom(
+// backgroundColor: Colors.pink[300],
+// ),
+// child: const Text('SignIn'),
+// ),
+// ),
+// ],
+// ),
+// )
