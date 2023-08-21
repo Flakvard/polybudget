@@ -9,19 +9,24 @@ import 'loading.dart';
 
 
 class Wrapper extends StatelessWidget {
-  const Wrapper({super.key});
+  const Wrapper({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<MyUser?>(
+      context,
+      listen: false,
+    ); // get user info, logged in = unique id or null
 
-    final user = Provider.of<MyUser?>(context); // gets the state of the user (logged in or not)
-
-    // return either home or auth widget
-    if(user == null){
+    if (user == null) {
+      // Navigator.pushReplacementNamed(context, '/authenticate');
       return const Authenticate();
-    }else {
+    } else {
+      // Navigate to the home screen using the named route
+      // Navigator.pushReplacementNamed(context, '/home');
       return const Home();
     }
   }
 }
+
 

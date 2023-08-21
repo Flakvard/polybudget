@@ -68,7 +68,8 @@ class MyUser{
       // await db.updateUserData(name, email, updatedBudgets, updatedCategories, updatedTransactions, updatedBankAccounts);
 
     } catch (e) {
-      print(e.toString());
+      print('Caught error: $e');
+      // text = "Could not setup the user data";
     }
   }
 

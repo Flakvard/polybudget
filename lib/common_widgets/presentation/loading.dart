@@ -9,7 +9,7 @@ class Loading extends StatelessWidget {
     return Container(
       color: Colors.black12,
       child: const Center(
-        child: SpinKitPulse(
+        child: SpinKitRotatingCircle(
           color: Colors.pink,
           size: 50.0,
         ),

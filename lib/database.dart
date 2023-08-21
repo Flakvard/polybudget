@@ -15,6 +15,12 @@ class DatabaseService {
 
   // Now you can add these instances to Firestore as needed
 
+
+  // returns a snapshot of the db
+  Stream<QuerySnapshot<Object?>> get myUsers {
+    return polyBudgetDB.snapshots();
+  }
+
   // sends data to firestore db
   Future updateUserData({required String name, required String email}) async {
     return await polyBudgetDB
@@ -80,11 +86,5 @@ class DatabaseService {
     });
 
   }
-
-  // returns a snapshot of the db
-  Stream<QuerySnapshot<Object?>> get myUsers {
-    return polyBudgetDB.snapshots();
-  }
-
 }
 
