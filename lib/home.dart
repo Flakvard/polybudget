@@ -53,13 +53,10 @@ class _HomeState extends State<Home> {
                 child: ElevatedButton(
                   onPressed: () {
                     // Navigate to User Page when the button is clicked
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const UserPage()),
-                    );
+                    //Navigator.push(context, MaterialPageRoute(builder: (context) => const UserPage()),);
 
                     // routing riggar ikki enn heilt.
-                    // Navigator.pushNamed(context, '/user')
+                    Navigator.pushNamed(context, '/user');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.pink[300],
@@ -72,10 +69,8 @@ class _HomeState extends State<Home> {
                 child: ElevatedButton(
                   onPressed: () {
                     // Navigate to User Page when the button is clicked
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => TransactionList()),
-                    );
+                    //Navigator.push(context,MaterialPageRoute(builder: (context) => TransactionList()),);
+                    Navigator.pushNamed(context, '/transaction');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.pink[300],
@@ -88,10 +83,8 @@ class _HomeState extends State<Home> {
                 child: ElevatedButton(
                   onPressed: () {
                     // Navigate to User Page when the button is clicked
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Authenticate()),
-                    );
+                    //Navigator.push(context,MaterialPageRoute(builder: (context) => Authenticate()),);
+                    Navigator.pushNamed(context, '/Authenticate');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.pink[300],

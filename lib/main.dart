@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:polybudget/features/authenticate/domain/user.dart';
+import 'package:polybudget/features/authenticate/presentation/authenticate.dart';
 import 'package:polybudget/features/transaction/presentation/transactionList.dart';
 import 'package:polybudget/home.dart';
 import 'package:polybudget/features/authenticate/presentation/user.dart';
@@ -24,33 +25,30 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
-
 class _MyAppState extends State<MyApp> {
-
-
   @override
   Widget build(BuildContext context) {
     return StreamProvider<MyUser?>.value(
       initialData: null,
       value: AuthService().user,
-      child: const MaterialApp(
-        home: Wrapper(),
-
-      // TODO: https://docs.flutter.dev/cookbook/navigation/named-routes
-      // initialRoute: '/wrapper',
-      // routes: {
-      //   '/': (context) => const Loading(),
-      //   '/home': (context) => const Home(),
-      //   '/wrapper': (context) => const Wrapper(),
-      //   '/transaction': (context) => const TransactionList(),
-      //   '/user': (context) => const UserPage(),
-      // },
-    ),
-  );
+      child: MaterialApp(
+        initialRoute: '/wrapper',
+        routes: {
+          '/': (context) => const Loading(),
+          '/wrapper': (context) => const Wrapper(),
+          '/authenticate': (context) => const Authenticate(),
+          '/home': (context) => const Home(),
+          '/transaction': (context) => const TransactionList(),
+          '/user': (context) => const UserPage(),
+        },
+      ),
+    );
   }
 }
 
