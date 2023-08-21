@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:polybudget/features/authenticate/application/auth.dart';
 import 'package:polybudget/features/authenticate/domain/user.dart';
 import 'package:polybudget/menu.dart';
 import 'package:polybudget/database.dart';
@@ -6,19 +7,26 @@ import 'package:provider/provider.dart';
 
 import 'UserInfoList.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class Home extends StatelessWidget {
+  Home({super.key});
 
+  final AuthService _auth = AuthService();
 
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
+
+    void _showSettingsPanel(){
+      showModalBottomSheet(context: context, builder: (context){
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 60.0),
+          child: const Text('Bottom sheet'),
+        );
+      });
+    }
+
+
     return StreamProvider<List<MyUser?>?>.value(
       // returns the collection of user db from firestore
       value: DatabaseService()?.myUsers,
@@ -28,6 +36,9 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.grey.shade900,
         appBar: AppBar(
           title: const Text('PolyBudget'),
+          centerTitle: true,
+          backgroundColor: Colors.pink[300],
+          elevation: 0.0, // removes shadow
           // adding hamburger menu icon
           leading: IconButton(
             icon: const Icon(Icons.menu),
@@ -36,9 +47,13 @@ class _HomeState extends State<Home> {
               _scaffoldKey.currentState?.openDrawer(); // Use ?. to handle null currentState
             },
           ),
-          centerTitle: true,
-          backgroundColor: Colors.pink[300],
-          elevation: 0.0, // removes shadow
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.settings),
+              onPressed: () => _showSettingsPanel(),
+
+            ),
+          ],
         ),
         body: UserInfoList(),
         drawer: AppDrawer(),
