@@ -3,6 +3,7 @@ import 'package:polybudget/features/authenticate/application/auth.dart';
 import 'package:polybudget/features/authenticate/domain/user.dart';
 import 'package:polybudget/features/home/presentation/menu.dart';
 import 'package:polybudget/database.dart';
+import 'package:polybudget/features/home/presentation/settings_form.dart';
 import 'package:provider/provider.dart';
 
 import 'UserInfoList.dart';
@@ -21,7 +22,7 @@ class Home extends StatelessWidget {
       showModalBottomSheet(context: context, builder: (context){
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 60.0),
-          child: const Text('Bottom sheet'),
+          child: SettingsForm(),
         );
       });
     }
