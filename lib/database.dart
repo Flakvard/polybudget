@@ -26,6 +26,23 @@ class DatabaseService {
     }).toList();
   }
 
+  // get user stream and map to user class
+  MyUser? _userDataFromSnapshot(DocumentSnapshot snapshot){
+    return MyUser(
+        uid: snapshot.get('id') ?? '',
+        name: snapshot.get('name') ?? '',
+        email: snapshot.get('email') ?? '',
+    );
+  }
+
+  // get user doc stream
+  Stream<MyUser?> get userData {
+    return polyBudgetDB.
+      doc(uid).
+      snapshots().
+      map(_userDataFromSnapshot);
+  }
+
   // returns a snapshot of the db
   // Get stream from firestore
   Stream<List<MyUser?>?> get myUsers {
