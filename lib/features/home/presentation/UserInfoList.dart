@@ -17,19 +17,15 @@ class _UserInfoListState extends State<UserInfoList> {
   @override
   Widget build(BuildContext context) {
 
-    // try{
-
-    print("Hello world");
-
-      // Accessing data from database.dart
-      final myUser = Provider.of<List<MyUser?>?>(context) ?? [];
-      if(myUser != null){
-        myUser?.forEach((user) {
-          print(user?.uid);
-          print(user?.name);
-          print(user?.email);
-        });
-      }
+    // Accessing data from database.dart
+    final myUser = Provider.of<List<MyUser?>?>(context) ?? [];
+    if(myUser != null){
+      myUser.forEach((user) {
+        print(user!.uid);
+        print(user!.name);
+        print(user!.email);
+      });
+    }
 
     return ListView.builder(
       itemCount: myUser?.length,
@@ -38,8 +34,5 @@ class _UserInfoListState extends State<UserInfoList> {
       },
     );
 
-    // }catch(error){
-    //   print(error.toString());
-    // }
   }
 }

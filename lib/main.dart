@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:polybudget/features/authenticate/domain/user.dart';
 import 'package:polybudget/features/authenticate/presentation/authenticate.dart';
-import 'package:polybudget/features/transaction/presentation/transactionList.dart';
 import 'package:polybudget/features/home/presentation/home.dart';
 import 'package:polybudget/features/authenticate/presentation/user.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,9 +10,8 @@ import 'package:polybudget/wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:polybudget/features/authenticate/application/auth.dart';
 import 'package:polybudget/common_widgets/presentation/loading.dart';
-
 import 'features/home/presentation/UserInfoList.dart';
-import 'features/authenticate/application/auth.dart';
+import 'features/transaction/presentation/transactions.dart';
 
 
 void main() async {
@@ -44,7 +42,7 @@ class _MyAppState extends State<MyApp> {
           '/wrapper': (context) => const Wrapper(),
           '/authenticate': (context) => const Authenticate(),
           '/home': (context) => Home(),
-          '/transaction': (context) => const TransactionList(),
+          '/transaction': (context) => Transactions(),
           '/user': (context) => const UserPage(),
           '/userinfo': (context) => const UserInfoList(),
         },
