@@ -30,7 +30,7 @@ class Home extends StatelessWidget {
 
     return StreamProvider<List<MyUser?>?>.value(
       // returns the collection of user db from firestore
-      value: DatabaseService()?.myUsers,
+      value: DatabaseService().myUsers,
       initialData: const [],
       child: Scaffold( // layout widget to flesh out general layout of the app. Check scaffold class in docs.
         key: _scaffoldKey, // Assign the scaffold key

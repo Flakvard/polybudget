@@ -95,9 +95,6 @@ class _SettingsFormState extends State<SettingsForm> {
                           );
                       close(); // Navigate.pop(context)
                     }
-                    // print(_currentName);
-                    // print(_currentEmail);
-                    // print(_currentString);
                   },
                   child: const Text('Update', style: TextStyle(color: Colors.white),),
                 ),

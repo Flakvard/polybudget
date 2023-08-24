@@ -11,10 +11,10 @@ class MyUser{
   final String uid;
   final String name; // add later and is nullable
   final String email; // add later and is nullable
-  List<dynamic> budgets; // add later and is nullable
-  List<dynamic> categories; // add later and is nullable
-  List<dynamic> bankAccounts; // add later and is nullable
-  List<dynamic> transactions; // add later and is nullable
+  List<Budget> budgets; // add later and is nullable
+  List<c.Category> categories; // add later and is nullable
+  List<BankAccount> bankAccounts; // add later and is nullable
+  List<t.Transaction> transactions; // add later and is nullable
 
 
   MyUser({
