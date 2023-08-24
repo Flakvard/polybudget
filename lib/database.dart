@@ -29,7 +29,7 @@ class DatabaseService {
   // get user stream and map to user class
   MyUser? _userDataFromSnapshot(DocumentSnapshot snapshot){
     return MyUser(
-        uid: snapshot.get('id') ?? '',
+        uid: uid.toString(),
         name: snapshot.get('name') ?? '',
         email: snapshot.get('email') ?? '',
     );
@@ -50,8 +50,8 @@ class DatabaseService {
     .map(_userListFromSnapshot);
   }
 
-  // sends data to firestore db
-  Future updateUserData({required String name, required String email}) async {
+  // sends data to firestore db to update
+  Future updateUserData({required String? name, required String? email}) async {
     return await polyBudgetDB
         .doc(uid)
         .set({

@@ -18,21 +18,25 @@ class _SettingsFormState extends State<SettingsForm> {
   final List<String> sugars = ['0','1','2','3','4']; // dropdown values
 
   // form values
-  late String _currentName;
+  late String? _currentName;
   late int _currentEmail = 100; // slider
   late String _currentString = '0'; // dropdown
 
   @override
   Widget build(BuildContext context) {
 
+    void close(){
+      Navigator.pop(context);
+    }
 
     // access to the current user logged in
     final MyUser? user = Provider.of<MyUser?>(context); // get user info, logged in = unique id or null
 
-    return StreamBuilder( // default steam provider
+    return StreamBuilder( // default steam just like the provider package
       stream: DatabaseService(uid: user?.uid).userData,
       builder: (context, snapshot) {
         if(snapshot.hasData){
+          // access to the current user data
           MyUser? userData = snapshot.data;
           return Form(
             key: _formkey,
@@ -83,10 +87,19 @@ class _SettingsFormState extends State<SettingsForm> {
                     backgroundColor: Colors.pink[400],
                   ),
                   onPressed: () async {
-                    print(_currentName);
-                    print(_currentEmail);
-                    print(_currentString);
-                  }, child: const Text('Update', style: TextStyle(color: Colors.white),),
+                    if(_formkey.currentState!.validate()){
+                      await DatabaseService(uid: user?.uid)
+                          .updateUserData(
+                            name: _currentName ?? userData?.name.toString(),
+                            email: userData?.email,
+                          );
+                      close(); // Navigate.pop(context)
+                    }
+                    // print(_currentName);
+                    // print(_currentEmail);
+                    // print(_currentString);
+                  },
+                  child: const Text('Update', style: TextStyle(color: Colors.white),),
                 ),
               ],
             ),
