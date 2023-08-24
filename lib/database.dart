@@ -96,7 +96,7 @@ class DatabaseService {
   }
 
   Future createTransactionDocument({required t.Transaction transaction}) async {
-    return await polyBudgetDB.doc(uid).collection("transactions").doc(transaction.id).set({
+    return await polyBudgetDB.doc(uid).collection("bankAccounts").doc(transaction.bankAccount.id).collection("Year").doc(transaction.date.year.toString()).collection("transactions").doc(transaction.id).set({
       "transaction": {
         "id": transaction.id,
         "text": transaction.text,

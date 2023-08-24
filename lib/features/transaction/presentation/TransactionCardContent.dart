@@ -43,7 +43,7 @@ class TransactionCardContent extends StatelessWidget {
             ),
             const SizedBox(height: 6.0),
             Text(
-              transaction.date,
+              transaction.getFormatDate(),
               style: TextStyle(
                 fontSize: 18.0,
                 color: Colors.grey[600],

@@ -43,7 +43,7 @@ class MyUser{
       // Create and return a new Transaction class for the user add it to the database
       final t.Transaction transaction = await createTransaction(
           transactionName: "food",
-          date: "18-08-2023",
+          date: "2023-08-18",
           amount: 123.0,
           budget: budget,
           bankAccount: bankAccount,
@@ -134,6 +134,8 @@ class MyUser{
     })
   async {
 
+    // Parse string input YY-MM-DD into a DateTime Object
+    final DateTime dateFormatted = DateTime.parse(date);
     // create a new id in firestore for the bankAccount name under budget
     final String transactionId = FirebaseFirestore.instance.collection('pbUsers').doc(uid).collection("transactions").doc().id;
 
@@ -141,7 +143,7 @@ class MyUser{
     final t.Transaction transaction = t.Transaction(
       id: transactionId,
       text: transactionName,
-      date: date,
+      date: dateFormatted,
       amount: amount,
       budget: budget,
       bankAccount: bankAccount,
