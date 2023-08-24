@@ -66,20 +66,16 @@ class DatabaseService {
     return await polyBudgetDB
         .doc(uid).collection("budgets").doc(budget.id)
         .set({
-      "budgets": {
         "id": budget.id,
         "name": budget.name,
-        }
     });
   }
   Future createCategoryDocument({required Budget budget, required c.Category category}) async {
     return await polyBudgetDB
         .doc(uid).collection('categories').doc(category.id)
         .set({
-      "categories": {
         "id": category.id,
         "name": category.name,
-      }
     });
   }
 
@@ -87,17 +83,14 @@ class DatabaseService {
     return await polyBudgetDB
         .doc(uid).collection('bankAccounts').doc(bankAccount.id)
         .set({
-      "bankAccounts": {
         "id": bankAccount.id,
         "name": bankAccount.name,
         "balance": bankAccount.balance
-      }
     });
   }
 
   Future createTransactionDocument({required t.Transaction transaction}) async {
     return await polyBudgetDB.doc(uid).collection("bankAccounts").doc(transaction.bankAccount.id).collection("Year").doc(transaction.date.year.toString()).collection("Month").doc(transaction.date.month.toString()).collection("transactions").doc(transaction.id).set({
-      "transaction": {
         "id": transaction.id,
         "text": transaction.text,
         "amount": transaction.amount,
@@ -110,7 +103,6 @@ class DatabaseService {
         "category": transaction.category.name,
         "budgetId": transaction.budget.id,
         "budget": transaction.budget.name,
-      }
     });
 
   }
