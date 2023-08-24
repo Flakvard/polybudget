@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:polybudget/features/authenticate/application/auth.dart';
 import 'package:polybudget/common_widgets/presentation/loading.dart';
 import 'features/home/presentation/UserInfoList.dart';
-import 'features/transaction/presentation/transactions.dart';
+// import 'features/transaction/presentation/transactions.dart';
 
 
 void main() async {
@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
           '/wrapper': (context) => const Wrapper(),
           '/authenticate': (context) => const Authenticate(),
           '/home': (context) => Home(),
-          '/transaction': (context) => Transactions(),
+          //'/transaction': (context) => Transactions(),
           '/user': (context) => const UserPage(),
           '/userinfo': (context) => const UserInfoList(),
         },

@@ -6,6 +6,7 @@ import 'package:polybudget/database.dart';
 import 'package:polybudget/features/home/presentation/settings_form.dart';
 import 'package:provider/provider.dart';
 
+import 'package:polybudget/features/budget/presentation/BudgetList.dart';
 import 'UserInfoList.dart';
 
 class Home extends StatelessWidget {
@@ -56,14 +57,14 @@ class Home extends StatelessWidget {
             ),
           ],
         ),
-        body: UserInfoList(),
+        body: BudgetList(),
         drawer: AppDrawer(),
       ),
     );
   }
 }
 
-//
+// home screen with buttons
 // SafeArea(
 // child: Column(
 // children: [
