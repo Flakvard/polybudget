@@ -15,7 +15,7 @@ void main() {
       text: "Groceries expense",
       amount: 184.23,
       category: Category(id: "1",name: "Food Category"),
-      date: "18-10-2023",
+      date: DateTime.parse("2023-10-18"),
       recurring: false,
       transactionType: TransactionType.expected,
       bankAccount: BankAccount(id: "1",name: "Matkortið"),
@@ -40,8 +40,10 @@ void main() {
     expect(defaultTransactionValue.text, "Groceries expense");
     expect(defaultTransactionValue.amount, 184.23);
     expect(defaultTransactionValue.category.name, "Food Category");
-    expect(transactionConstructor.date, "18-10-2023");
-    expect(defaultTransactionValue.date, dateToday);
+    expect(transactionConstructor.getFormatDate(), "18-10-2023");
+    expect(defaultTransactionValue.getFormatDate(), dateToday);
+    // expect(defaultTransactionValue.date, DateTime.now()); // cannot test because of milliseconds
+    expect(defaultTransactionValue.getFormatDate(), dateToday);
     expect(defaultTransactionValue.recurring, false);
     expect(transactionConstructor.recurring, false);
     expect(defaultTransactionValue.transactionType.name, "actual");
