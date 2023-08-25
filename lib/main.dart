@@ -5,6 +5,7 @@ import 'package:polybudget/features/authenticate/presentation/authenticate.dart'
 import 'package:polybudget/features/home/presentation/home.dart';
 import 'package:polybudget/features/authenticate/presentation/user.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:polybudget/features/transaction/presentation/transactionList.dart';
 import 'package:polybudget/firebase_options.dart';
 import 'package:polybudget/wrapper.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +43,7 @@ class _MyAppState extends State<MyApp> {
           '/wrapper': (context) => const Wrapper(),
           '/authenticate': (context) => const Authenticate(),
           '/home': (context) => Home(),
-          //'/transaction': (context) => Transactions(),
+          '/transactionList': (context) => const TransactionList(),
           '/user': (context) => const UserPage(),
           '/userinfo': (context) => const UserInfoList(),
         },
