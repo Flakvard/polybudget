@@ -69,6 +69,24 @@ class DatabaseService {
     }).toList();
   }
 
+  Stream<List<c.Category?>?> get userCategory  {
+    return polyBudgetDB
+        .doc(uid)
+        .collection("categories")
+        .snapshots()
+        .map(_categoriesListFromSnapshot);
+  }
+
+  // returns a list of all the user inside collection db
+  List<c.Category?>? _categoriesListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc){
+      return c.Category(
+        id: doc.get('id') ?? '',
+        name: doc.get('name') ?? '',
+      );
+    }).toList();
+  }
+
   // sends data to firestore db to update
   Future updateUserData({required String? name, required String? email}) async {
     return await polyBudgetDB
