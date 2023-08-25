@@ -19,6 +19,7 @@ class _UserInfoListState extends State<UserInfoList> {
 
     // Accessing data from database.dart
     final myUser = Provider.of<List<MyUser?>?>(context) ?? [];
+
     if(myUser != null){
       for (var user in myUser) {
         print(user?.uid);
