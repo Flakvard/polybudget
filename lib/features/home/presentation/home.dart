@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:polybudget/features/authenticate/application/auth.dart';
 import 'package:polybudget/features/authenticate/domain/user.dart';
+import 'package:polybudget/features/bankaccount/domain/bankAccount.dart';
 import 'package:polybudget/features/category/domain/category.dart' as c;
 import 'package:polybudget/features/category/presentation/CategoryList.dart';
 import 'package:polybudget/features/home/presentation/menu.dart';
@@ -9,6 +10,7 @@ import 'package:polybudget/features/home/presentation/settings_form.dart';
 import 'package:provider/provider.dart';
 
 import 'package:polybudget/features/budget/presentation/BudgetList.dart';
+import '../../bankaccount/presentation/BankAccountList.dart';
 import '../../budget/domain/budget.dart';
 import 'UserInfoList.dart';
 
@@ -47,6 +49,10 @@ class Home extends StatelessWidget {
             value: DatabaseService(uid: user?.uid).userCategory,
             initialData: const []
         ),
+        StreamProvider<List<BankAccount?>?>.value(
+            value: DatabaseService(uid: user?.uid).userBankAccount,
+            initialData: const []
+        ),
       ],
         child: Scaffold( // layout widget to flesh out general layout of the app. Check scaffold class in docs.
           key: _scaffoldKey, // Assign the scaffold key
@@ -74,6 +80,8 @@ class Home extends StatelessWidget {
           ),
           body: const Column(
             children: [
+              BankAccountList(),
+              SizedBox(height: 12.0,),
               CategoryList(),
               SizedBox(height: 12.0,),
               BudgetList(),
