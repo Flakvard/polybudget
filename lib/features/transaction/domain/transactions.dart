@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:polybudget/features/bankaccount/domain/bankAccount.dart';
 import 'package:polybudget/features/budget/domain/budget.dart';
 import 'package:polybudget/features/category/domain/category.dart';
@@ -54,6 +55,7 @@ class Transaction {
     String dateFormatted = newFormat.format(date);
     return dateFormatted; // 18-08-2023
   }
+
   // static String _getDefaultDate() {
   //   DateTime now = DateTime.now();
   //   // TODO: format date time to DD-MM-YYYY in a more neat way
