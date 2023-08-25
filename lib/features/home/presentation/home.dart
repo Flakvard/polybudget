@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:polybudget/features/authenticate/application/auth.dart';
 import 'package:polybudget/features/authenticate/domain/user.dart';
+import 'package:polybudget/features/category/domain/category.dart' as c;
+import 'package:polybudget/features/category/presentation/CategoryList.dart';
 import 'package:polybudget/features/home/presentation/menu.dart';
 import 'package:polybudget/database.dart';
 import 'package:polybudget/features/home/presentation/settings_form.dart';
@@ -13,7 +15,6 @@ import 'UserInfoList.dart';
 class Home extends StatelessWidget {
   Home({super.key});
 
-  final AuthService _auth = AuthService();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -41,7 +42,11 @@ class Home extends StatelessWidget {
         StreamProvider<List<Budget?>?>.value(
             value: DatabaseService(uid: user?.uid).userBudget,
             initialData: const []
-        )
+        ),
+        StreamProvider<List<c.Category?>?>.value(
+            value: DatabaseService(uid: user?.uid).userCategory,
+            initialData: const []
+        ),
       ],
         child: Scaffold( // layout widget to flesh out general layout of the app. Check scaffold class in docs.
           key: _scaffoldKey, // Assign the scaffold key
@@ -67,12 +72,13 @@ class Home extends StatelessWidget {
               ),
             ],
           ),
-          body: Column(
+          body: const Column(
             children: [
+              CategoryList(),
+              SizedBox(height: 12.0,),
               BudgetList(),
               SizedBox(height: 12.0,),
               UserInfoList(),
-              const Text('test'),
             ],
           ),
           drawer: AppDrawer(),
