@@ -87,6 +87,25 @@ class DatabaseService {
     }).toList();
   }
 
+  Stream<List<BankAccount?>?> get userBankAccount   {
+    return polyBudgetDB
+        .doc(uid)
+        .collection("bankAccounts")
+        .snapshots()
+        .map(_bankAccountsListFromSnapshot);
+  }
+
+  // returns a list of all the user inside collection db
+  List<BankAccount>? _bankAccountsListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc){
+      return BankAccount(
+        id: doc.get('id') ?? '',
+        name: doc.get('name') ?? '',
+      );
+    }).toList();
+  }
+
+
   // sends data to firestore db to update
   Future updateUserData({required String? name, required String? email}) async {
     return await polyBudgetDB
