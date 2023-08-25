@@ -17,29 +17,24 @@ class _UserInfoListState extends State<UserInfoList> {
   @override
   Widget build(BuildContext context) {
 
-    // try{
-
-    print("Hello world");
-
-      // Accessing data from database.dart
-      final myUser = Provider.of<List<MyUser?>?>(context) ?? [];
-      if(myUser != null){
-        myUser?.forEach((user) {
-          print(user?.uid);
-          print(user?.name);
-          print(user?.email);
-        });
+    // Accessing data from database.dart
+    final myUser = Provider.of<List<MyUser?>?>(context) ?? [];
+    if(myUser != null){
+      for (var user in myUser) {
+        print(user!.uid);
+        print(user!.name);
+        print(user!.email);
       }
+    }
 
     return ListView.builder(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
       itemCount: myUser?.length,
       itemBuilder: (context, index){
         return UserTile(user: myUser![index]);
       },
     );
 
-    // }catch(error){
-    //   print(error.toString());
-    // }
   }
 }

@@ -15,6 +15,14 @@ class DatabaseService {
 
   // Now you can add these instances to Firestore as needed
 
+
+  // returns a snapshot of the db
+  // Get stream from firestore
+  Stream<List<MyUser?>?> get myUsers {
+    return polyBudgetDB.snapshots()
+        .map(_userListFromSnapshot);
+  }
+
   // returns a list of all the user inside collection db
   List<MyUser?>? _userListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc){
@@ -26,6 +34,14 @@ class DatabaseService {
     }).toList();
   }
 
+  // get user doc stream
+  Stream<MyUser?> get userData {
+    return polyBudgetDB.
+    doc(uid).
+    snapshots().
+    map(_userDataFromSnapshot);
+  }
+
   // get user stream and map to user class
   MyUser? _userDataFromSnapshot(DocumentSnapshot snapshot){
     return MyUser(
@@ -35,19 +51,22 @@ class DatabaseService {
     );
   }
 
-  // get user doc stream
-  Stream<MyUser?> get userData {
-    return polyBudgetDB.
-      doc(uid).
-      snapshots().
-      map(_userDataFromSnapshot);
+  Stream<List<Budget?>?> get userBudget {
+    return polyBudgetDB
+        .doc(uid)
+        .collection("budgets")
+        .snapshots()
+        .map(_budgetListFromSnapshot);
   }
 
-  // returns a snapshot of the db
-  // Get stream from firestore
-  Stream<List<MyUser?>?> get myUsers {
-    return polyBudgetDB.snapshots()
-    .map(_userListFromSnapshot);
+  // returns a list of all the user inside collection db
+  List<Budget?>? _budgetListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc){
+      return Budget(
+        id: doc.get('id') ?? '',
+        name: doc.get('name') ?? '',
+      );
+    }).toList();
   }
 
   // sends data to firestore db to update
@@ -66,20 +85,16 @@ class DatabaseService {
     return await polyBudgetDB
         .doc(uid).collection("budgets").doc(budget.id)
         .set({
-      "budgets": {
         "id": budget.id,
         "name": budget.name,
-        }
     });
   }
   Future createCategoryDocument({required Budget budget, required c.Category category}) async {
     return await polyBudgetDB
         .doc(uid).collection('categories').doc(category.id)
         .set({
-      "categories": {
         "id": category.id,
         "name": category.name,
-      }
     });
   }
 
@@ -87,17 +102,14 @@ class DatabaseService {
     return await polyBudgetDB
         .doc(uid).collection('bankAccounts').doc(bankAccount.id)
         .set({
-      "bankAccounts": {
         "id": bankAccount.id,
         "name": bankAccount.name,
         "balance": bankAccount.balance
-      }
     });
   }
 
   Future createTransactionDocument({required t.Transaction transaction}) async {
     return await polyBudgetDB.doc(uid).collection("bankAccounts").doc(transaction.bankAccount.id).collection("Year").doc(transaction.date.year.toString()).collection("Month").doc(transaction.date.month.toString()).collection("transactions").doc(transaction.id).set({
-      "transaction": {
         "id": transaction.id,
         "text": transaction.text,
         "amount": transaction.amount,
@@ -110,7 +122,6 @@ class DatabaseService {
         "category": transaction.category.name,
         "budgetId": transaction.budget.id,
         "budget": transaction.budget.name,
-      }
     });
 
   }
