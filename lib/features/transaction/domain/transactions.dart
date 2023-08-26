@@ -8,6 +8,13 @@ enum TransactionType {
   actual, expected;
 }
 
+extension TransactionTypeHelper on TransactionType{
+  TransactionType getTypeByString(String type) {
+    if (type == "expected") return TransactionType.expected;
+    return TransactionType.actual;
+  }
+}
+
 // Transaction class data structure for holding transactions.
 class Transaction {
 
@@ -56,6 +63,39 @@ class Transaction {
     return dateFormatted; // 18-08-2023
   }
 
+
+
+
+  factory Transaction.fromFirestore(DocumentSnapshot doc) {
+    Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
+
+    double amount = (data?['amount']?? 0.0).toDouble();
+    BankAccount bankAccount = BankAccount(id: data?['bankAccountId'], name: data?['bankAccount']);
+    Budget budget = Budget(id: data?['budgetId'], name: data?['budget']);
+    Category category = Category(id: data?['categoryId'], name: data?['category']);
+    // final dateStringFromFirebase = data?['date'];
+    // DateTime date = DateFormat("MMMM d, yyyy 'at' h:mm:ss a 'UTC'Z").parseLoose(dateStringFromFirebase);
+    // Convert Firestore Timestamp to DateTime
+    Timestamp timestamp = data?['date'];
+    DateTime date = timestamp.toDate();
+    final id = doc.id;
+    final recurring = data?['recurring'] ?? false;
+    final text = (data?['name'] ?? '');
+    TransactionType transactionType = TransactionType.expected;
+    transactionType.getTypeByString(data?['transactionType']);
+
+    return Transaction(
+        id: id,
+        budget: budget,
+        text: text,
+        amount: amount,
+        category: category,
+        date: date,
+        recurring: recurring,
+        transactionType: transactionType,
+        bankAccount: bankAccount
+    );
+  }
   // static String _getDefaultDate() {
   //   DateTime now = DateTime.now();
   //   // TODO: format date time to DD-MM-YYYY in a more neat way

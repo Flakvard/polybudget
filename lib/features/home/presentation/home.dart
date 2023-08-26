@@ -7,6 +7,7 @@ import 'package:polybudget/features/category/presentation/CategoryList.dart';
 import 'package:polybudget/features/home/presentation/menu.dart';
 import 'package:polybudget/database.dart';
 import 'package:polybudget/features/home/presentation/settings_form.dart';
+import 'package:polybudget/features/transaction/domain/transactions.dart';
 import 'package:provider/provider.dart';
 
 import 'package:polybudget/features/budget/presentation/BudgetList.dart';

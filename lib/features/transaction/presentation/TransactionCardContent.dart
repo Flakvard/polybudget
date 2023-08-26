@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:polybudget/features/transaction/domain/transactions.dart';
 
 class TransactionCardContent extends StatelessWidget {
-  final Transaction transaction;
+  final Transaction? transaction;
   final Function()? delete;
   // constructor
   // const TransactionCardContent(this.transaction, {Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class TransactionCardContent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              transaction.text,
+              transaction!.text,
               style: TextStyle(
                 fontSize: 18.0,
                 color: Colors.grey[600],
@@ -27,7 +27,7 @@ class TransactionCardContent extends StatelessWidget {
             const SizedBox(height: 6.0),
             Text(
               // double.parse(transaction.total).toString(),
-              transaction.amount.toString(),
+              transaction!.amount.toString(),
               style: TextStyle(
                 fontSize: 18.0,
                 color: Colors.red[600],
@@ -35,7 +35,7 @@ class TransactionCardContent extends StatelessWidget {
             ),
             const SizedBox(height: 6.0),
             Text(
-              transaction.category.name,
+              transaction!.category.name,
               style: TextStyle(
                 fontSize: 18.0,
                 color: Colors.grey[800],
@@ -43,7 +43,7 @@ class TransactionCardContent extends StatelessWidget {
             ),
             const SizedBox(height: 6.0),
             Text(
-              transaction.getFormatDate(),
+              transaction!.getFormatDate(),
               style: TextStyle(
                 fontSize: 18.0,
                 color: Colors.grey[600],
