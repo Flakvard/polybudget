@@ -106,6 +106,27 @@ class DatabaseService {
   }
 
 
+
+  Stream<List<t.Transaction?>?> userTransactions({required String bankAccountId, required String year, required String month})  {
+    return polyBudgetDB
+        .doc(uid)
+        .collection("bankAccounts")
+        .doc(bankAccountId)
+        .collection("Year")
+        .doc(year)
+        .collection("Month")
+        .doc(month)
+        .collection("transactions")
+        .snapshots()
+        .map(_transactionsListFromSnapshot);
+  }
+
+  // returns a list of all the user inside collection db
+  List<t.Transaction>? _transactionsListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) => t.Transaction.fromFirestore(doc)).toList();
+  }
+
+
   // sends data to firestore db to update
   Future updateUserData({required String? name, required String? email}) async {
     return await polyBudgetDB
@@ -146,7 +167,16 @@ class DatabaseService {
   }
 
   Future createTransactionDocument({required t.Transaction transaction}) async {
-    return await polyBudgetDB.doc(uid).collection("bankAccounts").doc(transaction.bankAccount.id).collection("Year").doc(transaction.date.year.toString()).collection("Month").doc(transaction.date.month.toString()).collection("transactions").doc(transaction.id).set({
+    return await polyBudgetDB
+        .doc(uid)
+        .collection("bankAccounts")
+        .doc(transaction.bankAccount.id)
+        .collection("Year")
+        .doc(transaction.date.year.toString())
+        .collection("Month")
+        .doc(transaction.date.month.toString())
+        .collection("transactions")
+        .doc(transaction.id).set({
         "id": transaction.id,
         "text": transaction.text,
         "amount": transaction.amount,
@@ -162,5 +192,6 @@ class DatabaseService {
     });
 
   }
+
 }
 
