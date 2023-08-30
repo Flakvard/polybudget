@@ -37,13 +37,6 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.account_circle_outlined),
-            title: const Text('Sign Out'),
-            onTap: () async {
-              await _auth.signOut();
-            },
-          ),
-          ListTile(
             leading: const Icon(Icons.person),
             title: const Text('Profile'),
             onTap: () {
@@ -53,12 +46,37 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.add_card),
-            title: const Text('Transactions'),
+            leading: const Icon(Icons.balance),
+            title: const Text('Budgets'),
             onTap: () {
               // Handle tapping on Profile menu item
-              Navigator.pushNamed(context, '/transaction');
+              Navigator.pushNamed(context, '/budgets');
               // You can add your navigation logic here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.account_balance_wallet_outlined),
+            title: const Text('Bank Accounts'),
+            onTap: () {
+              // Handle tapping on Profile menu item
+              Navigator.pushNamed(context, '/bankaccounts');
+              // You can add your navigation logic here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.category_outlined),
+            title: const Text('Categories'),
+            onTap: () {
+              // Handle tapping on Profile menu item
+              Navigator.pushNamed(context, '/categories');
+              // You can add your navigation logic here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.account_circle_outlined),
+            title: const Text('Sign Out'),
+            onTap: () async {
+              await _auth.signOut();
             },
           ),
           // Add more ListTile widgets for additional menu items
