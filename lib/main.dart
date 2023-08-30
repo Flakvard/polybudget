@@ -2,6 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:polybudget/features/authenticate/domain/user.dart';
 import 'package:polybudget/features/authenticate/presentation/authenticate.dart';
+import 'package:polybudget/features/bankaccount/presentation/BankAccountList.dart';
+import 'package:polybudget/features/budget/presentation/BudgetList.dart';
+import 'package:polybudget/features/category/presentation/CategoryList.dart';
 import 'package:polybudget/features/home/presentation/home.dart';
 import 'package:polybudget/features/authenticate/presentation/user.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -43,9 +46,13 @@ class _MyAppState extends State<MyApp> {
           '/wrapper': (context) => const Wrapper(),
           '/authenticate': (context) => const Authenticate(),
           '/home': (context) => Home(),
-          '/transactionList': (context) => const TransactionList(),
           '/user': (context) => const UserPage(),
+          '/transactionList': (context) => const TransactionList(),
           '/userinfo': (context) => const UserInfoList(),
+          '/bankaccounts': (context) => const BankAccountList(),
+          '/budgets': (context) => const BudgetList(),
+          '/categories': (context) => const CategoryList(),
+
         },
       ),
     );
