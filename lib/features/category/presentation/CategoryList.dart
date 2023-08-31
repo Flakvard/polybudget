@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:polybudget/common_widgets/presentation/home_wrapper.dart';
+import 'package:polybudget/database.dart';
 import 'package:provider/provider.dart';
 import 'package:polybudget/features/category/domain/category.dart' as c;
 
+import '../../authenticate/domain/user.dart';
 import 'CategoryTile.dart';
 
 
@@ -11,15 +14,32 @@ class CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final categories = Provider.of<List<c.Category?>?>(context) ?? [];
+    final Map<String, dynamic> args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final MyUser? user = args['user'];
+
+
+    // final categories = Provider.of<List<c.Category?>?>(context) ?? [];
     
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemCount: categories?.length,
-      itemBuilder: (context, index){
-        return CategoryTile(category: categories![index]);
-      },
+    return StreamProvider<List<c.Category?>?>.value(
+      value: DatabaseService(uid: user?.uid).userCategory,
+      initialData: const [],
+      child: Consumer<List<c.Category?>?>(
+        builder: (context, categories, child){
+        return HomeWrapper(
+          content: Column(
+            children: [
+             ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: categories?.length,
+                itemBuilder: (context, index){
+                  return CategoryTile(category: categories![index]);
+                },
+              ),
+            ],
+          ),
+        );
+      }),
     );
   }
 }

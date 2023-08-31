@@ -81,10 +81,12 @@ class Home extends StatelessWidget {
           ),
           body: const Column(
             children: [
-              SizedBox(height: 12.0,),
-              CategoryList(),
-              SizedBox(height: 12.0,),
-              BudgetList(),
+              //SizedBox(height: 12.0,),
+              //BankAccountList(),
+              //SizedBox(height: 12.0,),
+              //CategoryList(),
+              //SizedBox(height: 12.0,),
+              // BudgetList(),
               SizedBox(height: 12.0,),
               UserInfoList(),
             ],
