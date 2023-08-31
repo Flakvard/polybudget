@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
           '/user': (context) => const UserPage(),
           '/transactionList': (context) => const TransactionList(),
           '/userinfo': (context) => const UserInfoList(),
-          '/bankaccounts': (context) => const BankAccountList(),
+          '/bankaccounts': (context) => BankAccountList(),
           '/budgets': (context) => const BudgetList(),
           '/categories': (context) => const CategoryList(),
 

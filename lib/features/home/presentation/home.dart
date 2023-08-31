@@ -90,7 +90,7 @@ class Home extends StatelessWidget {
             ],
           ),
           // menu with all actions
-          drawer: AppDrawer(),
+          drawer: AppDrawer(user: user,),
         ),
       );
   }
