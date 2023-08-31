@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:polybudget/features/authenticate/application/auth.dart';
-import '../../authenticate/presentation/user.dart';
-import '../../transaction/presentation/transactionList.dart';
-import 'package:polybudget/features/authenticate/application/auth.dart';
+import '../../authenticate/domain/user.dart';
 
 class AppDrawer extends StatelessWidget {
-  AppDrawer({super.key});
+  MyUser? user;
+  AppDrawer({super.key, this.user});
 
   final AuthService _auth = AuthService();
 
@@ -32,15 +31,8 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Home'),
             onTap: () {
               // Handle tapping on Home menu item
-              Navigator.pop(context); // Close the drawer
+              Navigator.pushReplacementNamed(context, '/home'); // Close the drawer
               // You can add your navigation logic here
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.account_circle_outlined),
-            title: const Text('Sign Out'),
-            onTap: () async {
-              await _auth.signOut();
             },
           ),
           ListTile(
@@ -53,12 +45,38 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.add_card),
-            title: const Text('Transactions'),
+            leading: const Icon(Icons.balance),
+            title: const Text('Budgets'),
             onTap: () {
               // Handle tapping on Profile menu item
-              Navigator.pushNamed(context, '/transaction');
+              Navigator.pushNamed(context, '/budgets');
               // You can add your navigation logic here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.account_balance_wallet_outlined),
+            title: const Text('Bank Accounts'),
+            onTap: () {
+              // Handle tapping on Profile menu item
+              Navigator.pushNamed(context, '/bankaccounts', arguments: {
+                'user': user,
+              });
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.category_outlined),
+            title: const Text('Categories'),
+            onTap: () {
+              // Handle tapping on Profile menu item
+              Navigator.pushNamed(context, '/categories');
+              // You can add your navigation logic here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.account_circle_outlined),
+            title: const Text('Sign Out'),
+            onTap: () async {
+              await _auth.signOut();
             },
           ),
           // Add more ListTile widgets for additional menu items
