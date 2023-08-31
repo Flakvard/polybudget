@@ -4,6 +4,7 @@ import 'package:polybudget/features/bankaccount/domain/bankAccount.dart';
 import 'package:provider/provider.dart';
 import '../../../database.dart';
 import '../../authenticate/domain/user.dart';
+import 'bankAccount_settings_form.dart';
 import 'bankAccountsTile.dart';
 
 class BankAccountList extends StatelessWidget {
@@ -37,7 +38,7 @@ class BankAccountList extends StatelessWidget {
                     },
                   ),
                 ],
-              )
+              ), options: const BankAccountSettingsForm(),
           );
         }),
     );
