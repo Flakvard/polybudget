@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:polybudget/features/authenticate/application/auth.dart';
-import '../../authenticate/presentation/user.dart';
-import '../../transaction/presentation/transactionList.dart';
-import 'package:polybudget/features/authenticate/application/auth.dart';
+import '../../authenticate/domain/user.dart';
 
 class AppDrawer extends StatelessWidget {
-  AppDrawer({super.key});
+  MyUser? user;
+  AppDrawer({super.key, this.user});
 
   final AuthService _auth = AuthService();
 
@@ -32,7 +31,7 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Home'),
             onTap: () {
               // Handle tapping on Home menu item
-              Navigator.pop(context); // Close the drawer
+              Navigator.pushReplacementNamed(context, '/home'); // Close the drawer
               // You can add your navigation logic here
             },
           ),
@@ -59,8 +58,9 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Bank Accounts'),
             onTap: () {
               // Handle tapping on Profile menu item
-              Navigator.pushNamed(context, '/bankaccounts');
-              // You can add your navigation logic here
+              Navigator.pushNamed(context, '/bankaccounts', arguments: {
+                'user': user,
+              });
             },
           ),
           ListTile(
