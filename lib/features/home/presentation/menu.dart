@@ -68,7 +68,9 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Categories'),
             onTap: () {
               // Handle tapping on Profile menu item
-              Navigator.pushNamed(context, '/categories');
+              Navigator.pushNamed(context, '/categories', arguments: {
+                'user': user,
+              });
               // You can add your navigation logic here
             },
           ),
