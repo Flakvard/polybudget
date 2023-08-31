@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:polybudget/common_widgets/presentation/home_wrapper.dart';
 import 'package:provider/provider.dart';
 
 import '../../../database.dart';
 import '../../authenticate/application/auth.dart';
+import '../../authenticate/domain/user.dart';
 import '../domain/budget.dart';
 import 'BudgetTile.dart';
 
@@ -17,24 +19,36 @@ class _BudgetListState extends State<BudgetList> {
 
   @override
   Widget build(BuildContext context) {
-    print('Hello world');
-    // Accessing data from database.dart
-    final myBudget = Provider.of<List<Budget?>?>(context) ?? [];
-    print('the lenght of budgets is: ${myBudget.length}');
-     if(myBudget != null){
-       for (var budget in myBudget) {
-         print(budget!.id);
-         print(budget!.name);
-       }
-     }
 
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemCount: myBudget?.length,
-      itemBuilder: (context, index){
-        return BudgetTile(budget: myBudget![index]);
-      },
+    final Map<String, dynamic> args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final MyUser? user = args['user'];
+
+    // Accessing data from database.dart
+    // final myBudget = Provider.of<List<Budget?>?>(context) ?? [];
+
+    return StreamProvider<List<Budget?>?>.value(
+      value: DatabaseService(uid: user?.uid).userBudget,
+      initialData: const [],
+      child: Consumer<List<Budget?>?>(
+        builder: (context, myBudget, child){
+          return HomeWrapper(
+            content: Column(
+              children: [
+                ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: myBudget?.length,
+                  itemBuilder: (context, index){
+                    return BudgetTile(budget: myBudget![index]);
+                  },
+                ),
+              ],
+            ),
+          );
+        }
+
+
+      ),
     );
 
   }
