@@ -28,7 +28,7 @@ class Home extends StatelessWidget {
       showModalBottomSheet(context: context, builder: (context){
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 60.0),
-          child: SettingsForm(),
+          child: const SettingsForm(),
         );
       });
     }
@@ -82,8 +82,6 @@ class Home extends StatelessWidget {
           body: const Column(
             children: [
               SizedBox(height: 12.0,),
-              BankAccountList(),
-              SizedBox(height: 12.0,),
               CategoryList(),
               SizedBox(height: 12.0,),
               BudgetList(),
@@ -91,7 +89,8 @@ class Home extends StatelessWidget {
               UserInfoList(),
             ],
           ),
-          drawer: AppDrawer(),
+          // menu with all actions
+          drawer: AppDrawer(user: user,),
         ),
       );
   }

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:polybudget/features/bankaccount/domain/bankAccount.dart';
 
 class BankAccountTile extends StatelessWidget {
+
   final BankAccount? bankAccount;
+
   const BankAccountTile({super.key, this.bankAccount});
 
   @override
