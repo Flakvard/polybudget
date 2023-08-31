@@ -11,8 +11,9 @@ import 'package:polybudget/features/budget/domain/budget.dart';
 class HomeWrapper extends StatelessWidget {
 
   final Widget content;
+  final Widget options;
 
-  HomeWrapper({required this.content, super.key});
+  HomeWrapper({required this.content, super.key, required this.options});
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -23,7 +24,7 @@ class HomeWrapper extends StatelessWidget {
       showModalBottomSheet(context: context, builder: (context){
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 60.0),
-          child: const SettingsForm(),
+          child: options,
         );
       });
     }
@@ -38,7 +39,7 @@ class HomeWrapper extends StatelessWidget {
         elevation: 0.0, // removes shadow
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(Icons.add),
             onPressed: () => _showSettingsPanel(),
 
           ),
