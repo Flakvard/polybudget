@@ -90,22 +90,6 @@ class MyUser{
     return budget;
   }
 
-  Future<c.Category> createCategory({required String categoryName}) async {
-    // create a new id in firestore for the category name under budget
-    final categoryId = FirebaseFirestore.instance.collection('pbUsers').doc(uid).collection('categories').doc().id;
-
-    // use the id from firestore to instantiate a unique category
-    final c.Category category = c.Category(id: categoryId, name: categoryName);
-
-    // create an instance of the database from the user ID inside this class
-    final db = DatabaseService(uid: uid);
-    // use the created budget to assign it to the user ID document in firestore
-    await db.createCategoryDocument(category: category);
-
-    return category;
-  }
-
-
   // Create a new category and transaction for a budget
   Future<t.Transaction> createTransaction({
     required String transactionName,
@@ -209,14 +193,58 @@ class MyUser{
   // add budgets
 
   // add categories
+  Future<c.Category> createCategory({required String categoryName}) async {
+    // create a new id in firestore for the category name under budget
+    final categoryId = FirebaseFirestore.instance.collection('pbUsers').doc(uid).collection('categories').doc().id;
+
+    // use the id from firestore to instantiate a unique category
+    final c.Category category = c.Category(id: categoryId, name: categoryName);
+
+    // create an instance of the database from the user ID inside this class
+    final db = DatabaseService(uid: uid);
+    // use the created budget to assign it to the user ID document in firestore
+    await db.createCategoryDocument(category: category);
+
+    return category;
+  }
+
+// delete categories
+  Future<void> deleteCategory({required String categoryId}) async {
+    try {
+      // Reference to the main bank account document
+      final bankAccountRef = FirebaseFirestore.instance
+          .collection('pbUsers')
+          .doc(uid)
+          .collection('categories')
+          .doc(categoryId);
+
+      // TODO: Implement later:
+      // Get a reference to the subcollection within the bank account
+      // final subcollectionRef = bankAccountRef.collection('Year'); // Replace 'transactions' with the name of your subcollection
+
+      // TODO: Implement later:
+      // Get all documents in the subcollection
+      // final subcollectionSnapshot = await subcollectionRef.get();
+
+      // TODO: Implement later:
+      // Delete all documents in the subcollection
+      // for (final subDoc in subcollectionSnapshot.docs) {
+      //   await subDoc.reference.delete();
+      // }
+
+      // Delete the main bank account document
+      await bankAccountRef.delete();
+    } catch (e) {
+      print("Error deleting category: $e");
+    }
+  }
 
 
-  // delete budgets
+// update categories
 
-  // delete categories
 
+// delete budgets
 
   // update budgets
 
-  // update categories
 }
