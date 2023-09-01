@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:polybudget/common_widgets/presentation/home_wrapper.dart';
 import 'package:polybudget/database.dart';
+import 'package:polybudget/features/home/presentation/settings_form.dart';
 import 'package:provider/provider.dart';
 import 'package:polybudget/features/category/domain/category.dart' as c;
 
@@ -37,7 +38,7 @@ class CategoryList extends StatelessWidget {
                 },
               ),
             ],
-          ),
+          ), options: const SettingsForm(),
         );
       }),
     );
