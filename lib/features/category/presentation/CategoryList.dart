@@ -33,7 +33,7 @@ class CategoryList extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: categories?.length,
                 itemBuilder: (context, index){
-                  return CategoryTile(category: categories![index]);
+                  return CategoryTile(category: categories![index], user: user!,);
                 },
               ),
             ],
