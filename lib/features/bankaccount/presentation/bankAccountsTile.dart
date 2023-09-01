@@ -3,6 +3,7 @@ import 'package:polybudget/features/authenticate/domain/user.dart';
 import 'package:polybudget/features/bankaccount/domain/bankAccount.dart';
 
 import '../../../common_widgets/presentation/constants.dart';
+import 'bankAccount_update_settings_form.dart';
 
 class BankAccountTile extends StatelessWidget {
 
@@ -32,11 +33,21 @@ class BankAccountTile extends StatelessWidget {
           trailing:  PopupMenuButton<String>(
               onSelected: (value) {
                 if (value == 'update') {
-                // Handle the "Update" option
-                  print("updarred");
+                  // Handle the "Update" option
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        content: BankAccountUpdateSettForm(
+                          bankAccount: bankAccount,
+                          user: user,
+                        ),
+                        backgroundColor: Colors.grey[200],
+                      );
+                    },
+                  );
                 } else if (value == 'delete') {
                 // Handle the "Delete" option
-                  print("deeleeeted");
                   user!.deleteBankAccount(bankId: bankAccount!.id);
                 }
               },
