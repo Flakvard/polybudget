@@ -241,6 +241,21 @@ class MyUser{
 
 
 // update categories
+  Future<void> updateCategory({required String categoryId, required String newName}) async {
+    try {
+      // Reference to the bank account document
+      final categoryRef = FirebaseFirestore.instance
+          .collection('pbUsers')
+          .doc(uid)
+          .collection('categories')
+          .doc(categoryId);
+
+      // Update the bank account's name field
+      await categoryRef.update({'name': newName});
+    } catch (e) {
+      print("Error updating bank account: $e");
+    }
+  }
 
 
 // delete budgets

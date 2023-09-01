@@ -13,6 +13,7 @@ class CategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Card(
@@ -28,6 +29,18 @@ class CategoryTile extends StatelessWidget {
             onSelected: (value) {
               if (value == 'update') {
                 // Handle the "Update" option
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      content: CategoryUpdateSettForm(
+                        category: category,
+                        user: user,
+                      ),
+                      backgroundColor: Colors.grey[200],
+                    );
+                  },
+                );
               } else if (value == 'delete') {
                 // Handle the "Delete" option
                 user!.deleteCategory(categoryId: category!.id);
