@@ -34,7 +34,7 @@ class BankAccountList extends StatelessWidget {
                     shrinkWrap: true,
                     itemCount: bankAccounts?.length ?? 0,
                     itemBuilder: (context, index) {
-                      return BankAccountTile(bankAccount: bankAccounts![index]);
+                      return BankAccountTile(bankAccount: bankAccounts![index], user: user);
                     },
                   ),
                 ],

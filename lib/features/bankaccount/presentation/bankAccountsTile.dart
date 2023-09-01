@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:polybudget/features/authenticate/domain/user.dart';
 import 'package:polybudget/features/bankaccount/domain/bankAccount.dart';
 
 import '../../../common_widgets/presentation/constants.dart';
@@ -6,8 +7,9 @@ import '../../../common_widgets/presentation/constants.dart';
 class BankAccountTile extends StatelessWidget {
 
   final BankAccount? bankAccount;
+  final MyUser? user;
 
-  const BankAccountTile({super.key, this.bankAccount});
+  const BankAccountTile({super.key, this.bankAccount, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class BankAccountTile extends StatelessWidget {
                 } else if (value == 'delete') {
                 // Handle the "Delete" option
                   print("deeleeeted");
+                  user!.deleteBankAccount(bankId: bankAccount!.id);
                 }
               },
               itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[

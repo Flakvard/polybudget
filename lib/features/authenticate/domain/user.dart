@@ -133,7 +133,6 @@ class MyUser{
     required t.TransactionType transactionType
     })
   async {
-
     // Parse string input YY-MM-DD into a DateTime Object
     final DateTime dateFormatted = DateTime.parse(date);
     // create a new id in firestore for the bankAccount name under budget
@@ -158,6 +157,33 @@ class MyUser{
     await db.createTransactionDocument(transaction: transaction);
 
     return transaction;
+  }
+
+  Future<void> deleteBankAccount({required String bankId}) async {
+    try {
+      // Reference to the main bank account document
+      final bankAccountRef = FirebaseFirestore.instance
+          .collection('pbUsers')
+          .doc(uid)
+          .collection('bankAccounts')
+          .doc(bankId);
+
+      // Get a reference to the subcollection within the bank account
+      final subcollectionRef = bankAccountRef.collection('Year'); // Replace 'transactions' with the name of your subcollection
+
+      // Get all documents in the subcollection
+      final subcollectionSnapshot = await subcollectionRef.get();
+
+      // Delete all documents in the subcollection
+      for (final subDoc in subcollectionSnapshot.docs) {
+        await subDoc.reference.delete();
+      }
+
+      // Delete the main bank account document
+      await bankAccountRef.delete();
+    } catch (e) {
+      print("Error deleting bank account: $e");
+    }
   }
 
 
