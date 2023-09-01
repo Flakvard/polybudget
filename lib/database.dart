@@ -147,7 +147,7 @@ class DatabaseService {
         "name": budget.name,
     });
   }
-  Future createCategoryDocument({required Budget budget, required c.Category category}) async {
+  Future createCategoryDocument({required c.Category category}) async {
     return await polyBudgetDB
         .doc(uid).collection('categories').doc(category.id)
         .set({

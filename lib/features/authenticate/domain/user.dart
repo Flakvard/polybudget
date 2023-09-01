@@ -35,7 +35,7 @@ class MyUser{
       final Budget budget = await createBudget(budgetName: 'Personal Budget');
 
       // Create and return a new category class for the user add it to the database
-      final c.Category category = await createCategory(budget: budget, categoryName: 'Groceries');
+      final c.Category category = await createCategory(categoryName: 'Groceries');
 
       // Create and return a new BankAccount class for the user add it to the database
       final BankAccount bankAccount = await createBankAccount(bankAccountName: 'Groceries account');
@@ -90,7 +90,7 @@ class MyUser{
     return budget;
   }
 
-  Future<c.Category> createCategory({required Budget budget, required String categoryName}) async {
+  Future<c.Category> createCategory({required String categoryName}) async {
     // create a new id in firestore for the category name under budget
     final categoryId = FirebaseFirestore.instance.collection('pbUsers').doc(uid).collection('categories').doc().id;
 
@@ -100,7 +100,7 @@ class MyUser{
     // create an instance of the database from the user ID inside this class
     final db = DatabaseService(uid: uid);
     // use the created budget to assign it to the user ID document in firestore
-    await db.createCategoryDocument(budget: budget, category: category);
+    await db.createCategoryDocument(category: category);
 
     return category;
   }
