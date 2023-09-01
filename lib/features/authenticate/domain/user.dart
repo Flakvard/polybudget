@@ -38,7 +38,7 @@ class MyUser{
       final c.Category category = await createCategory(budget: budget, categoryName: 'Groceries');
 
       // Create and return a new BankAccount class for the user add it to the database
-      final BankAccount bankAccount = await createBankAccount(budget: budget, bankAccountName: 'Groceries account');
+      final BankAccount bankAccount = await createBankAccount(bankAccountName: 'Groceries account');
 
       // Create and return a new Transaction class for the user add it to the database
       final t.Transaction transaction = await createTransaction(
@@ -105,21 +105,6 @@ class MyUser{
     return category;
   }
 
-  // create a bankAccount class and add it to the firestore document collection
-  Future<BankAccount> createBankAccount({required Budget budget, required String bankAccountName}) async {
-    // create a new id in firestore for the bankAccount name under budget
-    final bankAccountId = FirebaseFirestore.instance.collection('pbUsers').doc(uid).collection('bankAccounts').doc().id;
-
-    // use the id from firestore to instantiate a unique category
-    final BankAccount bankAccount = BankAccount(id: bankAccountId, name: bankAccountName, balance: 0);
-
-    // create an instance of the database from the user ID inside this class
-    final db = DatabaseService(uid: uid);
-    // use the created budget to assign it to the user ID document in firestore
-    await db.createBankAccountDocument(budget: budget,bankAccount: bankAccount);
-
-    return bankAccount;
-  }
 
   // Create a new category and transaction for a budget
   Future<t.Transaction> createTransaction({
@@ -133,7 +118,6 @@ class MyUser{
     required t.TransactionType transactionType
     })
   async {
-
     // Parse string input YY-MM-DD into a DateTime Object
     final DateTime dateFormatted = DateTime.parse(date);
     // create a new id in firestore for the bankAccount name under budget
@@ -160,20 +144,77 @@ class MyUser{
     return transaction;
   }
 
-
   // add bank accounts
+  // create a bankAccount class and add it to the firestore document collection
+  Future<BankAccount> createBankAccount({required String bankAccountName}) async {
+    // create a new id in firestore for the bankAccount name under budget
+    final bankAccountId = FirebaseFirestore.instance.collection('pbUsers').doc(uid).collection('bankAccounts').doc().id;
+
+    // use the id from firestore to instantiate a unique category
+    final BankAccount bankAccount = BankAccount(id: bankAccountId, name: bankAccountName, balance: 0);
+
+    // create an instance of the database from the user ID inside this class
+    final db = DatabaseService(uid: uid);
+    // use the created budget to assign it to the user ID document in firestore
+    await db.createBankAccountDocument(bankAccount: bankAccount);
+
+    return bankAccount;
+  }
+
+  // delete bank accounts
+  Future<void> deleteBankAccount({required String bankId}) async {
+    try {
+      // Reference to the main bank account document
+      final bankAccountRef = FirebaseFirestore.instance
+          .collection('pbUsers')
+          .doc(uid)
+          .collection('bankAccounts')
+          .doc(bankId);
+
+      // Get a reference to the subcollection within the bank account
+      final subcollectionRef = bankAccountRef.collection('Year'); // Replace 'transactions' with the name of your subcollection
+
+      // Get all documents in the subcollection
+      final subcollectionSnapshot = await subcollectionRef.get();
+
+      // Delete all documents in the subcollection
+      for (final subDoc in subcollectionSnapshot.docs) {
+        await subDoc.reference.delete();
+      }
+
+      // Delete the main bank account document
+      await bankAccountRef.delete();
+    } catch (e) {
+      print("Error deleting bank account: $e");
+    }
+  }
+
+// update bank accounts
+  Future<void> updateBankAccount({required String bankId, required String newName}) async {
+    try {
+      // Reference to the bank account document
+      final bankAccountRef = FirebaseFirestore.instance
+          .collection('pbUsers')
+          .doc(uid)
+          .collection('bankAccounts')
+          .doc(bankId);
+
+      // Update the bank account's name field
+      await bankAccountRef.update({'name': newName});
+    } catch (e) {
+      print("Error updating bank account: $e");
+    }
+  }
 
   // add budgets
 
   // add categories
 
-  // delete bank accounts
 
   // delete budgets
 
   // delete categories
 
-  // update bank accounts
 
   // update budgets
 

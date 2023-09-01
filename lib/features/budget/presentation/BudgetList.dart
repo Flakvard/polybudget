@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:polybudget/common_widgets/presentation/home_wrapper.dart';
+import 'package:polybudget/features/home/presentation/settings_form.dart';
 import 'package:provider/provider.dart';
 
 import '../../../database.dart';
@@ -43,7 +44,7 @@ class _BudgetListState extends State<BudgetList> {
                   },
                 ),
               ],
-            ),
+            ), options: const SettingsForm(),
           );
         }
 

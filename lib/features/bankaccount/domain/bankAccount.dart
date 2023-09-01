@@ -9,4 +9,5 @@ class BankAccount {
     required this.name,
     this.balance,
   });
+
 }

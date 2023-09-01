@@ -156,7 +156,7 @@ class DatabaseService {
     });
   }
 
-  Future createBankAccountDocument({required Budget budget, required BankAccount bankAccount}) async {
+  Future createBankAccountDocument({required BankAccount bankAccount}) async {
     return await polyBudgetDB
         .doc(uid).collection('bankAccounts').doc(bankAccount.id)
         .set({
