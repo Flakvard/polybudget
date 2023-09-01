@@ -35,7 +35,7 @@ class MyUser{
       final Budget budget = await createBudget(budgetName: 'Personal Budget');
 
       // Create and return a new category class for the user add it to the database
-      final c.Category category = await createCategory(budget: budget, categoryName: 'Groceries');
+      final c.Category category = await createCategory(categoryName: 'Groceries');
 
       // Create and return a new BankAccount class for the user add it to the database
       final BankAccount bankAccount = await createBankAccount(bankAccountName: 'Groceries account');
@@ -89,22 +89,6 @@ class MyUser{
 
     return budget;
   }
-
-  Future<c.Category> createCategory({required Budget budget, required String categoryName}) async {
-    // create a new id in firestore for the category name under budget
-    final categoryId = FirebaseFirestore.instance.collection('pbUsers').doc(uid).collection('categories').doc().id;
-
-    // use the id from firestore to instantiate a unique category
-    final c.Category category = c.Category(id: categoryId, name: categoryName);
-
-    // create an instance of the database from the user ID inside this class
-    final db = DatabaseService(uid: uid);
-    // use the created budget to assign it to the user ID document in firestore
-    await db.createCategoryDocument(budget: budget, category: category);
-
-    return category;
-  }
-
 
   // Create a new category and transaction for a budget
   Future<t.Transaction> createTransaction({
@@ -209,14 +193,73 @@ class MyUser{
   // add budgets
 
   // add categories
+  Future<c.Category> createCategory({required String categoryName}) async {
+    // create a new id in firestore for the category name under budget
+    final categoryId = FirebaseFirestore.instance.collection('pbUsers').doc(uid).collection('categories').doc().id;
+
+    // use the id from firestore to instantiate a unique category
+    final c.Category category = c.Category(id: categoryId, name: categoryName);
+
+    // create an instance of the database from the user ID inside this class
+    final db = DatabaseService(uid: uid);
+    // use the created budget to assign it to the user ID document in firestore
+    await db.createCategoryDocument(category: category);
+
+    return category;
+  }
+
+// delete categories
+  Future<void> deleteCategory({required String categoryId}) async {
+    try {
+      // Reference to the main bank account document
+      final bankAccountRef = FirebaseFirestore.instance
+          .collection('pbUsers')
+          .doc(uid)
+          .collection('categories')
+          .doc(categoryId);
+
+      // TODO: Implement later:
+      // Get a reference to the subcollection within the bank account
+      // final subcollectionRef = bankAccountRef.collection('Year'); // Replace 'transactions' with the name of your subcollection
+
+      // TODO: Implement later:
+      // Get all documents in the subcollection
+      // final subcollectionSnapshot = await subcollectionRef.get();
+
+      // TODO: Implement later:
+      // Delete all documents in the subcollection
+      // for (final subDoc in subcollectionSnapshot.docs) {
+      //   await subDoc.reference.delete();
+      // }
+
+      // Delete the main bank account document
+      await bankAccountRef.delete();
+    } catch (e) {
+      print("Error deleting category: $e");
+    }
+  }
 
 
-  // delete budgets
+// update categories
+  Future<void> updateCategory({required String categoryId, required String newName}) async {
+    try {
+      // Reference to the bank account document
+      final categoryRef = FirebaseFirestore.instance
+          .collection('pbUsers')
+          .doc(uid)
+          .collection('categories')
+          .doc(categoryId);
 
-  // delete categories
+      // Update the bank account's name field
+      await categoryRef.update({'name': newName});
+    } catch (e) {
+      print("Error updating bank account: $e");
+    }
+  }
 
+
+// delete budgets
 
   // update budgets
 
-  // update categories
 }

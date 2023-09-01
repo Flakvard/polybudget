@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:polybudget/common_widgets/presentation/home_wrapper.dart';
 import 'package:polybudget/database.dart';
-import 'package:polybudget/features/home/presentation/settings_form.dart';
+import 'package:polybudget/features/category/presentation/category_settings_form.dart';
 import 'package:provider/provider.dart';
 import 'package:polybudget/features/category/domain/category.dart' as c;
-
-import '../../authenticate/domain/user.dart';
+import 'package:polybudget/features/authenticate/domain/user.dart';
 import 'CategoryTile.dart';
 
 
@@ -34,11 +33,11 @@ class CategoryList extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: categories?.length,
                 itemBuilder: (context, index){
-                  return CategoryTile(category: categories![index]);
+                  return CategoryTile(category: categories![index], user: user!,);
                 },
               ),
             ],
-          ), options: const SettingsForm(),
+          ), options: const CategorySettingsForm(),
         );
       }),
     );
