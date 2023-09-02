@@ -46,6 +46,7 @@ app.*.map.json
 # Firebase configuration files
 /android/app/google-services.json
 /ios/Runner/GoogleService-Info.plist
+/macos/Runner/GoogleService-Info.plist
 
 # Rest of the standard Flutter .gitignore rules...
 # (Keep the rest of your existing .gitignore file as is)
