@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:polybudget/features/budget/domain/budget.dart';
+import 'package:polybudget/features/authenticate/domain/user.dart';
+
+import 'budget_update_settings_form.dart';
 
 class BudgetTile extends StatelessWidget {
 
   final Budget? budget;
+  final MyUser user;
 
-  const BudgetTile({super.key, this.budget});
+  const BudgetTile({super.key, required this.budget, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +24,46 @@ class BudgetTile extends StatelessWidget {
           ),
           title: Text(budget!.name),
           subtitle: Text('id: ${budget?.id}'),
+          trailing:  PopupMenuButton<String>(
+            onSelected: (value) {
+              if (value == 'update') {
+                // Handle the "Update" option
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      content: BudgetUpdateSettForm(
+                        budget: budget,
+                        user: user,
+                      ),
+                      backgroundColor: Colors.grey[200],
+                    );
+                  },
+                );
+              } else if (value == 'delete') {
+                // Handle the "Delete" option
+                user!.deleteBudget(budgetId: budget!.id);
+              }
+            },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              const PopupMenuItem<String>(
+                value: 'update',
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Icon(Icons.edit),
+                  title: Text('Update'),
+                ),
+              ),
+              const PopupMenuItem<String>(
+                value: 'delete',
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Icon(Icons.delete),
+                  title: Text('Delete'),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -253,13 +253,42 @@ class MyUser{
       // Update the bank account's name field
       await categoryRef.update({'name': newName});
     } catch (e) {
-      print("Error updating bank account: $e");
+      print("Error updating category: $e");
     }
   }
 
-
 // delete budgets
+  Future<void> deleteBudget({required String budgetId}) async {
+    try {
+      // Reference to the bank account document
+      final budgetRef = FirebaseFirestore.instance
+          .collection('pbUsers')
+          .doc(uid)
+          .collection('budgets')
+          .doc(budgetId);
+
+      // Update the bank account's name field
+      await budgetRef.delete();
+    } catch (e) {
+      print("Error deleting budget: $e");
+    }
+  }
 
   // update budgets
+  Future<void> updateBudget({required String budgetId, required String newName}) async {
+    try {
+      // Reference to the bank account document
+      final budgetRef = FirebaseFirestore.instance
+          .collection('pbUsers')
+          .doc(uid)
+          .collection('budgets')
+          .doc(budgetId);
+
+      // Update the bank account's name field
+      await budgetRef.update({'name': newName});
+    } catch (e) {
+      print("Error updating budget: $e");
+    }
+  }
 
 }

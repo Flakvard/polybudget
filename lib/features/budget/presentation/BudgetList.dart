@@ -4,10 +4,10 @@ import 'package:polybudget/features/home/presentation/settings_form.dart';
 import 'package:provider/provider.dart';
 
 import '../../../database.dart';
-import '../../authenticate/application/auth.dart';
 import '../../authenticate/domain/user.dart';
 import '../domain/budget.dart';
 import 'BudgetTile.dart';
+import 'budget_settings_form.dart';
 
 class BudgetList extends StatefulWidget {
   const BudgetList({super.key});
@@ -40,11 +40,11 @@ class _BudgetListState extends State<BudgetList> {
                   shrinkWrap: true,
                   itemCount: myBudget?.length,
                   itemBuilder: (context, index){
-                    return BudgetTile(budget: myBudget![index]);
+                    return BudgetTile(budget: myBudget![index], user: user!);
                   },
                 ),
               ],
-            ), options: const SettingsForm(),
+            ), options: const BudgetSettingsForm(),
           );
         }
 
