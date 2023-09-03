@@ -40,7 +40,7 @@ class _BudgetListState extends State<BudgetList> {
                   shrinkWrap: true,
                   itemCount: myBudget?.length,
                   itemBuilder: (context, index){
-                    return BudgetTile(budget: myBudget![index]);
+                    return BudgetTile(budget: myBudget![index], user: user!);
                   },
                 ),
               ],
