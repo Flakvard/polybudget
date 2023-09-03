@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:polybudget/features/budget/domain/budget.dart';
 import 'package:polybudget/features/authenticate/domain/user.dart';
 
+import 'budget_update_settings_form.dart';
+
 class BudgetTile extends StatelessWidget {
 
   final Budget? budget;
@@ -26,6 +28,18 @@ class BudgetTile extends StatelessWidget {
             onSelected: (value) {
               if (value == 'update') {
                 // Handle the "Update" option
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      content: BudgetUpdateSettForm(
+                        budget: budget,
+                        user: user,
+                      ),
+                      backgroundColor: Colors.grey[200],
+                    );
+                  },
+                );
               } else if (value == 'delete') {
                 // Handle the "Delete" option
                 user!.deleteBudget(budgetId: budget!.id);

@@ -275,5 +275,20 @@ class MyUser{
   }
 
   // update budgets
+  Future<void> updateBudget({required String budgetId, required String newName}) async {
+    try {
+      // Reference to the bank account document
+      final budgetRef = FirebaseFirestore.instance
+          .collection('pbUsers')
+          .doc(uid)
+          .collection('budgets')
+          .doc(budgetId);
+
+      // Update the bank account's name field
+      await budgetRef.update({'name': newName});
+    } catch (e) {
+      print("Error updating budget: $e");
+    }
+  }
 
 }
