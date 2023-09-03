@@ -2,7 +2,7 @@
 <img src="https://github.com/Flakvard/polybudget/blob/master/assets/PolyBudgetLogo.jpg?raw=true" class="center" align="center"></a>
  
 # PolyBudget
-Take back control on your financial responsibilities with Polybudget <br>
+Take back control of your financial responsibilities with PolyBudget <br>
 <img src="https://github.com/Flakvard/polybudget/raw/master/assets/Homescreen.jpg" width="18%"></img> <img src="https://github.com/Flakvard/polybudget/raw/master/assets/menu_drawer.jpg" width="18%"></img> <img src="https://github.com/Flakvard/polybudget/raw/master/assets/new_bank_account.jpg" width="18%"></img> <img src="https://github.com/Flakvard/polybudget/raw/master/assets/update_category_tile.jpg" width="18%"></img> <img src="https://github.com/Flakvard/polybudget/raw/master/assets/user_screen.jpg" width="18%"></img> 
 
 # Screen
