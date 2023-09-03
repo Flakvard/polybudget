@@ -1,6 +1,13 @@
-# polybudget
-
+![Logo](./assets/PolyBudgetLogo.jpg)
+# PolyBudget
 Take back control on your financial responsibilities with Polybudget
+
+# Screen
+![Homescreen](./assets/Homescreen.jpg)
+![menu_drawer](./assets/menu_drawer.jpg)
+![new_bank_accountt](./assets/new_bank_account.jpg)
+![update_category_tile](./assets/update_category_tile.jpg)
+![user_screen](./assets/user_screen.jpg)
 
 ## Getting Started
 
