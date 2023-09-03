@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:polybudget/features/category/domain/category.dart' as c;
+import 'package:polybudget/features/budget/domain/budget.dart';
 import 'package:polybudget/features/authenticate/domain/user.dart';
 
 import '../../../common_widgets/presentation/constants.dart';
 
-class CategoryUpdateSettForm extends StatefulWidget {
+class BudgetUpdateSettForm extends StatefulWidget {
 
-  final c.Category? category;
+  final Budget? budget;
   final MyUser? user;
 
-  const CategoryUpdateSettForm({super.key, required this.category, required this.user});
+  const BudgetUpdateSettForm({super.key, required this.budget, required this.user});
 
   @override
-  State<CategoryUpdateSettForm> createState() => _CategoryUpdateSettFormState();
+  State<BudgetUpdateSettForm> createState() => _BudgetUpdateSettFormState();
 }
 
-class _CategoryUpdateSettFormState extends State<CategoryUpdateSettForm> {
+class _BudgetUpdateSettFormState extends State<BudgetUpdateSettForm> {
   @override
   Widget build(BuildContext context) {
 
@@ -34,12 +34,12 @@ class _CategoryUpdateSettFormState extends State<CategoryUpdateSettForm> {
       child: Column(
         children: [
           const Text(
-            'Update category information',
+            'Update budget information',
             style: TextStyle(fontSize: 18.0),
           ),
           const SizedBox(height: 20.0,),
           TextFormField(
-              initialValue: widget.category?.name,
+              initialValue: widget.budget?.name,
               decoration: textInputDecoration, // constant.dart
               validator: (val) => val!.isEmpty ? 'Please enter a name' : null,
               onChanged: (val) => _currentName = val),
@@ -53,14 +53,14 @@ class _CategoryUpdateSettFormState extends State<CategoryUpdateSettForm> {
             ),
             onPressed: () async {
               if(_formkey.currentState!.validate()){
-                widget.user!.updateCategory(
-                    categoryId: widget.category!.id,
-                    newName: _currentName ?? widget.category!.name);
+                widget.user!.updateBudget(
+                    budgetId: widget.budget!.id,
+                    newName: _currentName ?? widget.budget!.name);
 
                 close(); // Navigate.pop(context)
               }
             },
-            child: const Text('Update Category', style: TextStyle(color: Colors.white),),
+            child: const Text('Update budget', style: TextStyle(color: Colors.white),),
           ),
         ],
       ),
