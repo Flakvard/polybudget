@@ -1,13 +1,12 @@
-![Logo](./assets/PolyBudgetLogo.jpg)
+<a href="link" style="text-align: center">
+<img src="https://github.com/Flakvard/polybudget/blob/master/assets/PolyBudgetLogo.jpg?raw=true" class="center" align="center"></a>
+ 
 # PolyBudget
-Take back control on your financial responsibilities with Polybudget
+Take back control on your financial responsibilities with Polybudget <br>
+<img src="https://github.com/Flakvard/polybudget/raw/master/assets/Homescreen.jpg" width="18%"></img> <img src="https://github.com/Flakvard/polybudget/raw/master/assets/menu_drawer.jpg" width="18%"></img> <img src="https://github.com/Flakvard/polybudget/raw/master/assets/new_bank_account.jpg" width="18%"></img> <img src="https://github.com/Flakvard/polybudget/raw/master/assets/update_category_tile.jpg" width="18%"></img> <img src="https://github.com/Flakvard/polybudget/raw/master/assets/user_screen.jpg" width="18%"></img> 
 
 # Screen
-![Homescreen](./assets/Homescreen.jpg)
-![menu_drawer](./assets/menu_drawer.jpg)
-![new_bank_accountt](./assets/new_bank_account.jpg)
-![update_category_tile](./assets/update_category_tile.jpg)
-![user_screen](./assets/user_screen.jpg)
+<img src="https://github.com/Flakvard/polybudget/raw/master/assets/Homescreen.jpg" width="45%"></img> <img src="https://github.com/Flakvard/polybudget/raw/master/assets/menu_drawer.jpg" width="45%"></img> <img src="https://github.com/Flakvard/polybudget/raw/master/assets/new_bank_account.jpg" width="45%"></img> <img src="https://github.com/Flakvard/polybudget/raw/master/assets/update_category_tile.jpg" width="45%"></img> <img src="https://github.com/Flakvard/polybudget/raw/master/assets/user_screen.jpg" width="45%"></img> 
 
 ## Getting Started
 
