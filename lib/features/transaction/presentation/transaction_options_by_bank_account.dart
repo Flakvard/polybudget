@@ -3,14 +3,14 @@ import 'package:polybudget/common_widgets/presentation/constants.dart';
 import 'package:polybudget/features/authenticate/domain/user.dart';
 import 'package:provider/provider.dart';
 
-class BankAccountSettingsForm extends StatefulWidget {
-  const BankAccountSettingsForm({super.key});
+class TransactionSettingsForm extends StatefulWidget {
+  const TransactionSettingsForm({super.key});
 
   @override
-  State<BankAccountSettingsForm> createState() => _BankAccountSettingsFormState();
+  State<TransactionSettingsForm> createState() => _TransactionSettingsFormState();
 }
 
-class _BankAccountSettingsFormState extends State<BankAccountSettingsForm> {
+class _TransactionSettingsFormState extends State<TransactionSettingsForm> {
 
   final _formkey = GlobalKey<FormState>();
 

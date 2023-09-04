@@ -12,8 +12,9 @@ class HomeWrapperOptions extends StatelessWidget {
 
   final Widget content;
   final Widget options;
+  final Widget filter;
 
-  HomeWrapperOptions({required this.content, super.key, required this.options});
+  HomeWrapperOptions({required this.content, super.key, required this.options, required this.filter});
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -28,6 +29,14 @@ class HomeWrapperOptions extends StatelessWidget {
         );
       });
     }
+    void _showFilterPanel(){
+      showModalBottomSheet(context: context, builder: (context){
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 60.0),
+          child: filter,
+        );
+      });
+    }
 
     return Scaffold( // layout widget to flesh out general layout of the app. Check scaffold class in docs.
       key: _scaffoldKey, // Assign the scaffold key
@@ -39,23 +48,18 @@ class HomeWrapperOptions extends StatelessWidget {
         elevation: 0.0, // removes shadow
         actions: <Widget>[
           IconButton(
+            icon: const Icon(Icons.filter_alt),
+            onPressed: () => _showFilterPanel(),
+
+          ),
+          IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () => _showSettingsPanel(),
 
           ),
-          // adding hamburger menu icon
-          IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              // Open the drawer when the icon is clicked
-              _scaffoldKey.currentState?.openEndDrawer(); // Use ?. to handle null currentState
-            },
-          ),
         ],
       ),
       body: content,
-      // menu with all actions
-      endDrawer: AppDrawer(),
     );
   }
 }

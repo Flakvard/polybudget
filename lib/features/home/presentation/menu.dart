@@ -81,7 +81,9 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Transaction'),
             onTap: () {
               // Handle tapping on Profile menu item
-              Navigator.pushNamed(context, '/transactionList');
+              Navigator.pushNamed(context, '/transactionList', arguments: {
+                'user': user,
+              });
               // You can add your navigation logic here
             },
           ),
