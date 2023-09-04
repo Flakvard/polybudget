@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:polybudget/common_widgets/presentation/home_wrapper.dart';
+import 'package:polybudget/common_widgets/presentation/home_wrapper_add.dart';
 import 'package:polybudget/features/bankaccount/domain/bankAccount.dart';
 import 'package:provider/provider.dart';
 import '../../../database.dart';
@@ -25,7 +25,7 @@ class BankAccountList extends StatelessWidget {
       initialData: const [],
       child: Consumer<List<BankAccount?>?>(
         builder: (context, bankAccounts, child) {
-            return HomeWrapper(
+            return HomeWrapperAdd(
               content: Column(
                 children: [
                   const SizedBox(height: 12.0,),

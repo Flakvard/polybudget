@@ -72,7 +72,6 @@ class BankAccountTile extends StatelessWidget {
           ),
           onTap: () {
             Navigator.pushNamed(context, '/transactionList',arguments: bankAccount?.id);
-            print('Go to transaction page and provide bankaccount ID for firestore');
           },
 
         ),

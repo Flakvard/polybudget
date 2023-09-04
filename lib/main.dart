@@ -8,7 +8,7 @@ import 'package:polybudget/features/category/presentation/CategoryList.dart';
 import 'package:polybudget/features/home/presentation/home.dart';
 import 'package:polybudget/features/authenticate/presentation/user.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:polybudget/features/transaction/presentation/transactionList.dart';
+import 'package:polybudget/features/transaction/presentation/transaction_list_by_bank_account.dart';
 import 'package:polybudget/firebase_options.dart';
 import 'package:polybudget/wrapper.dart';
 import 'package:provider/provider.dart';

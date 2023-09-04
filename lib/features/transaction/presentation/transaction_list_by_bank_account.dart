@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:polybudget/common_widgets/presentation/home_wrapper_settings.dart';
 import 'package:polybudget/common_widgets/presentation/loading.dart';
 import 'package:polybudget/database.dart';
 import 'package:polybudget/features/bankaccount/domain/bankAccount.dart';
 import 'package:polybudget/features/category/domain/category.dart' as c;
+import 'package:polybudget/features/home/presentation/settings_form.dart';
 import 'package:polybudget/features/transaction/domain/transactions.dart';
 import 'package:polybudget/features/transaction/presentation/TransactionCardContent.dart';
 import 'package:polybudget/features/transaction/presentation/TransactionTile.dart';
 import 'package:provider/provider.dart';
 import 'package:polybudget/features/authenticate/domain/user.dart';
 import 'package:polybudget/features/budget/domain/budget.dart';
+
+import '../../../common_widgets/presentation/home_wrapper_add.dart';
 
 class TransactionList extends StatefulWidget {
   const TransactionList({super.key});
@@ -29,6 +33,10 @@ class _TransactionListState extends State<TransactionList> {
   @override
   Widget build(BuildContext context) {
 
+    // Retrieve the user class from the menu in Home()
+    // final Map<String, dynamic> args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    // final MyUser user = args['user'];
+
     // Retrieve the bank account ID from the tap argument in BankAccountTile()
     final String? bankAccountId = ModalRoute.of(context)?.settings.arguments as String?;
 
@@ -38,21 +46,15 @@ class _TransactionListState extends State<TransactionList> {
     // final bankAccounts = Provider.of<List<BankAccount?>?>(context) ?? [];
 
     final String year = DateTime.now().year.toString();
-    final String month = DateTime.now().month.toString();
+    // final String month = DateTime.now().month.toString();
+    const String month = '8';
     // List<Transaction?> transactions =
 
-    return Scaffold(
-        backgroundColor: Colors.grey[300],
-        appBar: AppBar(
-          backgroundColor: Colors.pink[200],
-          title: const Text('PolyBudget'),
-          centerTitle: true,
-          elevation: 0.0, // removes shadow
-        ),
-        body: SingleChildScrollView(
+    return HomeWrapperOptions(
+      content: SingleChildScrollView(
           child: StreamBuilder<List<Transaction?>?>(
-            stream: DatabaseService(uid: user?.uid)
-          .userTransactions(bankAccountId: bankAccountId!, year: year, month: month),
+            stream: DatabaseService(uid: user?.uid).userTransactions(
+                bankAccountId: bankAccountId!, year: year, month: month),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
@@ -81,20 +83,6 @@ class _TransactionListState extends State<TransactionList> {
               );
             }),
       ),
-    );
+     options: const SettingsForm());
   }
 }
-
-// child: Column(
-// children: transactions.map((transaction) => TransactionCardContent(
-// transaction: transaction,
-// // TODO: test delete button inside list
-// delete: () {
-// setState(() {
-// print('list');
-// //transactions.remove(transaction);
-// });
-// }
-// )).toList()
-// ),
-

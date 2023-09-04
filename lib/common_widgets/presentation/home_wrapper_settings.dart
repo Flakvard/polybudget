@@ -8,12 +8,12 @@ import 'package:polybudget/database.dart';
 import 'package:provider/provider.dart';
 import 'package:polybudget/features/budget/domain/budget.dart';
 
-class HomeWrapper extends StatelessWidget {
+class HomeWrapperOptions extends StatelessWidget {
 
   final Widget content;
   final Widget options;
 
-  HomeWrapper({required this.content, super.key, required this.options});
+  HomeWrapperOptions({required this.content, super.key, required this.options});
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -39,7 +39,7 @@ class HomeWrapper extends StatelessWidget {
         elevation: 0.0, // removes shadow
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.add),
+            icon: const Icon(Icons.settings),
             onPressed: () => _showSettingsPanel(),
 
           ),
