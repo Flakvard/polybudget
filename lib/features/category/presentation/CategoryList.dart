@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:polybudget/common_widgets/presentation/home_wrapper.dart';
+import 'package:polybudget/common_widgets/presentation/home_wrapper_add.dart';
 import 'package:polybudget/database.dart';
 import 'package:polybudget/features/category/presentation/category_settings_form.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +25,7 @@ class CategoryList extends StatelessWidget {
       initialData: const [],
       child: Consumer<List<c.Category?>?>(
         builder: (context, categories, child){
-        return HomeWrapper(
+        return HomeWrapperAdd(
           content: Column(
             children: [
              ListView.builder(

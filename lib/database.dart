@@ -107,7 +107,7 @@ class DatabaseService {
 
 
 
-  Stream<List<t.Transaction?>?> userTransactions({required String bankAccountId, required String year, required String month})  {
+  Stream<List<t.Transaction?>?> userTransactionsByAccount({required String bankAccountId, required String year, required String month})  {
     return polyBudgetDB
         .doc(uid)
         .collection("bankAccounts")
@@ -126,6 +126,37 @@ class DatabaseService {
     return snapshot.docs.map((doc) => t.Transaction.fromFirestore(doc)).toList();
   }
 
+  Stream<List<t.Transaction?>?> allUserTransactions({required String year, required String month})  {
+    return polyBudgetDB
+        .doc(uid)
+        .collection("bankAccounts")
+        .snapshots()
+        .asyncMap((bankAccountSnapshot) async {
+      final List<t.Transaction?> transactions = [];
+
+      for (final bankAccountDoc in bankAccountSnapshot.docs) {
+        final bankAccountId = bankAccountDoc.id;
+        final transactionQuery = await polyBudgetDB
+            .doc(uid)
+            .collection("bankAccounts")
+            .doc(bankAccountId)
+            .collection("Year")
+            .doc(year)
+            .collection("Month")
+            .doc(month)
+            .collection("transactions")
+            .get();
+
+        transactions.addAll(_transactionsListFromSnapshot(transactionQuery) as Iterable<t.Transaction?>);
+      }
+      for (int i = 0; i < transactions.length; i++) {
+        t.Transaction? transaction = transactions[i];
+        print(transaction.toString());
+      }
+
+      return transactions;
+    });
+  }
 
   // sends data to firestore db to update
   Future updateUserData({required String? name, required String? email}) async {

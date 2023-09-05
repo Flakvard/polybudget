@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:polybudget/common_widgets/presentation/home_wrapper.dart';
+import 'package:polybudget/common_widgets/presentation/home_wrapper_add.dart';
 import 'package:polybudget/features/home/presentation/settings_form.dart';
 import 'package:provider/provider.dart';
 
@@ -32,7 +32,7 @@ class _BudgetListState extends State<BudgetList> {
       initialData: const [],
       child: Consumer<List<Budget?>?>(
         builder: (context, myBudget, child){
-          return HomeWrapper(
+          return HomeWrapperAdd(
             content: Column(
               children: [
                 ListView.builder(

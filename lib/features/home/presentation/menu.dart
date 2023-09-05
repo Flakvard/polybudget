@@ -77,6 +77,17 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.credit_card),
+            title: const Text('Transaction'),
+            onTap: () {
+              // Handle tapping on Profile menu item
+              Navigator.pushNamed(context, '/transactionList', arguments: {
+                'user': user,
+              });
+              // You can add your navigation logic here
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.account_circle_outlined),
             title: const Text('Sign Out'),
             onTap: () async {
