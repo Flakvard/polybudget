@@ -19,6 +19,19 @@ class TransactionList extends StatefulWidget {
 }
 
 class _TransactionListState extends State<TransactionList> {
+
+  late String year;
+  late String month;
+  @override
+  void initState() {
+    super.initState();
+    // Initialize year and month with default values
+    year = DateTime.now().year.toString();
+    month = DateTime.now().month.toString();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -27,11 +40,7 @@ class _TransactionListState extends State<TransactionList> {
     final Map<String, dynamic> args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final MyUser user = args['user'];
 
-    //final MyUser? user = Provider.of<MyUser?>(context); // get user info, logged in = unique id or null
 
-    final String year = DateTime.now().year.toString();
-    // final String month = DateTime.now().month.toString();
-    const String month = '8';
 
     return StreamProvider<List<t.Transaction?>?>.value(
       value: DatabaseService(uid: user?.uid).allUserTransactions(year: year, month: month),
@@ -53,9 +62,22 @@ class _TransactionListState extends State<TransactionList> {
                 ],
               ),
               options: const TransactionSettingsForm(),
-              filter: const TransactionFilterForm(),
+              filter: TransactionFilterForm(
+                year: year,
+                month: month,
+                user: user,
+                  onFilterChanged: (newYear, newMonth) {
+                    // Update the year and month in this widget
+                    setState(() {
+                      year = newYear;
+                      month = newMonth;
+                      print('newmonth: $newMonth, newyear: $newYear');
+                      print('month: $month, year: $year');
+                    });
+                  }),
             );
-          }),
+          }
+      ),
     );
   }
 }

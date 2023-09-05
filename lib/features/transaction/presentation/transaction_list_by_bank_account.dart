@@ -38,7 +38,7 @@ class _TransactionListByBankAccState extends State<TransactionListByBankAcc> {
     const String month = '8';
     // List<Transaction?> transactions =
 
-    return HomeWrapperOptions(
+    return HomeWrapperAdd(
       content: SingleChildScrollView(
           child: StreamBuilder<List<Transaction?>?>(
             stream: DatabaseService(uid: user?.uid).userTransactionsByAccount(
@@ -72,6 +72,7 @@ class _TransactionListByBankAccState extends State<TransactionListByBankAcc> {
             }),
       ),
      options: const TransactionSettingsForm(),
-     filter: const TransactionFilterForm());
+     //filter: const TransactionFilterForm()
+    );
   }
 }
