@@ -22,12 +22,14 @@ class _TransactionListState extends State<TransactionList> {
 
   late String year;
   late String month;
+  late String bankID;
   @override
   void initState() {
     super.initState();
     // Initialize year and month with default values
     year = DateTime.now().year.toString();
     month = DateTime.now().month.toString();
+    bankID = '';
   }
 
 
@@ -43,7 +45,13 @@ class _TransactionListState extends State<TransactionList> {
 
 
     return StreamProvider<List<t.Transaction?>?>.value(
-      value: DatabaseService(uid: user?.uid).allUserTransactions(year: year, month: month),
+      value: bankID == ''
+          ? DatabaseService(uid: user?.uid).allUserTransactions(year: year, month: month)
+          : DatabaseService(uid: user?.uid).userTransactionsByAccount(
+        bankAccountId: bankID,
+        year: year,
+        month: month,
+      ),
       initialData: const [],
       child: Consumer<List<t.Transaction?>?>(
           builder: (context, transactions, child) {
@@ -66,13 +74,13 @@ class _TransactionListState extends State<TransactionList> {
                 year: year,
                 month: month,
                 user: user,
-                  onFilterChanged: (newYear, newMonth) {
+                bankId: bankID,
+                  onFilterChanged: (newYear, newMonth, newBankId) {
                     // Update the year and month in this widget
                     setState(() {
                       year = newYear;
                       month = newMonth;
-                      print('newmonth: $newMonth, newyear: $newYear');
-                      print('month: $month, year: $year');
+                      bankID = newBankId;
                     });
                   }),
             );
