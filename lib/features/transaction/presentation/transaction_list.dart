@@ -4,6 +4,7 @@ import 'package:polybudget/features/authenticate/domain/user.dart';
 import 'package:polybudget/features/transaction/domain/transactions.dart' as t;
 import 'package:polybudget/features/transaction/presentation/TransactionTile.dart';
 import 'package:polybudget/features/transaction/presentation/transaction_filter_form.dart';
+import 'package:polybudget/features/transaction/presentation/transaction_floating_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../../database.dart';
@@ -83,6 +84,7 @@ class _TransactionListState extends State<TransactionList> {
                       bankID = newBankId;
                     });
                   }),
+              floatingButton: const TransactionFloatingButton(),
             );
           }
       ),
