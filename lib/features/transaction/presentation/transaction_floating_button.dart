@@ -23,7 +23,11 @@ class TransactionFloatingButton extends StatelessWidget {
             showDialog(
               context: context,
               builder: (BuildContext context) {
-                return TransactionForm(bankId: '',); // Display the advanced form
+                return TransactionForm(
+                  bankId: '',
+                  categoryId: '',
+                  budgetId: '',
+                ); // Display the advanced form
               },
             );
           } else if (value == 'by_bank_account') {

@@ -14,7 +14,10 @@ import '../../category/domain/category.dart' as c;
 class TransactionForm extends StatefulWidget {
 
   final String bankId;
-  const TransactionForm({super.key, required this.bankId});
+  final String categoryId;
+  final String budgetId;
+
+  const TransactionForm({super.key, required this.bankId, required this.categoryId, required this.budgetId});
 
   @override
   State<TransactionForm> createState() => _TransactionFormState();
@@ -23,9 +26,11 @@ class TransactionForm extends StatefulWidget {
 class _TransactionFormState extends State<TransactionForm> {
   final _formkey = GlobalKey<FormState>();
 
+  String _currentName = 'New bank account';
   // form values
   late String selectedBankAccountId = widget.bankId; // Initialize with an empty string
-  String _currentName = 'New bank account';
+  late String selectedCategoryId = widget.categoryId; // Initialize with an empty string
+  late String selectedBudgetId = widget.budgetId; // Initialize with an empty string
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +70,6 @@ class _TransactionFormState extends State<TransactionForm> {
             children: [
               Consumer<List<BankAccount?>?>(
               builder: (context, bankAccounts, child) {
-
                 // Create a list of DropdownMenuItem<BankAccount>
                 final dropdownItems = bankAccounts?.where((bankAccount) => bankAccount != null).map((bankAccount) {
                   return DropdownMenuItem<String>(
@@ -78,8 +82,6 @@ class _TransactionFormState extends State<TransactionForm> {
                   value: '', // Empty string for "no bank account"
                   child: Text('No Bank Account'),
                 ));
-
-
                 return Column (
                 children: [
                   const SizedBox(height: 20.0,),
@@ -95,6 +97,66 @@ class _TransactionFormState extends State<TransactionForm> {
                 ],
                 );
               }),
+
+              Consumer<List<c.Category?>?>(
+                  builder: (context, categories, child) {
+                    // Create a list of DropdownMenuItem<BankAccount>
+                    final dropdownItems = categories?.where((category) => category != null).map((category) {
+                      return DropdownMenuItem<String>(
+                        value: category!.id ?? '', // Use a default value or an empty string if ID is null
+                        child: Text('Category: ${category!.name ?? 'Unnamed'}'), // Provide a default name if it's null
+                      );
+                    }).toList();
+                    // Add an additional item for "no bank account"
+                    dropdownItems?.insert(0, const DropdownMenuItem<String>(
+                      value: '', // Empty string for "no bank account"
+                      child: Text('No Category'),
+                    ));
+                    return Column (
+                      children: [
+                        const SizedBox(height: 20.0,),
+                        // List of bank accounts the user has
+                        DropdownButtonFormField<String>(
+                          decoration: textInputDecoration,
+                          value: selectedCategoryId, // Set the selected bank account
+                          items: dropdownItems,
+                          onChanged: (newValue) =>
+                              setState(() => selectedCategoryId = newValue!),
+                        ),
+                        const SizedBox(height: 20.0,),
+                      ],
+                    );
+                  }),
+
+              Consumer<List<Budget?>?>(
+                  builder: (context, budgets, child) {
+                    // Create a list of DropdownMenuItem<BankAccount>
+                    final dropdownItems = budgets?.where((budget) => budget != null).map((budget) {
+                      return DropdownMenuItem<String>(
+                        value: budget!.id ?? '', // Use a default value or an empty string if ID is null
+                        child: Text('Budget: ${budget!.name ?? 'Unnamed'}'), // Provide a default name if it's null
+                      );
+                    }).toList();
+                    // Add an additional item for "no bank account"
+                    dropdownItems?.insert(0, const DropdownMenuItem<String>(
+                      value: '', // Empty string for "no bank account"
+                      child: Text('No Budget'),
+                    ));
+                    return Column (
+                      children: [
+                        const SizedBox(height: 20.0,),
+                        // List of bank accounts the user has
+                        DropdownButtonFormField<String>(
+                          decoration: textInputDecoration,
+                          value: selectedBudgetId, // Set the selected bank account
+                          items: dropdownItems,
+                          onChanged: (newValue) =>
+                              setState(() => selectedBudgetId = newValue!),
+                        ),
+                        const SizedBox(height: 20.0,),
+                      ],
+                    );
+                  }),
               const SizedBox(height: 20.0,),
 
               // update button
