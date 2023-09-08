@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:polybudget/common_widgets/presentation/home_wrapper_add.dart';
 import 'package:polybudget/database.dart';
 import 'package:polybudget/features/budget/domain/budget.dart';
@@ -31,6 +32,15 @@ class _TransactionFormState extends State<TransactionForm> {
   DateTime firstDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
   DateTime lastDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day+14);
   // form values
+  TextEditingController dateInput = TextEditingController();
+
+  @override
+  void initState() {
+    dateInput.text = ""; //set the initial value of text field
+    super.initState();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -82,10 +92,44 @@ class _TransactionFormState extends State<TransactionForm> {
                     _currentName = val;
                   }),
                 ),
+
                 const SizedBox(height: 10.0,),
-                InputDatePickerFormField(
-                    firstDate: firstDate,
-                    lastDate: lastDate),
+
+                TextField(
+                  controller: dateInput,
+                  //editing controller of this TextField
+                  decoration: const InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      labelText: "Enter Date" //label text of field
+                  ),
+                  readOnly: true,
+                  //set it true, so that user will not able to edit text
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1950),
+                        //DateTime.now() - not to allow to choose before today.
+                        lastDate: DateTime(2100));
+
+                    if (pickedDate != null) {
+                      print(
+                          pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                      String formattedDate =
+                      DateFormat('yyyy-MM-dd').format(pickedDate);
+                      print(
+                          formattedDate); //formatted date output using intl package =>  2021-03-16
+                      setState(() {
+                        dateInput.text =
+                            formattedDate; //set output date to TextField value.
+                      });
+                    } else {}
+                  },
+                ),
+
+
+
                 const SizedBox(height: 10.0,),
                 TextFormField(
                   initialValue: _currentValue.toString(),
@@ -107,11 +151,6 @@ class _TransactionFormState extends State<TransactionForm> {
                           child: Text('BankAccount: ${bankAccount!.name ?? 'Unnamed'}'), // Provide a default name if it's null
                         );
                   }).toList();
-                  // Add an additional item for "no bank account"
-                  dropdownItems?.insert(0, const DropdownMenuItem<BankAccount?>(
-                    value: null, // Empty BankAccount for "no bank account"
-                    child: const Text('No Bank Account'),
-                  ));
 
                   return Column (
                   children: [
@@ -138,11 +177,6 @@ class _TransactionFormState extends State<TransactionForm> {
                           child: Text('Category: ${category!.name ?? 'Unnamed'}'), // Provide a default name if it's null
                         );
                       }).toList();
-                      // Add an additional item for "no bank account"
-                      dropdownItems?.insert(0, const DropdownMenuItem<c.Category>(
-                        value: null, // Empty string for "no bank account"
-                        child: Text('No Category'),
-                      ));
                       return Column (
                         children: [
                           const SizedBox(height: 10.0,),
@@ -168,11 +202,6 @@ class _TransactionFormState extends State<TransactionForm> {
                           child: Text('Budget: ${budget!.name ?? 'Unnamed'}'), // Provide a default name if it's null
                         );
                       }).toList();
-                      // Add an additional item for "no bank account"
-                      dropdownItems?.insert(0, const DropdownMenuItem<Budget>(
-                        value: null, // Empty string for "no bank account"
-                        child: Text('No Budget'),
-                      ));
                       return Column (
                         children: [
                           const SizedBox(height: 10.0,),
@@ -196,14 +225,11 @@ class _TransactionFormState extends State<TransactionForm> {
                     backgroundColor: Colors.pink[400],
                   ),
                   onPressed: () async {
-                    //     amount: amount,
-                    //     budget: budget,
-                    //     category: category,
-                    //     bankAccount: bankAccount,
-                    //     date: date,
                     //     recurring: recurring,
                     //     transactionType: transactionType);
                     print('transaction name: $_currentName');
+                    print('amount: $_currentValue');
+                    print('recur: $_currentValue');
                     print('bank name: ${selectedBankAccount?.name} and the id is ${selectedBankAccount?.id}');
                     print('budget name: ${selectedBudget?.name} and the id is ${selectedBudget?.id}');
                     print('category name: ${selectedCategory?.name} and the id is ${selectedCategory?.id}');
