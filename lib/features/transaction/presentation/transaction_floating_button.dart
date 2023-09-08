@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:polybudget/features/bankaccount/domain/bankAccount.dart';
 
 import 'Transaction_form.dart';
 
@@ -24,9 +25,9 @@ class TransactionFloatingButton extends StatelessWidget {
               context: context,
               builder: (BuildContext context) {
                 return TransactionForm(
-                  bankId: '',
-                  categoryId: '',
-                  budgetId: '',
+                  bank: null,
+                  category: null,
+                  budget: null,
                 ); // Display the advanced form
               },
             );
