@@ -107,7 +107,7 @@ class DatabaseService {
 
 
 
-  Stream<List<t.Transaction?>?> userTransactionsByAccount({required String bankAccountId, required String year, required String month})  {
+  Stream<List<t.Transaction?>?> userTransactionsByAccount({required String? bankAccountId, required String year, required String month})  {
     return polyBudgetDB
         .doc(uid)
         .collection("bankAccounts")

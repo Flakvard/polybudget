@@ -13,8 +13,9 @@ class HomeWrapperOptions extends StatelessWidget {
   final Widget content;
   final Widget options;
   final Widget filter;
+  final Widget floatingButton;
 
-  HomeWrapperOptions({required this.content, super.key, required this.options, required this.filter});
+  HomeWrapperOptions({required this.content, super.key, required this.options, required this.filter, required this.floatingButton});
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -60,6 +61,7 @@ class HomeWrapperOptions extends StatelessWidget {
         ],
       ),
       body: content,
+        floatingActionButton: floatingButton
     );
   }
 }
