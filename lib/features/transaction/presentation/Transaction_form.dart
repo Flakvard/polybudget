@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:polybudget/common_widgets/presentation/home_wrapper_add.dart';
 import 'package:polybudget/database.dart';
@@ -10,6 +11,7 @@ import '../../../common_widgets/presentation/constants.dart';
 import '../../authenticate/domain/user.dart';
 import '../../bankaccount/domain/bankAccount.dart';
 import '../../category/domain/category.dart' as c;
+import '../domain/transactions.dart';
 
 
 class TransactionForm extends StatefulWidget {
@@ -28,18 +30,25 @@ class _TransactionFormState extends State<TransactionForm> {
   final _formkey = GlobalKey<FormState>();
 
   String _currentName = 'New transaction';
-  double _currentValue = 0.0;
+  String? value;
   DateTime firstDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
   DateTime lastDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day+14);
   // form values
   TextEditingController dateInput = TextEditingController();
+  TextEditingController amountController = TextEditingController();
+  final bool allowDecimal = true;
+
+  String _getRegexString() =>
+      allowDecimal ? r'[0-9]+[,.]{0,1}[0-9]*' : r'[0-9]';
+
+  bool isRecurring = false; // Default value for recurring
 
   @override
   void initState() {
     dateInput.text = ""; //set the initial value of text field
+    amountController.text = ""; //set the initial value of text field
     super.initState();
   }
-
 
 
   @override
@@ -48,6 +57,9 @@ class _TransactionFormState extends State<TransactionForm> {
     BankAccount? selectedBankAccount = widget.bank; // Initialize with an empty string
     c.Category? selectedCategory = widget.category; // Initialize with an empty string
     Budget? selectedBudget = widget.budget; // Initialize with an empty string
+
+    TransactionType selectedTransactionType = TransactionType.actual; // Default value for TransactionType
+
 
     void close(){
       Navigator.pop(context);
@@ -84,6 +96,8 @@ class _TransactionFormState extends State<TransactionForm> {
             child: Column(
               children: [
                 const SizedBox(height: 10.0,),
+
+                // Pick a name for the transaction form
                 TextFormField(
                   initialValue: _currentName,
                   decoration: textInputDecoration, // constant.dart
@@ -94,7 +108,26 @@ class _TransactionFormState extends State<TransactionForm> {
                 ),
 
                 const SizedBox(height: 10.0,),
+                // Pick an amount for transaction form
+                TextFormField(
+                  controller: amountController,
+                  initialValue: value,
+                  //onChanged: onChanged as void Function(String)?,
+                  //readOnly: disabled,
+                  keyboardType: TextInputType.numberWithOptions(decimal: allowDecimal),
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(_getRegexString())),
+                    TextInputFormatter.withFunction(
+                          (oldValue, newValue) => newValue.copyWith(
+                        text: newValue.text.replaceAll('.', ','),
+                      ),
+                    ),
+                  ],
+                  decoration: textInputDecoration,
+                ),
 
+                const SizedBox(height: 10.0,),
+                // Pick a Date form
                 TextField(
                   controller: dateInput,
                   //editing controller of this TextField
@@ -127,19 +160,9 @@ class _TransactionFormState extends State<TransactionForm> {
                     } else {}
                   },
                 ),
-
-
-
                 const SizedBox(height: 10.0,),
-                TextFormField(
-                  initialValue: _currentValue.toString(),
-                  decoration: textInputDecoration, // constant.dart
-                  validator: (val) => val!.isEmpty ? 'Please enter a value' : null,
-                  onChanged: (val) => setState(() {
-                    _currentName = val;
-                  }),
-                ),
-                const SizedBox(height: 10.0,),
+
+                // Pick a bank form
                 Consumer<List<BankAccount?>?>(
                 builder: (context, bankAccounts, child) {
                   // Create a list of DropdownMenuItem<BankAccount>
@@ -154,7 +177,6 @@ class _TransactionFormState extends State<TransactionForm> {
 
                   return Column (
                   children: [
-                    const SizedBox(height: 10.0,),
                     // List of bank accounts the user has
                     DropdownButtonFormField<BankAccount?>(
                       decoration: textInputDecoration,
@@ -163,11 +185,12 @@ class _TransactionFormState extends State<TransactionForm> {
                       onChanged: (newValue) =>
                           setState(() => selectedBankAccount = newValue!),
                     ),
-                    const SizedBox(height: 10.0,),
                   ],
                   );
                 }),
+                const SizedBox(height: 10.0,),
 
+                // Pick a category form
                 Consumer<List<c.Category?>?>(
                     builder: (context, categories, child) {
                       // Create a list of DropdownMenuItem<BankAccount>
@@ -179,7 +202,6 @@ class _TransactionFormState extends State<TransactionForm> {
                       }).toList();
                       return Column (
                         children: [
-                          const SizedBox(height: 10.0,),
                           // List of bank accounts the user has
                           DropdownButtonFormField<c.Category>(
                             decoration: textInputDecoration,
@@ -188,11 +210,12 @@ class _TransactionFormState extends State<TransactionForm> {
                             onChanged: (newValue) =>
                                 setState(() => selectedCategory = newValue!),
                           ),
-                          const SizedBox(height: 10.0,),
                         ],
                       );
                     }),
+                const SizedBox(height: 10.0,),
 
+                // Pick a budget form
                 Consumer<List<Budget?>?>(
                     builder: (context, budgets, child) {
                       // Create a list of DropdownMenuItem<BankAccount>
@@ -204,7 +227,6 @@ class _TransactionFormState extends State<TransactionForm> {
                       }).toList();
                       return Column (
                         children: [
-                          const SizedBox(height: 10.0,),
                           // List of bank accounts the user has
                           DropdownButtonFormField<Budget>(
                             decoration: textInputDecoration,
@@ -213,11 +235,51 @@ class _TransactionFormState extends State<TransactionForm> {
                             onChanged: (newValue) =>
                                 setState(() => selectedBudget = newValue!),
                           ),
-                          const SizedBox(height: 10.0,),
                         ],
                       );
                     }),
                 const SizedBox(height: 10.0,),
+
+                // choose between recurring and non recurring
+                Container(
+                  color: Colors.white,
+                  child: CheckboxListTile(
+                    title: const Text(
+                      'Recurring Transaction',
+                      style: TextStyle(
+                        backgroundColor: Colors.white,
+                      ),
+                    ),
+                    value: isRecurring,
+                    //tristate: true, // allow a null state
+                    checkColor: Colors.white,
+                    activeColor: Colors.pink,
+                    onChanged: (newValue) {
+                      setState(() {
+                        isRecurring = newValue!;
+                        print('isRecurring: $isRecurring'); // Check if the value is updating
+                      });
+                    },
+                  ),
+                ),
+                const SizedBox(height: 10.0,),
+
+                // choose between actual and expected
+                DropdownButtonFormField<TransactionType>(
+                  decoration: textInputDecoration,
+                  value: selectedTransactionType,
+                  items: TransactionType.values.map((type) {
+                    return DropdownMenuItem<TransactionType>(
+                      value: type,
+                      child: Text(type.name.toString()),
+                    );
+                  }).toList(),
+                  onChanged: (newValue) {
+                    setState(() {
+                      selectedTransactionType = newValue!;
+                    });
+                  },
+                ),
 
                 // update button
                 ElevatedButton(
@@ -228,8 +290,8 @@ class _TransactionFormState extends State<TransactionForm> {
                     //     recurring: recurring,
                     //     transactionType: transactionType);
                     print('transaction name: $_currentName');
-                    print('amount: $_currentValue');
-                    print('recur: $_currentValue');
+                    print('amount: $value');
+                    print('recur: $value');
                     print('bank name: ${selectedBankAccount?.name} and the id is ${selectedBankAccount?.id}');
                     print('budget name: ${selectedBudget?.name} and the id is ${selectedBudget?.id}');
                     print('category name: ${selectedCategory?.name} and the id is ${selectedCategory?.id}');
