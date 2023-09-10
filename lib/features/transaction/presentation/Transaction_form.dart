@@ -19,8 +19,9 @@ class TransactionForm extends StatefulWidget {
   final BankAccount? bank;
   final c.Category? category;
   final Budget? budget;
+  final Function? onChanged;
 
-  const TransactionForm({super.key, required this.bank, required this.category, required this.budget});
+  const TransactionForm({super.key, required this.bank, required this.category, required this.budget, this.onChanged});
 
   @override
   State<TransactionForm> createState() => _TransactionFormState();
@@ -30,10 +31,11 @@ class _TransactionFormState extends State<TransactionForm> {
   final _formkey = GlobalKey<FormState>();
 
   String _currentName = 'New transaction';
-  String? value;
+  String? amountValue;
   DateTime firstDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
   DateTime lastDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day+14);
   // form values
+  Function? onChanged;
   TextEditingController dateInput = TextEditingController();
   TextEditingController amountController = TextEditingController();
   final bool allowDecimal = true;
@@ -43,22 +45,31 @@ class _TransactionFormState extends State<TransactionForm> {
 
   bool isRecurring = false; // Default value for recurring
 
+  final BankAccount? noBankAccount = BankAccount(id: '', name: 'No Bank Account');
+  final c.Category? noCategory = c.Category(id: '', name: 'No Category');
+  final Budget? noBudget = Budget(id: '', name: 'No Budget');
+  BankAccount? selectedBankAccount; // Initialize with an empty string
+
+  c.Category? selectedCategory; // Initialize with an empty string
+  Budget? selectedBudget;// Initialize with an empty string
+  late TransactionType selectedTransactionType; // Default value for TransactionType
+
+
   @override
   void initState() {
     dateInput.text = ""; //set the initial value of text field
-    amountController.text = ""; //set the initial value of text field
+    amountController.text = "Choose a value"; //set the initial value of text field
+    selectedBankAccount = noBankAccount; // Initialize with an empty string
+    selectedCategory = noCategory; // Initialize with an empty string
+    selectedBudget = noBudget; // Initialize with an empty string
+    selectedTransactionType = TransactionType.actual; // Default value for TransactionType
     super.initState();
   }
 
 
+
   @override
   Widget build(BuildContext context) {
-
-    BankAccount? selectedBankAccount = widget.bank; // Initialize with an empty string
-    c.Category? selectedCategory = widget.category; // Initialize with an empty string
-    Budget? selectedBudget = widget.budget; // Initialize with an empty string
-
-    TransactionType selectedTransactionType = TransactionType.actual; // Default value for TransactionType
 
 
     void close(){
@@ -67,11 +78,6 @@ class _TransactionFormState extends State<TransactionForm> {
 
     // access to the current user logged in
     final MyUser? user = Provider.of<MyUser?>(context); // get user info, logged in = unique id or null
-    // final budgetsSnapshot = DatabaseService(uid: user?.uid).userBudget;
-    // List<Budget> budgets = budgetsSnapshot as List<Budget>;
-    // for (Budget budget in budgets){
-    //   print(budget.name);
-    // }
 
     return MultiProvider(
     providers: [
@@ -111,9 +117,9 @@ class _TransactionFormState extends State<TransactionForm> {
                 // Pick an amount for transaction form
                 TextFormField(
                   controller: amountController,
-                  initialValue: value,
-                  //onChanged: onChanged as void Function(String)?,
-                  //readOnly: disabled,
+                  initialValue: amountValue,
+                  onChanged: onChanged as void Function(String)?,
+                  readOnly: false,
                   keyboardType: TextInputType.numberWithOptions(decimal: allowDecimal),
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(RegExp(_getRegexString())),
@@ -174,13 +180,18 @@ class _TransactionFormState extends State<TransactionForm> {
                           child: Text('BankAccount: ${bankAccount!.name ?? 'Unnamed'}'), // Provide a default name if it's null
                         );
                   }).toList();
+                  // Add an additional item for "no bank account"
+                  dropdownItems?.insert(0, DropdownMenuItem<BankAccount?>(
+                    value: noBankAccount, // Empty string for "no bank account"
+                    child: Text(noBankAccount!.name),
+                  ));
 
                   return Column (
                   children: [
                     // List of bank accounts the user has
                     DropdownButtonFormField<BankAccount?>(
                       decoration: textInputDecoration,
-                      value: selectedBankAccount ?? bankAccounts![0], // Set the selected bank account
+                      value: selectedBankAccount, // Set the selected bank account
                       items: dropdownItems,
                       onChanged: (newValue) =>
                           setState(() => selectedBankAccount = newValue!),
@@ -193,13 +204,17 @@ class _TransactionFormState extends State<TransactionForm> {
                 // Pick a category form
                 Consumer<List<c.Category?>?>(
                     builder: (context, categories, child) {
-                      // Create a list of DropdownMenuItem<BankAccount>
+                      // Create a list of DropdownMenuItem<c.Category>
                       final dropdownItems = categories?.where((category) => category != null).map((category) {
                         return DropdownMenuItem<c.Category>(
                           value: category, // Use a default value or an empty string if ID is null
                           child: Text('Category: ${category!.name ?? 'Unnamed'}'), // Provide a default name if it's null
                         );
                       }).toList();
+                      dropdownItems?.insert(0, DropdownMenuItem<c.Category>(
+                        value: noCategory, // Empty string for "no category"
+                        child: Text(noCategory!.name),
+                      ));
                       return Column (
                         children: [
                           // List of bank accounts the user has
@@ -225,6 +240,10 @@ class _TransactionFormState extends State<TransactionForm> {
                           child: Text('Budget: ${budget!.name ?? 'Unnamed'}'), // Provide a default name if it's null
                         );
                       }).toList();
+                      dropdownItems?.insert(0, DropdownMenuItem<Budget>(
+                        value: noBudget, // Empty string for "no budget"
+                        child: Text(noBudget!.name),
+                      ));
                       return Column (
                         children: [
                           // List of bank accounts the user has
@@ -287,14 +306,15 @@ class _TransactionFormState extends State<TransactionForm> {
                     backgroundColor: Colors.pink[400],
                   ),
                   onPressed: () async {
-                    //     recurring: recurring,
-                    //     transactionType: transactionType);
+
                     print('transaction name: $_currentName');
-                    print('amount: $value');
-                    print('recur: $value');
+                    print('amount: ${amountController.text}');
+                    print('date: $dateInput');
                     print('bank name: ${selectedBankAccount?.name} and the id is ${selectedBankAccount?.id}');
                     print('budget name: ${selectedBudget?.name} and the id is ${selectedBudget?.id}');
                     print('category name: ${selectedCategory?.name} and the id is ${selectedCategory?.id}');
+                    print('recur: $isRecurring');
+                    print('transa.type: $selectedTransactionType');
 
                     if(_formkey.currentState!.validate()){
                       // use the created budget to assign it to the user ID document in firestore

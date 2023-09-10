@@ -14,5 +14,11 @@ class Budget {
     return Budget(id: id, name: name);
   }
 
+  @override
+  bool operator ==(dynamic other) =>
+      other != null && other is Budget && id == other.id;
+
+  @override
+  int get hashCode => super.hashCode;
 
 }
