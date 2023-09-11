@@ -10,4 +10,11 @@ class BankAccount {
     this.balance,
   });
 
+  @override
+  bool operator ==(dynamic other) =>
+      other != null && other is BankAccount && id == other.id;
+
+  @override
+  int get hashCode => super.hashCode;
+
 }
