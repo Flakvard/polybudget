@@ -84,11 +84,11 @@ class Home extends StatelessWidget {
               //SizedBox(height: 12.0,),
               //BankAccountList(),
               //SizedBox(height: 12.0,),
-              //CategoryList(),
+              // CategoryList(),
               //SizedBox(height: 12.0,),
               // BudgetList(),
-              SizedBox(height: 12.0,),
-              UserInfoList(),
+              // SizedBox(height: 12.0,),
+              // UserInfoList(),
             ],
           ),
           // menu with all actions
@@ -97,41 +97,3 @@ class Home extends StatelessWidget {
       );
   }
 }
-
-// home screen with buttons
-// SafeArea(
-// child: Column(
-// children: [
-// const Center(
-// child: UserInfoList(),
-// ),
-// const SizedBox(height: 6,),
-// const SizedBox(height: 6,),
-// Center(
-// child: ElevatedButton(
-// onPressed: () {
-// // Navigate to User Page when the button is clicked
-// Navigator.pushNamed(context, '/transaction');
-// },
-// style: ElevatedButton.styleFrom(
-// backgroundColor: Colors.pink[300],
-// ),
-// child: const Text('Transaction Page'),
-// ),
-// ),
-// const SizedBox(height: 6,),
-// Center(
-// child: ElevatedButton(
-// onPressed: () {
-// // Navigate to User Page when the button is clicked
-// Navigator.pushNamed(context, '/Authenticate');
-// },
-// style: ElevatedButton.styleFrom(
-// backgroundColor: Colors.pink[300],
-// ),
-// child: const Text('SignIn'),
-// ),
-// ),
-// ],
-// ),
-// )

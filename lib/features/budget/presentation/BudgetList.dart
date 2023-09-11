@@ -24,8 +24,6 @@ class _BudgetListState extends State<BudgetList> {
     final Map<String, dynamic> args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final MyUser? user = args['user'];
 
-    // Accessing data from database.dart
-    // final myBudget = Provider.of<List<Budget?>?>(context) ?? [];
 
     return StreamProvider<List<Budget?>?>.value(
       value: DatabaseService(uid: user?.uid).userBudget,

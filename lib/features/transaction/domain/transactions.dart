@@ -96,10 +96,4 @@ class Transaction {
         bankAccount: bankAccount
     );
   }
-  // static String _getDefaultDate() {
-  //   DateTime now = DateTime.now();
-  //   // TODO: format date time to DD-MM-YYYY in a more neat way
-  //   String formattedDate = "${now.day.toString().padLeft(2, '0')}-${now.month.toString().padLeft(2, '0')}-${now.year}";
-  //   return formattedDate;
-  // }
 }

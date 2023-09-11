@@ -102,9 +102,7 @@ class _TransactionFilterFormState extends State<TransactionFilterForm> {
                       backgroundColor: Colors.pink[400],
                     ),
                     onPressed: () async {
-                      print('outside validate function');
                       if(_formkey.currentState!.validate()){
-                        print('inside validate function');
                         //String selectedBankAccountId = bankAccounts.isNotEmpty ? bankAccounts.first!.id : '';
                         widget.onFilterChanged(selectedYear, selectedMonth, selectedBankAccountId); // Call the callback
                         close(); // Navigate.pop(context)

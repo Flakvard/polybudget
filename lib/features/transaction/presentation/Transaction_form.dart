@@ -154,13 +154,10 @@ class _TransactionFormState extends State<TransactionForm> {
                         //DateTime.now() - not to allow to choose before today.
                         lastDate: DateTime(2100));
 
+                    //pickedDate output format => 2021-03-10 00:00:00.000
                     if (pickedDate != null) {
-                      print(
-                          pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                      String formattedDate =
-                      DateFormat('yyyy-MM-dd').format(pickedDate);
-                      print(
-                          formattedDate); //formatted date output using intl package =>  16-03-2023
+                      //formatted date output using intl package => 16-03-2023
+                      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
                       setState(() {
                         dateInput.text =
                             formattedDate; //set output date to TextField value.
@@ -281,7 +278,6 @@ class _TransactionFormState extends State<TransactionForm> {
                     onChanged: (newValue) {
                       setState(() {
                         isRecurring = newValue!;
-                        print('isRecurring: $isRecurring'); // Check if the value is updating
                       });
                     },
                   ),
@@ -314,14 +310,6 @@ class _TransactionFormState extends State<TransactionForm> {
 
 
                     if(_formkey.currentState!.validate()){
-                      //print('transaction name: $_currentName');
-                      //print('amount: ${amountController.text}');
-                      print('date: ${dateInput.text}');
-                      //print('bank name: ${selectedBankAccount?.name} and the id is ${selectedBankAccount?.id}');
-                      //print('budget name: ${selectedBudget?.name} and the id is ${selectedBudget?.id}');
-                      //print('category name: ${selectedCategory?.name} and the id is ${selectedCategory?.id}');
-                      //print('recur: $isRecurring');
-                      //print('transa.type: $selectedTransactionType');
                       // use the created budget to assign it to the user ID document in firestore
                       t.Transaction? transaction = await user?.createTransaction(
                           transactionName: _currentName,
@@ -332,7 +320,6 @@ class _TransactionFormState extends State<TransactionForm> {
                           date: dateInput.text,
                           recurring: isRecurring,
                           transactionType: selectedTransactionType);
-                      print(transaction.toString());
                       close(); // Navigate.pop(context)
                     }
                   },

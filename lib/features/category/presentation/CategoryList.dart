@@ -17,9 +17,6 @@ class CategoryList extends StatelessWidget {
     final Map<String, dynamic> args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final MyUser? user = args['user'];
 
-
-    // final categories = Provider.of<List<c.Category?>?>(context) ?? [];
-    
     return StreamProvider<List<c.Category?>?>.value(
       value: DatabaseService(uid: user?.uid).userCategory,
       initialData: const [],

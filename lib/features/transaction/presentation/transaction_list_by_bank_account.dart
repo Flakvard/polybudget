@@ -54,13 +54,7 @@ class _TransactionListByBankAccState extends State<TransactionListByBankAcc> {
 
               List<Transaction?> transactions = snapshot.data!;
 
-              for (var transaction in transactions){
-                print(transaction.toString());
-              }
-
               // Build your UI using the transactions list
-              // ...
-
               return ListView.builder(
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
