@@ -57,7 +57,7 @@ class _TransactionFormState extends State<TransactionForm> {
 
   @override
   void initState() {
-    dateInput.text = ""; //set the initial value of text field
+    dateInput.text = "${DateTime.now().year.toString()}-${DateTime.now().month.toString()}-${DateTime.now().day.toString()}"; //set the initial value of text field
     amountController.text = "Choose a value"; //set the initial value of text field
     selectedBankAccount = noBankAccount; // Initialize with an empty string
     selectedCategory = noCategory; // Initialize with an empty string
@@ -140,7 +140,7 @@ class _TransactionFormState extends State<TransactionForm> {
                   decoration: const InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
-                      labelText: "Enter Date" //label text of field
+                      // labelText: "Enter Date" //label text of field
                   ),
                   readOnly: true,
                   //set it true, so that user will not able to edit text
@@ -220,7 +220,7 @@ class _TransactionFormState extends State<TransactionForm> {
                           // List of bank accounts the user has
                           DropdownButtonFormField<c.Category>(
                             decoration: textInputDecoration,
-                            value: selectedCategory ?? categories![0], // Set the selected bank account
+                            value: selectedCategory, // Set the selected bank account
                             items: dropdownItems,
                             onChanged: (newValue) =>
                                 setState(() => selectedCategory = newValue!),
@@ -249,7 +249,7 @@ class _TransactionFormState extends State<TransactionForm> {
                           // List of bank accounts the user has
                           DropdownButtonFormField<Budget>(
                             decoration: textInputDecoration,
-                            value: selectedBudget ?? budgets![0], // Set the selected bank account
+                            value: selectedBudget, // Set the selected bank account
                             items: dropdownItems,
                             onChanged: (newValue) =>
                                 setState(() => selectedBudget = newValue!),
@@ -309,7 +309,7 @@ class _TransactionFormState extends State<TransactionForm> {
 
                     print('transaction name: $_currentName');
                     print('amount: ${amountController.text}');
-                    print('date: $dateInput');
+                    print('date: ${dateInput.text}');
                     print('bank name: ${selectedBankAccount?.name} and the id is ${selectedBankAccount?.id}');
                     print('budget name: ${selectedBudget?.name} and the id is ${selectedBudget?.id}');
                     print('category name: ${selectedCategory?.name} and the id is ${selectedCategory?.id}');
