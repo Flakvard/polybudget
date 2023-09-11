@@ -11,7 +11,7 @@ import '../../../common_widgets/presentation/constants.dart';
 import '../../authenticate/domain/user.dart';
 import '../../bankaccount/domain/bankAccount.dart';
 import '../../category/domain/category.dart' as c;
-import '../domain/transactions.dart';
+import '../domain/transactions.dart' as t;
 
 
 class TransactionForm extends StatefulWidget {
@@ -52,17 +52,17 @@ class _TransactionFormState extends State<TransactionForm> {
 
   c.Category? selectedCategory; // Initialize with an empty string
   Budget? selectedBudget;// Initialize with an empty string
-  late TransactionType selectedTransactionType; // Default value for TransactionType
+  late t.TransactionType selectedTransactionType; // Default value for TransactionType
 
 
   @override
   void initState() {
-    dateInput.text = "${DateTime.now().year.toString()}-${DateTime.now().month.toString()}-${DateTime.now().day.toString()}"; //set the initial value of text field
+    dateInput.text = ""; //set the initial value of text field
     amountController.text = "Choose a value"; //set the initial value of text field
     selectedBankAccount = noBankAccount; // Initialize with an empty string
     selectedCategory = noCategory; // Initialize with an empty string
     selectedBudget = noBudget; // Initialize with an empty string
-    selectedTransactionType = TransactionType.actual; // Default value for TransactionType
+    selectedTransactionType = t.TransactionType.actual; // Default value for TransactionType
     super.initState();
   }
 
@@ -125,14 +125,16 @@ class _TransactionFormState extends State<TransactionForm> {
                     FilteringTextInputFormatter.allow(RegExp(_getRegexString())),
                     TextInputFormatter.withFunction(
                           (oldValue, newValue) => newValue.copyWith(
-                        text: newValue.text.replaceAll('.', ','),
+                        text: newValue.text.replaceAll(",","."),
                       ),
                     ),
                   ],
+                  // validator: (newValue) => double.parse(newValue!) < 0 ? "Please choose a positive value" : null,
                   decoration: textInputDecoration,
                 ),
 
                 const SizedBox(height: 10.0,),
+
                 // Pick a Date form
                 TextField(
                   controller: dateInput,
@@ -140,7 +142,7 @@ class _TransactionFormState extends State<TransactionForm> {
                   decoration: const InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
-                      // labelText: "Enter Date" //label text of field
+                      labelText: "Enter Date" //label text of field
                   ),
                   readOnly: true,
                   //set it true, so that user will not able to edit text
@@ -158,7 +160,7 @@ class _TransactionFormState extends State<TransactionForm> {
                       String formattedDate =
                       DateFormat('yyyy-MM-dd').format(pickedDate);
                       print(
-                          formattedDate); //formatted date output using intl package =>  2021-03-16
+                          formattedDate); //formatted date output using intl package =>  16-03-2023
                       setState(() {
                         dateInput.text =
                             formattedDate; //set output date to TextField value.
@@ -193,6 +195,7 @@ class _TransactionFormState extends State<TransactionForm> {
                       decoration: textInputDecoration,
                       value: selectedBankAccount, // Set the selected bank account
                       items: dropdownItems,
+                      validator: (newValue) => newValue == noBankAccount ? "Please select a bank account" : null,
                       onChanged: (newValue) =>
                           setState(() => selectedBankAccount = newValue!),
                     ),
@@ -222,6 +225,7 @@ class _TransactionFormState extends State<TransactionForm> {
                             decoration: textInputDecoration,
                             value: selectedCategory, // Set the selected bank account
                             items: dropdownItems,
+                            validator: (newValue) => newValue == noCategory ? "Please select a category" : null,
                             onChanged: (newValue) =>
                                 setState(() => selectedCategory = newValue!),
                           ),
@@ -251,6 +255,7 @@ class _TransactionFormState extends State<TransactionForm> {
                             decoration: textInputDecoration,
                             value: selectedBudget, // Set the selected bank account
                             items: dropdownItems,
+                            validator: (newValue) => newValue == noBudget ? "Please select a budget" : null,
                             onChanged: (newValue) =>
                                 setState(() => selectedBudget = newValue!),
                           ),
@@ -284,11 +289,11 @@ class _TransactionFormState extends State<TransactionForm> {
                 const SizedBox(height: 10.0,),
 
                 // choose between actual and expected
-                DropdownButtonFormField<TransactionType>(
+                DropdownButtonFormField<t.TransactionType>(
                   decoration: textInputDecoration,
                   value: selectedTransactionType,
-                  items: TransactionType.values.map((type) {
-                    return DropdownMenuItem<TransactionType>(
+                  items: t.TransactionType.values.map((type) {
+                    return DropdownMenuItem<t.TransactionType>(
                       value: type,
                       child: Text(type.name.toString()),
                     );
@@ -307,26 +312,27 @@ class _TransactionFormState extends State<TransactionForm> {
                   ),
                   onPressed: () async {
 
-                    print('transaction name: $_currentName');
-                    print('amount: ${amountController.text}');
-                    print('date: ${dateInput.text}');
-                    print('bank name: ${selectedBankAccount?.name} and the id is ${selectedBankAccount?.id}');
-                    print('budget name: ${selectedBudget?.name} and the id is ${selectedBudget?.id}');
-                    print('category name: ${selectedCategory?.name} and the id is ${selectedCategory?.id}');
-                    print('recur: $isRecurring');
-                    print('transa.type: $selectedTransactionType');
 
                     if(_formkey.currentState!.validate()){
+                      //print('transaction name: $_currentName');
+                      //print('amount: ${amountController.text}');
+                      print('date: ${dateInput.text}');
+                      //print('bank name: ${selectedBankAccount?.name} and the id is ${selectedBankAccount?.id}');
+                      //print('budget name: ${selectedBudget?.name} and the id is ${selectedBudget?.id}');
+                      //print('category name: ${selectedCategory?.name} and the id is ${selectedCategory?.id}');
+                      //print('recur: $isRecurring');
+                      //print('transa.type: $selectedTransactionType');
                       // use the created budget to assign it to the user ID document in firestore
-                      // await user?.createTransaction(
-                      //     transactionName: transactionName,
-                      //     amount: amount,
-                      //     budget: budget,
-                      //     category: category,
-                      //     bankAccount: bankAccount,
-                      //     date: date,
-                      //     recurring: recurring,
-                      //     transactionType: transactionType);
+                      t.Transaction? transaction = await user?.createTransaction(
+                          transactionName: _currentName,
+                          amount: double.parse(amountController.text),
+                          budget: selectedBudget!,
+                          category: selectedCategory!,
+                          bankAccount: selectedBankAccount!,
+                          date: dateInput.text,
+                          recurring: isRecurring,
+                          transactionType: selectedTransactionType);
+                      print(transaction.toString());
                       close(); // Navigate.pop(context)
                     }
                   },
