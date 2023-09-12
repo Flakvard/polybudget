@@ -7,7 +7,8 @@ import 'package:polybudget/features/category/presentation/CategoryList.dart';
 import 'package:polybudget/features/home/presentation/menu.dart';
 import 'package:polybudget/database.dart';
 import 'package:polybudget/features/home/presentation/settings_form.dart';
-import 'package:polybudget/features/transaction/domain/transactions.dart';
+import 'package:polybudget/features/transaction/domain/transactions.dart' as t;
+import 'package:polybudget/features/week_overview/presentation/bar_graph.dart';
 import 'package:provider/provider.dart';
 
 import 'package:polybudget/features/budget/presentation/BudgetList.dart';
@@ -33,6 +34,17 @@ class Home extends StatelessWidget {
       });
     }
 
+    List<double> weeklySummary = [
+      4.40,
+      50.40,
+      90.33,
+      120.03,
+      83.30,
+      9.95,
+      230.22,
+      50.33,
+    ];
+
     final MyUser? user = Provider.of<MyUser?>(context); // get user info, logged in = unique id or null
 
     return MultiProvider(
@@ -52,6 +64,10 @@ class Home extends StatelessWidget {
         ),
         StreamProvider<List<BankAccount?>?>.value(
             value: DatabaseService(uid: user?.uid).userBankAccount,
+            initialData: const []
+        ),
+        StreamProvider<List<t.Transaction?>?>.value(
+            value: DatabaseService(uid: user?.uid).allUserTransactions(year: DateTime.now().year.toString(), month: DateTime.now().month.toString()),
             initialData: const []
         ),
       ],
@@ -79,17 +95,24 @@ class Home extends StatelessWidget {
               ),
             ],
           ),
-          body: const Column(
-            children: [
-              //SizedBox(height: 12.0,),
-              //BankAccountList(),
-              //SizedBox(height: 12.0,),
-              // CategoryList(),
-              //SizedBox(height: 12.0,),
-              // BudgetList(),
-              // SizedBox(height: 12.0,),
-              // UserInfoList(),
-            ],
+          body: SafeArea(
+            child: Column(
+              children: [
+                //SizedBox(height: 12.0,),
+                //BankAccountList(),
+                //SizedBox(height: 12.0,),
+                // CategoryList(),
+                //SizedBox(height: 12.0,),
+                // BudgetList(),
+                // SizedBox(height: 12.0,),
+                // UserInfoList(),
+                const SizedBox(height: 100,),
+                SizedBox(
+                  height: 400,
+                  child: MyBarGraph(weeklySummary: weeklySummary,)
+                ),
+              ],
+            ),
           ),
           // menu with all actions
           drawer: AppDrawer(user: user,),
