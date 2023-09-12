@@ -44,6 +44,16 @@ class Home extends StatelessWidget {
       230.22,
       50.33,
     ];
+    List<double> budgetWeeklySummary = [
+      100.40,
+      60.40,
+      80.33,
+      120.03,
+      103.30,
+      80.95,
+      130.22,
+      80.33,
+    ];
 
     final MyUser? user = Provider.of<MyUser?>(context); // get user info, logged in = unique id or null
 
@@ -109,7 +119,7 @@ class Home extends StatelessWidget {
                 const SizedBox(height: 100,),
                 SizedBox(
                   height: 400,
-                  child: MyBarGraph(weeklySummary: weeklySummary,)
+                  child: MyBarGraph(weeklySummary: weeklySummary, budgetWeeklySummary: budgetWeeklySummary,)
                 ),
               ],
             ),
