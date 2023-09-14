@@ -11,7 +11,10 @@ class MyBarGraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double weeklyMax = weeklySummary.reduce((value, element) => value > element ? value : element);
+    double weeklyMax = weeklySummary.reduce((value, element) => value > element ? value : element);
+    final double weekMax = weeklyMax % 10;
+    weeklyMax -= weekMax;
+
     BarData myBarData = BarData(
         monAmount: weeklySummary[0],
         tueAmount: weeklySummary[1],
@@ -25,7 +28,7 @@ class MyBarGraph extends StatelessWidget {
 
     return BarChart(
       BarChartData(
-        maxY: weeklyMax,
+        maxY: weeklyMax.ceil().toDouble()+10.0,
         minY: 0,
         gridData: const FlGridData(show: false),
         borderData: FlBorderData(show: true),
