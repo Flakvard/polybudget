@@ -15,6 +15,7 @@ import 'package:polybudget/features/authenticate/application/auth.dart';
 import 'package:polybudget/common_widgets/presentation/loading.dart';
 import 'features/home/presentation/UserInfoList.dart';
 import 'features/transaction/presentation/transaction_list.dart';
+import 'features/transaction/presentation/transaction_list_by_bank_account.dart';
 
 
 void main() async {
@@ -47,6 +48,8 @@ class _MyAppState extends State<MyApp> {
           '/home': (context) => Home(),
           '/user': (context) => const UserPage(),
           '/transactionList': (context) => const TransactionList(),
+          '/transactionListByAcc': (context) => const TransactionListByBankAcc(),
+
           '/userinfo': (context) => const UserInfoList(),
           '/bankaccounts': (context) => BankAccountList(),
           '/budgets': (context) => const BudgetList(),

@@ -71,7 +71,7 @@ class BankAccountTile extends StatelessWidget {
               ],
           ),
           onTap: () {
-            Navigator.pushNamed(context, '/transactionList',arguments: bankAccount?.id);
+            Navigator.pushNamed(context, '/transactionListByAcc',arguments: bankAccount?.id);
           },
 
         ),

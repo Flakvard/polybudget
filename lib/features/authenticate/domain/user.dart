@@ -123,7 +123,8 @@ class MyUser{
     // create an instance of the database from the user ID inside this class
     final db = DatabaseService(uid: uid);
     // use the created budget to assign it to the user ID document in firestore
-    await db.createTransactionDocument(transaction: transaction);
+    if(transaction.transactionType.name == "actual") await db.createTransactionActualDocument(transaction: transaction);
+    if(transaction.transactionType.name == "expected") await db.createTransactionExpectedDocument(transaction: transaction);
 
     return transaction;
   }
