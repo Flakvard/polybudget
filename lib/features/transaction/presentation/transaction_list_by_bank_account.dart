@@ -33,15 +33,14 @@ class _TransactionListByBankAccState extends State<TransactionListByBankAcc> {
 
     final MyUser? user = Provider.of<MyUser?>(context); // get user info, logged in = unique id or null
 
-    final String year = DateTime.now().year.toString();
-    // final String month = DateTime.now().month.toString();
-    const String month = '8';
+    String year = DateTime.now().year.toString();
+    String month = DateTime.now().month.toString();
     // List<Transaction?> transactions =
 
     return HomeWrapperAdd(
       content: SingleChildScrollView(
           child: StreamBuilder<List<Transaction?>?>(
-            stream: DatabaseService(uid: user?.uid).userTransactionsByAccount(
+            stream: DatabaseService(uid: user?.uid).userActualTransactionsByAccount(
                 bankAccountId: bankAccountId!, year: year, month: month),
             builder: (context, snapshot) {
               if (snapshot.hasError) {

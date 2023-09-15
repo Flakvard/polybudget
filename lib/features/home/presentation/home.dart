@@ -78,7 +78,7 @@ class Home extends StatelessWidget {
             initialData: const []
         ),
         StreamProvider<List<t.Transaction?>?>.value(
-            value: DatabaseService(uid: user?.uid).allUserTransactions(year: DateTime.now().year.toString(), month: DateTime.now().month.toString()),
+            value: DatabaseService(uid: user?.uid).allUserActualTransactions(year: DateTime.now().year.toString(), month: DateTime.now().month.toString()),
             initialData: const []
         ),
       ],

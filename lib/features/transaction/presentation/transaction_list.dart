@@ -47,8 +47,8 @@ class _TransactionListState extends State<TransactionList> {
 
     return StreamProvider<List<t.Transaction?>?>.value(
       value: bankID == ''
-          ? DatabaseService(uid: user?.uid).allUserTransactions(year: year, month: month)
-          : DatabaseService(uid: user?.uid).userTransactionsByAccount(
+          ? DatabaseService(uid: user?.uid).allUserActualTransactions(year: year, month: month)
+          : DatabaseService(uid: user?.uid).userActualTransactionsByAccount(
         bankAccountId: bankID,
         year: year,
         month: month,

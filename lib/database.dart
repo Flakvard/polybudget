@@ -107,11 +107,13 @@ class DatabaseService {
 
 
 
-  Stream<List<t.Transaction?>?> userTransactionsByAccount({required String? bankAccountId, required String year, required String month})  {
+  Stream<List<t.Transaction?>?> userActualTransactionsByAccount({required String? bankAccountId, required String year, required String month})  {
     return polyBudgetDB
         .doc(uid)
         .collection("bankAccounts")
         .doc(bankAccountId)
+        .collection("Actual")
+        .doc("actual")
         .collection("Year")
         .doc(year)
         .collection("Month")
@@ -126,7 +128,7 @@ class DatabaseService {
     return snapshot.docs.map((doc) => t.Transaction.fromFirestore(doc)).toList();
   }
 
-  Stream<List<t.Transaction?>?> allUserTransactions({required String year, required String month})  {
+  Stream<List<t.Transaction?>?> allUserActualTransactions({required String year, required String month})  {
     return polyBudgetDB
         .doc(uid)
         .collection("bankAccounts")
@@ -140,6 +142,8 @@ class DatabaseService {
             .doc(uid)
             .collection("bankAccounts")
             .doc(bankAccountId)
+            .collection("Actual")
+            .doc("actual")
             .collection("Year")
             .doc(year)
             .collection("Month")
@@ -149,11 +153,6 @@ class DatabaseService {
 
         transactions.addAll(_transactionsListFromSnapshot(transactionQuery) as Iterable<t.Transaction?>);
       }
-      for (int i = 0; i < transactions.length; i++) {
-        t.Transaction? transaction = transactions[i];
-        print(transaction.toString());
-      }
-
       return transactions;
     });
   }
@@ -197,11 +196,13 @@ class DatabaseService {
     });
   }
 
-  Future createTransactionDocument({required t.Transaction transaction}) async {
+  Future createTransactionActualDocument({required t.Transaction transaction}) async {
     return await polyBudgetDB
         .doc(uid)
         .collection("bankAccounts")
         .doc(transaction.bankAccount.id)
+        .collection("Actual")
+        .doc(transaction.transactionType.name)
         .collection("Year")
         .doc(transaction.date.year.toString())
         .collection("Month")
@@ -224,5 +225,33 @@ class DatabaseService {
 
   }
 
+  Future createTransactionExpectedDocument({required t.Transaction transaction}) async {
+    return await polyBudgetDB
+        .doc(uid)
+        .collection("bankAccounts")
+        .doc(transaction.bankAccount.id)
+        .collection("Expected")
+        .doc(transaction.transactionType.name)
+        .collection("Year")
+        .doc(transaction.date.year.toString())
+        .collection("Month")
+        .doc(transaction.date.month.toString())
+        .collection("transactions")
+        .doc(transaction.id).set({
+      "id": transaction.id,
+      "text": transaction.text,
+      "amount": transaction.amount,
+      "date": transaction.date,
+      "transactionType": transaction.transactionType.name,
+      "recurring": transaction.recurring,
+      "bankAccountId": transaction.bankAccount.id,
+      "bankAccount": transaction.bankAccount.name,
+      "categoryId": transaction.category.id,
+      "category": transaction.category.name,
+      "budgetId": transaction.budget.id,
+      "budget": transaction.budget.name,
+    });
+
+  }
 }
 
