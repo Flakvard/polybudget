@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:polybudget/features/budget/presentation/BudgetList.dart';
 import '../../bankaccount/presentation/BankAccountList.dart';
 import '../../budget/domain/budget.dart';
+import '../../week_overview/presentation/filter_widget.dart';
 import 'UserInfoList.dart';
 
 class Home extends StatelessWidget {
@@ -41,8 +42,18 @@ class Home extends StatelessWidget {
       120.03,
       83.30,
       9.95,
-      230.22,
+      130.22,
       50.33,
+    ];
+    List<double> budgetWeeklySummary = [
+      100.40,
+      60.40,
+      80.33,
+      120.03,
+      103.30,
+      80.95,
+      120.22,
+      80.33,
     ];
 
     final MyUser? user = Provider.of<MyUser?>(context); // get user info, logged in = unique id or null
@@ -98,6 +109,7 @@ class Home extends StatelessWidget {
           body: SafeArea(
             child: Column(
               children: [
+                FilterWidget(user: user,),
                 //SizedBox(height: 12.0,),
                 //BankAccountList(),
                 //SizedBox(height: 12.0,),
@@ -109,7 +121,7 @@ class Home extends StatelessWidget {
                 const SizedBox(height: 100,),
                 SizedBox(
                   height: 400,
-                  child: MyBarGraph(weeklySummary: weeklySummary,)
+                  child: MyBarGraph(weeklySummary: weeklySummary, budgetWeeklySummary: budgetWeeklySummary,)
                 ),
               ],
             ),

@@ -4,12 +4,17 @@ import 'package:polybudget/features/week_overview/domain/bar_data_class.dart';
 
 class MyBarGraph extends StatelessWidget {
   final List<double> weeklySummary; // all transaction from mon to sun
-  const MyBarGraph({super.key, required this.weeklySummary});
+  final List<double> budgetWeeklySummary; // all transaction from mon to sun
+
+  const MyBarGraph({super.key, required this.weeklySummary, required this.budgetWeeklySummary});
 
 
   @override
   Widget build(BuildContext context) {
-    final double weeklyMax = weeklySummary.reduce((value, element) => value > element ? value : element);
+    double weeklyMax = weeklySummary.reduce((value, element) => value > element ? value : element);
+    final double weekMax = weeklyMax % 10;
+    weeklyMax -= weekMax;
+
     BarData myBarData = BarData(
         monAmount: weeklySummary[0],
         tueAmount: weeklySummary[1],
@@ -23,7 +28,7 @@ class MyBarGraph extends StatelessWidget {
 
     return BarChart(
       BarChartData(
-        maxY: weeklyMax,
+        maxY: weeklyMax.ceil().toDouble()+10.0,
         minY: 0,
         gridData: const FlGridData(show: false),
         borderData: FlBorderData(show: true),
@@ -32,24 +37,43 @@ class MyBarGraph extends StatelessWidget {
           rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
           bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: true, getTitlesWidget: getBottomTitles,)),
           // leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: true),
-          leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: true, getTitlesWidget: getLeftTiles, reservedSize: 50.0)),
+          leftTitles: AxisTitles(
+              sideTitles: SideTitles(
+                  showTitles: true, getTitlesWidget: getLeftTiles, reservedSize: 50.0)),
         ),
-        barGroups: myBarData.barData
-            .map((data) => BarChartGroupData(
-                x: data.x,
-                barRods: [BarChartRodData(
+        barGroups: myBarData.barData.map((data) {
+
+          final int dayIndex = data.x.toInt();
+          final double weeklyAmount = weeklySummary[dayIndex];
+          final double budgetAmount = budgetWeeklySummary[dayIndex];
+          final double diff = weeklyAmount - budgetAmount;
+
+          Color barColor;
+          if (diff > 0) {
+            // Red for overspending
+            barColor = Colors.red;
+          } else {
+            // Blue for underspending or meeting the budget
+            barColor = Colors.blue;
+          }
+
+          return BarChartGroupData(
+              x: data.x,
+              barRods: [
+                BarChartRodData(
                   toY: data.y,
-                  color: Colors.pink,
+                  color: barColor,
                   width: 15,
                   borderRadius: BorderRadius.circular(4.0),
                   backDrawRodData: BackgroundBarChartRodData(
                     show: true,
-                    toY: 100,
+                    toY: budgetAmount,
                     color: Colors.grey[100],
                   ),
-                )],
-        ))
-          .toList(),
+                )
+              ],
+          );
+        }).toList(),
       )
 
     );
